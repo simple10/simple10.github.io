@@ -33,7 +33,7 @@ $use-breadcrumb:    false;
 $use-media:         false;
 $use-marginalia:    false;
 $use-island:        false;
-$use-block-list:    false;
+$use-block-list:    true;
 $use-matrix:        false;
 $use-split:         false;
 $use-this-or-this:  false;
@@ -66,6 +66,7 @@ $base-line-height:  20px;
 $brand-face:        Ubuntu;
 $brand-color:       #FF1F00;
 
+$base-ui-color:     $brand-color;
 
 /*------------------------------------*\
     $CUSTOM

@@ -1366,7 +1366,7 @@ td {
  */
 .table--bordered th,
 .table--bordered td {
-  border: 1px solid #cccccc; }
+  border: 1px solid #ff1f00; }
   .table--bordered th:empty,
   .table--bordered td:empty {
     border: none; }
@@ -1551,6 +1551,41 @@ label,
 /**
  * Objects and abstractions
  */
+/*------------------------------------*\
+    $BLOCK-LIST
+\*------------------------------------*/
+/**
+ * Create big blocky lists of content, e.g.:
+ *
+   <ul class=block-list>
+      <li>Foo</li>
+      <li>Bar</li>
+      <li>Baz</li>
+      <li><a href=# class=block-list__link>Foo Bar Baz</a></li>
+   </ul>
+ *
+ * Extend this object in your theme stylesheet.
+ *
+ * Demo: jsfiddle.net/inuitcss/hR57q
+ *
+ */
+.block-list,
+.block-list > li {
+  border: 0 solid #ff1f00; }
+
+.block-list {
+  list-style: none;
+  margin-left: 0;
+  border-top-width: 1px; }
+  .block-list > li {
+    border-bottom-width: 1px;
+    padding: 10px; }
+
+.block-list__link {
+  display: block;
+  padding: 10px;
+  margin: -10px; }
+
 /**
  * Style trumps; helper and brand classes
  */
@@ -2937,7 +2972,11 @@ body {
   margin: 20px; }
 
 a {
-  outline: none; }
+  outline: none;
+  text-decoration: none;
+  color: #333; }
+  a:hover {
+    text-decoration: underline; }
 
 h1 {
   font-weight: 300; }
@@ -2948,7 +2987,7 @@ h1 {
   font-family: Ubuntu; }
 
 .page-head {
-  border-bottom: 1px solid #eee; }
+  margin-bottom: 20px; }
   .page-head h1 {
     font-size: 26px; }
   .page-head .brand-tagline {
@@ -2956,3 +2995,21 @@ h1 {
 
 .page-foot {
   margin: 100px 0 20px; }
+
+.posts .block-list {
+  border: none;
+  list-style: decimal; }
+.posts .post__title {
+  font-size: 16px;
+  font-size: 1.14286rem;
+  line-height: 1.25;
+  margin: 0; }
+.posts .post__time {
+  color: #B3B3B3;
+  font-weight: 300; }
+.posts .post__author {
+  color: #B3B3B3; }
+.posts li {
+  border: none; }
+  .posts li:hover {
+    background: #F9F9F9; }

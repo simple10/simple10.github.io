@@ -2,9 +2,13 @@ body {
   margin: 20px;
 }
 
-// Disable debug outline of links without titles
 a {
   outline: none;
+  text-decoration: none;
+  color: #333;
+  &:hover {
+   text-decoration: underline;
+  }
 }
 
 
