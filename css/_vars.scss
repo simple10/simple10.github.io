@@ -10,7 +10,7 @@
  * having to alter the framework itself.
  */
 
-
+$debug-mode:        true;
 
 
 
@@ -63,7 +63,8 @@ $base-font-family: "Open Sans",Calibri,Candara,Arial,sans-serif;
 $base-font-size:    14px;
 $base-line-height:  20px;
 
-
+$brand-face:        Ubuntu;
+$brand-color:       #FF1F00;
 
 
 /*------------------------------------*\
