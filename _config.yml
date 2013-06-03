@@ -1,3 +1,4 @@
-markdown: rdiscount
+root: /
+markdown: redcarpet
 pygments: true
 permalink: /:title
