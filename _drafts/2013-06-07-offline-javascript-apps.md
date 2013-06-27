@@ -30,11 +30,18 @@ Libraries with Sync
 
 Local storage libraries that support syncing to a remote server.
 
+### Hoodie
+* https://github.com/hoodiehq/hoodie.js
+* Currently only supports localStorage
+* Syncs
+
 ### ShareJS
 * http://sharejs.org/
 * Used by Derby
 * Uses [operational transformation](http://en.wikipedia.org/wiki/Operational_transformation)
   for syncing and merging
+* Does not automatically sync offline changes
+
 
 ### Backbone.offline
 
@@ -50,6 +57,13 @@ Local storage libraries that support syncing to a remote server.
 * https://github.com/zefhemel/persistencejs
 * Older library; not recommended
 * Uses deprecated WebSQL and Google Gears
+
+### Swarm
+* https://github.com/gritzko/swarm
+
+### JSON Sync
+* https://github.com/sayrer/json-sync
+* Uses [algebraic approach](http://www.eecs.harvard.edu/~nr/pubs/sync-abstract.html) to syncing
 
 
 Libraries without Sync
@@ -82,6 +96,12 @@ Local storage libraries that can be extended to sync to a remote server.
 * localStorage wrapper for legacy browser support
 
 
+Utils
+=====
+
+### Kanso
+* http://kan.so/
+* ???
 
 
 
@@ -96,6 +116,7 @@ Syncing Methods
 
 [Merge Algorithms](http://en.wikipedia.org/wiki/Merge_(revision_control))
 
+[CouchDB Replication Protocol](http://www.dataprotocols.org/en/latest/couchdb_replication.html)
 
 ### Bad
 
@@ -137,6 +158,9 @@ Articles
 
 Syncing Offline Data for Webapps – by Addy Osmani at Google<br>
 https://plus.google.com/+AddyOsmani/posts/9457wajmWvB
+
+### Couchbase Mobile
+* https://github.com/couchbase/mobile
 
 
 
