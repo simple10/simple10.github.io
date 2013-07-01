@@ -11,7 +11,7 @@
     <title>{{ page.title }} &ndash; 10 Hacks &ndash; code and startup hacks</title>
     {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
     <meta name="author" content="{{ site.author.name }}">
-		<meta name="apple-mobile-web-app-title" content="10 Hacks">
+    <meta name="apple-mobile-web-app-title" content="10 Hacks">
 
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -29,22 +29,25 @@
   </head>
 
   <body>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container-narrow">
-          <a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
+    <div class="container">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="{{ HOME_PATH }}" title="{{ site.title }}">{{ site.title }}</a>
           <ul class="nav">
             {% assign pages_list = site.pages %}
             {% assign group = 'navigation' %}
             {% include JB/pages_list %}
           </ul>
+          <div class="btn-group pull-right">
+            <a class="btn btn-primary" href="#"><i class="fui-time"></i></a>
+            <a class="btn btn-primary" href="#"><i class="fui-time"></i></a>
+            <a class="btn btn-primary" href="#"><i class="fui-time"></i></a>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="container">
-       {{ content }}
-    </div>
+    {{ content }}
 
     {% include JB/analytics %}
   </body>
