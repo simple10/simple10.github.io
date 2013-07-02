@@ -1,4 +1,4 @@
-require "jekyll-assets"
+#require "jekyll-assets"
 
 # Enable compass goodies
 # require "jekyll-assets/compass"
