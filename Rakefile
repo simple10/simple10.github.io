@@ -42,25 +42,14 @@ module JB
 end #JB
 
 
-desc 'compile and run the site'
-task start: :default
-task :default do
-  assets_path = "assets/themes/#{CONFIG[:current_theme]}/css/"
-  pids = [
-    spawn('jekyll serve --watch'), # put `auto: true` in your _config.yml
-    spawn("scss --watch #{assets_path}_style.scss:#{assets_path}style.css"),
-    #spawn("coffee -b -w -o javascripts -c assets/*.coffee")
-  ]
-
-  trap "INT" do
-    Process.kill "INT", *pids
-    exit 1
-  end
-
-  loop do
-    sleep 1
+namespace :assets do
+  # This should be done with "jekyll assets:cleanup" but it doesn't work
+  desc "Cleanup cached assets"
+  task :cleanup do
+    FileUtils.rm_rf '.jekyll-assets-cache'
   end
 end
+
 
 # Usage: rake post title="A Title" [date="2012-02-09"] [tags=[tag1, tag2]]
 desc "Begin a new post in #{CONFIG['posts']}"
