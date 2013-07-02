@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400,700");
+
+@import "config";
+@import "bootstrap/css/bootstrap";
+@import "bootstrap/css/responsive";
+@import "flatui/css/flat-ui";
+@import "pygments";
+@import "nav";
+@import "page-header";
+
+body {
+  font-weight: 300;
+}
+
+i {
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding: 0;
+    & > .container, & > .page-header {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .navbar {
+      margin: 0 -10px;
+    }
+  }
+}

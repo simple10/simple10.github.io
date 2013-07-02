@@ -16,13 +16,13 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    {% stylesheet app %}
 
-    <link rel="shortcut icon" href="/assets/logos/favicon.ico">
-    <link rel="apple-touch-icon" href="/assets/logos/logo_57x57.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/logos/logo_72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/logos/logo_114x114.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/logos/logo_144x144.png">
+    <link rel="shortcut icon" href="/images/logos/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
 
     <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="10 Hacks ATOM Feed">
     <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="10 Hacks RSS Feed">
@@ -39,7 +39,7 @@
             {% include JB/pages_list %}
           </ul>
           <div class="btn-group pull-right">
-            <a class="btn btn-primary" href="#"><i class="fui-time"></i></a>
+            <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-time"></i></a>
             <a class="btn btn-primary" href="#"><i class="fui-time"></i></a>
             <a class="btn btn-primary" href="#"><i class="fui-time"></i></a>
           </div>
@@ -50,5 +50,7 @@
     {{ content }}
 
     {% include JB/analytics %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    {% javascript app %}
   </body>
 </html>
