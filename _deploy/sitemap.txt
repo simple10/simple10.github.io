@@ -1,9 +1,0 @@
-
-http://www.10hacks.com/archive.html
-http://www.10hacks.com/atom.xml
-http://www.10hacks.com/categories.html
-http://www.10hacks.com/index.html
-http://www.10hacks.com/pages.html
-http://www.10hacks.com/rss.xml
-http://www.10hacks.com/sitemap.txt
-http://www.10hacks.com/tags.html

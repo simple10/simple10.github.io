@@ -1,0 +1,47 @@
+$monoFontFamily:  Monaco, Menlo, Consolas, "Courier New", monospace !default;
+$sansFontFamily:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+$solar-base03:    #002b36 !default; //darkest blue
+$solar-base02:    #073642 !default; //dark blue
+$solar-base01:    #586e75 !default; //darkest gray
+$solar-base00:    #657b83 !default; //dark gray
+$solar-base0:     #839496 !default; //medium gray
+$solar-base1:     #93a1a1 !default; //medium light gray
+$solar-base2:     #eee8d5 !default; //cream
+$solar-base3:     #fdf6e3 !default; //white
+$solar-yellow:    #b58900 !default;
+$solar-orange:    #cb4b16 !default;
+$solar-red:       #dc322f !default;
+$solar-magenta:   #d33682 !default;
+$solar-violet:    #6c71c4 !default;
+$solar-blue:      #268bd2 !default;
+$solar-cyan:      #2aa198 !default;
+$solar-green:     #859900 !default;
+
+$solarized: dark !default;
+
+@if $solarized == light {
+
+  $_base03: $solar-base03;
+  $_base02: $solar-base02;
+  $_base01: $solar-base01;
+  $_base00: $solar-base00;
+  $_base0:  $solar-base0;
+  $_base1:  $solar-base1;
+  $_base2:  $solar-base2;
+  $_base3:  $solar-base3;
+
+  $solar-base03:  $_base3;
+  $solar-base02:  $_base2;
+  $solar-base01:  $_base1;
+  $solar-base00:  $_base0;
+  $solar-base0:   $_base00;
+  $solar-base1:   $_base01;
+  $solar-base2:   $_base02;
+  $solar-base3:   $_base03;
+}
+
+/* non highlighted code colors */
+$pre-bg: $solar-base03 !default;
+$pre-border: darken($solar-base02, 5) !default;
+$pre-color: $solar-base1 !default;

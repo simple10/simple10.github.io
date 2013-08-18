@@ -1,0 +1,13 @@
+.page-header {
+  background: $turquoise;
+  color: $paper;
+  border-color: mix($turquoise, black, 90%);
+  .container {
+    padding: 15px 0;
+  }
+  @media (min-width: 560px) {
+    .softwrap {
+      display: block;
+    }
+  }
+}
