@@ -219,7 +219,7 @@ task :deploy do
   end
 
   Rake::Task[:copydot].invoke(source_dir, public_dir)
-  Rake::Task["#{deploy_default}"].execute
+  Rake::Task[:push].execute
 end
 
 desc "Generate website and deploy"
@@ -344,7 +344,6 @@ task :setup_github_pages, :repo do |t, args|
     system "git remote add origin #{repo_url}"
     rakefile = IO.read(__FILE__)
     rakefile.sub!(/deploy_branch(\s*)=(\s*)(["'])[\w-]*["']/, "deploy_branch\\1=\\2\\3#{branch}\\3")
-    rakefile.sub!(/deploy_default(\s*)=(\s*)(["'])[\w-]*["']/, "deploy_default\\1=\\2\\3push\\3")
     File.open(__FILE__, 'w') do |f|
       f.write rakefile
     end
