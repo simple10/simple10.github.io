@@ -1,8 +1,8 @@
 #custom filters for Octopress
-require './plugins/backtick_code_block'
-require './plugins/post_filters'
-require './plugins/raw'
-require './plugins/date'
+require_relative 'backtick_code_block'
+require_relative 'post_filters'
+require_relative 'raw'
+require_relative 'date'
 require 'rubypants'
 
 module OctopressFilters

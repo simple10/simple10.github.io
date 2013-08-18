@@ -30,7 +30,7 @@ root: /
 permalink: /:categories/:title/
 source: source
 destination: public
-plugins: plugins
+plugins: _plugins
 code_dir: downloads/code
 category_dir: blog/categories
 markdown: kramdown
