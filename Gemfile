@@ -5,7 +5,6 @@ group :development do
   gem 'jekyll'
   gem 'jekyll-assets'
   gem 'pygments.rb'
-  gem 'RedCloth'
   gem 'haml'
   gem 'compass'
   gem 'sass'
