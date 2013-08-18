@@ -7,7 +7,7 @@ deploy_branch  = "master"
 
 ## -- Misc Configs -- ##
 
-public_dir      = "public"    # compiled site directory
+public_dir      = "_public"    # compiled site directory
 source_dir      = "source"    # source file directory
 blog_index_dir  = 'source'    # directory for your blog's index page (if you put your index in source/blog/index.html, set this to 'source/blog')
 deploy_dir      = "_deploy"   # deploy directory (for Github pages deployment)
@@ -265,7 +265,7 @@ task :set_root_dir, :dir do |t, args|
       dir = "/" + args.dir.sub(/(\/*)(.+)/, "\\2").sub(/\/$/, '');
     end
     rakefile = IO.read(__FILE__)
-    rakefile.sub!(/public_dir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "public_dir\\1=\\2\\3public#{dir}\\3")
+    rakefile.sub!(/public_dir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "public_dir\\1=\\2\\3_public#{dir}\\3")
     File.open(__FILE__, 'w') do |f|
       f.write rakefile
     end
@@ -273,12 +273,12 @@ task :set_root_dir, :dir do |t, args|
     compass_config.sub!(/http_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_path\\1=\\2\\3#{dir}/\\3")
     compass_config.sub!(/http_images_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_images_path\\1=\\2\\3#{dir}/images\\3")
     compass_config.sub!(/http_fonts_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_fonts_path\\1=\\2\\3#{dir}/fonts\\3")
-    compass_config.sub!(/css_dir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "css_dir\\1=\\2\\3public#{dir}/stylesheets\\3")
+    compass_config.sub!(/css_dir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "css_dir\\1=\\2\\3_public#{dir}/stylesheets\\3")
     File.open('config.rb', 'w') do |f|
       f.write compass_config
     end
     jekyll_config = IO.read('_config.yml')
-    jekyll_config.sub!(/^destination:.+$/, "destination: public#{dir}")
+    jekyll_config.sub!(/^destination:.+$/, "destination: _public#{dir}")
     jekyll_config.sub!(/^subscribe_rss:\s*\/.+$/, "subscribe_rss: #{dir}/atom.xml")
     jekyll_config.sub!(/^root:.*$/, "root: /#{dir.sub(/^\//, '')}")
     File.open('_config.yml', 'w') do |f|

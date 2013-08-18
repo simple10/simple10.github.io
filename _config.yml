@@ -29,7 +29,7 @@ email:
 root: /
 permalink: /:categories/:title/
 source: source
-destination: public
+destination: _public
 plugins: _plugins
 code_dir: downloads/code
 category_dir: blog/categories

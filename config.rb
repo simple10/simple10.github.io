@@ -5,7 +5,7 @@ project_type = :stand_alone
 http_path = "/"
 http_images_path = "/images"
 http_fonts_path = "/fonts"
-css_dir = "public/assets/stylesheets"
+css_dir = "_public/assets/stylesheets"
 
 # Local development paths
 sass_dir = "source/_assets/app/stylesheets"
