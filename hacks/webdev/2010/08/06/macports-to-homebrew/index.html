@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
 
-  <title><i class="brand">10 Hacks</i> is a toolbox for startup hackers. <i class="softwrap"></i> Open sourced on github. Details about the project. - A Hackerpress Blog</title>
+  <title>Macports to Homebrew - A Hackerpress Blog</title>
   <meta name="author" content="Joe Johnston">
 
   
-  <meta name="description" content="Ignore jQuery JSONP Callbacks in Mocha 13 March, 2013 joe Linux Default Gateway Route 06 March, 2013 joe Chaining Bundle Gemfiles 11 April, 2012 joe &hellip;">
+  <meta name="description" content="Thanks to a new macbook pro with a clean OS install and minimal dev tools, I made the switch from macports to homebrew.  Easy enough with a few &hellip;">
   
   <meta name="apple-mobile-web-app-title" content="A Hackerpress Blog">
 
@@ -25,7 +25,7 @@
   <link rel="dns-prefetch" href="//www.google-analytics.com">
 
   
-  <link rel="canonical" href="http://www.10hacks.com">
+  <link rel="canonical" href="http://www.10hacks.com/hacks/webdev/2010/08/06/macports-to-homebrew">
   <link href="/atom.xml" rel="alternate" title="A Hackerpress Blog" type="application/atom+xml">
 
   <link rel="stylesheet" href="/assets/app-49f1e024af8dc01e63da97811f24a41f.css">
@@ -87,7 +87,7 @@
 
   <section class="page-header">
   <div class="container">
-    <i class="brand">10 Hacks</i> is a toolbox for startup hackers. <i class="softwrap"></i> Open sourced on github. Details about the project. 
+    Macports to Homebrew 
   </div>
 </section>
 
@@ -95,85 +95,120 @@
   <div class="container">
     <div class="row-fluid">
       <div id="content" class="span12">
-        <div class="container">
-  <section class="posts">
-    <ol class="block-list">
-      
-      <li>
-        <h2 class="post__title"><a href="/ignore-jquery-jsonp-callbacks-in-mocha">Ignore jQuery JSONP Callbacks in Mocha</a></h2>
-        <span class="post__time">13 March, 2013</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/linux-default-gateway-route">Linux Default Gateway Route</a></h2>
-        <span class="post__time">06 March, 2013</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/rails3/ruby/2012/04/11/chaining-bundle-gemfiles/">Chaining Bundle Gemfiles</a></h2>
-        <span class="post__time">11 April, 2012</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/save-only-changed-attributes-in-backbone-js">Save Only Changed Attributes in Backbone.js</a></h2>
-        <span class="post__time">24 March, 2012</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/ruby/testing/2012/03/15/rspec-capybara-devise-login-tests/">RSpec + Capybara + Devise Login Tests</a></h2>
-        <span class="post__time">15 March, 2012</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/hacks/rails3/2011/07/08/resque-admin-in-rails-3-routes-with-cancan/">Resque Admin in Rails 3 Routes with CanCan</a></h2>
-        <span class="post__time">08 July, 2011</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/hacks/mongodb/rails3/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/">Rescuing from Rack::Timeout to Close MongoDB Connection</a></h2>
-        <span class="post__time">07 July, 2011</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/ruby/2011/02/17/validating-a-single-attribute-in-rails-activerecord/">Validating a Single Attribute in Rails ActiveRecord</a></h2>
-        <span class="post__time">17 February, 2011</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/fundraising/2011/02/11/fundraising-advice-from-buddy-press-founder/">Fundraising Advice from Buddy Press Founder</a></h2>
-        <span class="post__time">11 February, 2011</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-      <li>
-        <h2 class="post__title"><a href="/jquery/rails3/ruby/2011/02/09/256/">Rails 3&#8217;s unobtrusive javascript support&#8230;</a></h2>
-        <span class="post__time">09 February, 2011</span>
-        <span class="post__author">joe</span>
-      </li>
-      
-    </ol>
-  </section>
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Macports to Homebrew</h1>
+    
+    
+      <p class="meta">
+        
 
-  <ol class="nav  pagination">
-    <li class="pagination__prev">
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-06T11:00:52-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Thanks to a new macbook pro with a clean OS install and minimal dev tools, I made the switch from macports to homebrew.  Easy enough with a few caveats.</p>
+
+<p>The homebrew people recommend <a href="http://guide.macports.org/#installing.macports.uninstalling">uninstalling macports first</a>.</p>
+
+<p>Then <a href="http://wiki.github.com/mxcl/homebrew/installation">install homebrew</a>.</p>
+
+<p>Everything worked fine until trying to ‘<strong>brew install imagemagick</strong>’.  The compilation fails.  This seems to be a <a href="http://www.google.com/search?q=brew+install+imagemagick+fails&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a">common problem</a>.</p>
+
+<p>The quick solution was to ‘<strong>sudo brew install imagemagick</strong>’.  Compilation worked.  However, sudo installing ghostscript after installing imagemagick failed to find the jpeg lib which was previously installed without sudo.  Yuck!</p>
+
+<p>The final solution was to brew uninstall all image packages (jpeg, libtiff, ghostscript, etc.) and then run the following…</p>
+
+<p>[bash]
+$ brew list
+git
+$ sudo brew install ghostscript
+$ sudo brew install imagemagick
+$ brew list
+ghostscript    imagemagick    jpeg
+little-cms     git        jasper        libtiff
+pkg-config
+[/bash]</p>
+
+<p>I’m not sure if it’s possible to install ghostscript and imagemagick without using sudo.  I tried several times, and in the end sudo worked where other attempts failed.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        Previous
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
       
-    </li>
-    <li class="pagination__next">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-06T11:00:52-07:00" pubdate data-updated="true"></time>
       
-        <a href="/p2">Next</a>
+
+<span class="categories">
+  
+    hackswebdev
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/hacks/webdev/2010/08/06/macports-to-homebrew/" data-via="" data-counturl="http://www.10hacks.com/hacks/webdev/2010/08/06/macports-to-homebrew/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
       
-    </li>
-  </ol>
+        <a class="basic-alignment left" href="/design/2010/03/13/how-to-make-favicons-on-osx/" title="Previous Post: How-To Make Favicons on OSX">&laquo; How-To Make Favicons on OSX</a>
+      
+      
+        <a class="basic-alignment right" href="/hacks/webdev/2010/08/08/building-the-wikitude-sample-app-for-iphone-4/" title="Next Post: Building the Wikitude Sample App for iPhone 4">Building the Wikitude Sample App for iPhone 4 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+<section>
+  
+
+
+  Included file 'comments/disqus' not found in _includes directory
+
+
+
+</section>
 </div>
 
 <aside class="sidebar">
@@ -211,6 +246,7 @@
 
   
 </aside>
+
 
       </div>
     </div>

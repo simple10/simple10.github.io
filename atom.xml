@@ -4,7 +4,7 @@
   <title><![CDATA[A Hackerpress Blog]]></title>
   <link href="http://www.10hacks.com/atom.xml" rel="self"/>
   <link href="http://www.10hacks.com/"/>
-  <updated>2013-08-19T01:27:23-07:00</updated>
+  <updated>2013-08-19T08:06:45-07:00</updated>
   <id>http://www.10hacks.com/</id>
   <author>
     <name><![CDATA[Joe Johnston]]></name>
@@ -12,5 +12,972 @@
   </author>
   <generator uri="http://www.10hacks.com/">Hackerpress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Ignore jQuery JSONP Callbacks in Mocha]]></title>
+    <link href="http://www.10hacks.com/ignore-jquery-jsonp-callbacks-in-mocha"/>
+    <updated>2013-03-13T16:52:31-07:00</updated>
+    <id>http://www.10hacks.com/ignore-jquery-jsonp-callbacks-in-mocha</id>
+    <content type="html"><![CDATA[<p><a href="http://visionmedia.github.com/mocha/">Mocha</a> reports global variable leaks by default. If you’re using jQuery to fetch JSONP data, mocha will report the random jQuery callback functions as leaks.</p>
+
+<p>To make mocha ignore the JSONP callback functions, just add jQuery* to mocha’s list of registered globals.</p>
+
+<p>For the browser based version of mocha, register the globals using the setup method.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">mocha</span><span class="p">.</span><span class="nx">setup</span><span class="p">({</span>
+</span><span class="line">  <span class="nx">globals</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;jQuery*&#39;</span><span class="p">]</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This little tip was not obvious to me in the mocha documentation and required digging through the code a bit.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Linux Default Gateway Route]]></title>
+    <link href="http://www.10hacks.com/linux-default-gateway-route"/>
+    <updated>2013-03-06T11:21:44-08:00</updated>
+    <id>http://www.10hacks.com/linux-default-gateway-route</id>
+    <content type="html"><![CDATA[<p>I only seem to run into this once a year and rarely remember what to do off the top of my head.</p>
+
+<p><strong>Problem: </strong>configuring and starting network interfaces on Linux (usually Debian / Ubuntu)</p>
+
+<p><strong>Solution: </strong>use ifup and ifdown, not ifconfig</p>
+
+<p>The problem I ran into was caused by a network interface going down on a server. Bringing the network back up with <code>ifconfig eth0 up</code> works except for one tasty little detail: ifconfig does not set a default gateway route. And for the life of me, I couldn’t remember where I was supposed to enable this route. I looked in <code>/etc/network/interfaces</code>, <code>/etc/network/if-*/*</code>, <code>/etc/rc.local</code>, etc. to no avail.</p>
+
+<p>I ran <code>sudo route add default gw 192.168.0.1 eth0</code> to manually setup the route, but I still couldn’t figure out the best practice for enabling this route on reboot.</p>
+
+<p>Finally, I looked at <code>/etc/init.d/networking</code> and noticed it was using <code>ifup</code> instead of <code>ifconfig</code>. Running <code>ifup eth0</code> setup the correct default gateway route with no need for any manual configuration.</p>
+
+<p>Useful commands:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">lspci
+</span><span class="line">netstat
+</span><span class="line">sudo route -n
+</span><span class="line">sudo route add default gw 192.168.0.1 eth0
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Chaining Bundle Gemfiles]]></title>
+    <link href="http://www.10hacks.com/rails3/ruby/2012/04/11/chaining-bundle-gemfiles/"/>
+    <updated>2012-04-11T11:38:47-07:00</updated>
+    <id>http://www.10hacks.com/rails3/ruby/2012/04/11/chaining-bundle-gemfiles</id>
+    <content type="html"><![CDATA[<p>Useful little snippet to include gem files inside of each other.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="nb">eval</span><span class="p">(</span><span class="no">IO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;../somedir/Gemfile&#39;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)),</span> <span class="nb">binding</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Save Only Changed Attributes in Backbone.js]]></title>
+    <link href="http://www.10hacks.com/save-only-changed-attributes-in-backbone-js"/>
+    <updated>2012-03-24T14:23:02-07:00</updated>
+    <id>http://www.10hacks.com/save-only-changed-attributes-in-backbone-js</id>
+    <content type="html"><![CDATA[<aside class="callout"><p>
+<p>As of Backbone 0.9.10, partial model updates are supported with <code>model.save(attrs, {patch: true})</code></p>
+</p></aside>
+
+<p>Backbone.js syncs all model data to the server by default regardless of what actually changed. This makes a lot of frontend tasks and debugging much easier, but for some models, sending all the data every time is overkill.</p>
+
+<p>Here’s a quick extension to backbone models and collections to only sync changes. Just call model.saveChanges instead of model.save and only your changes will be synced.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CoffeeScript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="nv">cx_backbone_common =</span>
+</span><span class="line">  <span class="nv">sync: </span><span class="nf">(method, model, options) -&gt;</span>
+</span><span class="line">    <span class="c1"># Changed attributes will be available here if model.saveChanges was called instead of model.save</span>
+</span><span class="line">    <span class="k">if</span> <span class="nx">method</span> <span class="o">==</span> <span class="s">&#39;update&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">model</span><span class="p">.</span><span class="nx">changedAttributes</span><span class="p">()</span>
+</span><span class="line">      <span class="nv">options.data = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">model</span><span class="p">.</span><span class="nx">changedAttributes</span><span class="p">())</span>
+</span><span class="line">      <span class="nv">options.contentType = </span><span class="s">&#39;application/json&#39;</span><span class="p">;</span>
+</span><span class="line">    <span class="nx">Backbone</span><span class="p">.</span><span class="nx">sync</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">model</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="nv">cx_backbone_model =</span>
+</span><span class="line">  <span class="c1"># Calling this method instead of set will force sync to only send changed attributes</span>
+</span><span class="line">  <span class="c1"># Changed event will not be triggered until after the model is synced</span>
+</span><span class="line">  <span class="nv">saveChanges: </span><span class="nf">(attrs) -&gt;</span>
+</span><span class="line">    <span class="nx">@save</span><span class="p">(</span><span class="nx">attrs</span><span class="p">,</span> <span class="p">{</span><span class="nv">wait: </span><span class="kc">true</span><span class="p">})</span>
+</span><span class="line">
+</span><span class="line"><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">cx_backbone_common</span><span class="p">,</span> <span class="nx">cx_backbone_model</span><span class="p">)</span>
+</span><span class="line"><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">cx_backbone_common</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RSpec + Capybara + Devise Login Tests]]></title>
+    <link href="http://www.10hacks.com/ruby/testing/2012/03/15/rspec-capybara-devise-login-tests/"/>
+    <updated>2012-03-15T20:00:42-07:00</updated>
+    <id>http://www.10hacks.com/ruby/testing/2012/03/15/rspec-capybara-devise-login-tests</id>
+    <content type="html"><![CDATA[<p>For the new version of <a href="http://connect.me">Connect.Me</a> (in development), the interface is mostly driven through AJAX interactions. In the past, I’ve used Cucumber + Capybara to test JavaScript, but I really don’t like the Cucumber syntax and slow tests. I recently switched to RSpec request specs with Capybara. The only problem is testing testing JS on pages that require a login.</p>
+
+<p>Since Capybara runs in a different thread from the tests, session data is not available. So the Devise sign_in method does nothing for Capybara.</p>
+
+<p>There are basically two solutions to get Capybara to authenticate:</p>
+
+<ol>
+  <li>
+    <p>Use Capybara to login through a Devise login form by posting the user’s email and password</p>
+  </li>
+  <li>
+    <p>Set session data in Capybara to simulate a login (basically do the same thing that Devise’s sign_in does)</p>
+  </li>
+</ol>
+
+<p>For speed of tests reasons, I’d prefer to just set session data. After Googling around, I found <a href="http://stackoverflow.com/questions/9144865/rspec-capybara-request-specs-cant-get-devise-to-post-new-user-session">this solution</a> and modified it a bit.</p>
+
+<p>[code language=”ruby”]
+# spec/support/request_helpers.rb
+require ‘spec_helper’
+include Warden::Test::Helpers</p>
+
+<p>module RequestHelpers
+  def create_logged_in_user
+    user = Factory(:user)
+    login(user)
+    user
+  end</p>
+
+<p>def login(user)  <br />
+    login_as user, scope: :user
+  end
+end
+[/code]</p>
+
+<p>Now you just need to call create_logged_in_user and you’re good to go.</p>
+
+<p>[code language=”ruby”]
+describe “user settings” do
+  let(:authed_user) { create_logged_in_user }</p>
+
+<p>it “should allow access” do
+    visit user_settings_path(authed_user)
+    # should be good!
+  end
+end
+[/code]</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Resque Admin in Rails 3 Routes with CanCan]]></title>
+    <link href="http://www.10hacks.com/hacks/rails3/2011/07/08/resque-admin-in-rails-3-routes-with-cancan/"/>
+    <updated>2011-07-08T12:01:49-07:00</updated>
+    <id>http://www.10hacks.com/hacks/rails3/2011/07/08/resque-admin-in-rails-3-routes-with-cancan</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/defunkt/resque">Resque</a> is a background jobs queue that’s highly recommended over Delayed::Job if you are processing a lot of jobs. It uses <a href="http://redis.io/">Redis</a> as the backend which doesn’t suffer from db related bottlenecks under high load.</p>
+
+<p>Resque comes with a built-in admin interface that’s Rack compatible. In Rails 3, you can mount the Resque server admin directly in your routes.rb file.</p>
+
+<p>[code language=”ruby”]
+mount Resque::Server, at: ‘/resque’
+[/code]</p>
+
+<p>But you’ll definitely want to add password protection. Ryan Bates in his <a href="http://railscasts.com/episodes/271-resque">Resque RailsCast</a> covers the basics of using Devise and HTTP auth. However, you’ll probably want to hook into your existing ACL system. In my case, I’m using <a href="https://github.com/ryanb/cancan">CanCan</a>.</p>
+
+<p>CanCan is not available in the routes.rb by default, but it’s pretty easy to manually load the user and check permissions.</p>
+
+<p>[code language=”ruby”]
+# routes.rb
+namespace :admin do
+  constraints CanAccessResque do
+    mount Resque::Server, at: ‘resque’
+  end
+end
+[/code]</p>
+
+<p>[code language=”ruby”]
+# config/initializers/admin.rb
+class CanAccessResque
+  def self.matches?(request)
+    current_user = request.env[‘warden’].user
+    return false if current_user.blank?
+    Ability.new(current_user).can? :manage, Resque
+  end
+end
+[/code]</p>
+
+<p>[code language=”ruby”]
+# ability.rb
+class Ability
+  include CanCan::Ability
+  def initialize(user)
+    user ||= User.new
+    if user.is_admin?
+      can :manage, Resque
+    end
+  end
+end
+[/code]</p>
+
+<p>You’ll need User.is_admin? method or change the logic in Ability to suit your project.</p>
+
+<p>Now an authenticated user with is_admin? == true will be able to access Resque admin. Other users will get a 404 since no route matches.</p>
+
+<p>Thanks to <a href="http://www.arcath.net/posts/38">Arcath’s blog post</a> for initially pointing me in the right direction.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rescuing from Rack::Timeout to Close MongoDB Connection]]></title>
+    <link href="http://www.10hacks.com/hacks/mongodb/rails3/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/"/>
+    <updated>2011-07-07T15:56:09-07:00</updated>
+    <id>http://www.10hacks.com/hacks/mongodb/rails3/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection</id>
+    <content type="html"><![CDATA[<p>I’m using Rack::Timeout on Heroku to kill requests before Heroku’s 30 second limit is reached. This helps applications play nice with cloud infrastructure but can cause some unexpected bugs with <a href="https://jira.mongodb.org/browse/RUBY-231?focusedCommentId=26045&amp;page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_26045">MongoDB connections being reused</a> by the next request.</p>
+
+<p>The errors showed up as…</p>
+
+<blockquote>
+  <p>Mongo::ConnectionFailure: Expected response 372 but got 371</p>
+</blockquote>
+
+<p>Mongo ruby driver &gt;=1.3 catches the reused request and raises an error, but this still means the first and next requests both returned errors. It’s much better to catch the initial timeout and close the connection.</p>
+
+<p>It seems like rescue_from Timeout::Error in ApplicationController should work, but for some reason the exception passed in is a Class and not Timeout::Error – most likely due to Rack::Timeout wrapping the entire app.</p>
+
+<p>I <a href="http://www.google.com/search?sourceid=chrome&amp;ie=UTF-8&amp;q=rescue_from+timeout+error">googled around</a> and couldn’t find a more elegant solution, but the below snippet in ApplicationController does the trick.</p>
+
+<p>[code language=”ruby”]
+  # note: can not rescue from Timeout::Error directly because a timeout from Rack::Timeout ends up passing in Class as the exception
+  rescue_from Exception do |exception|
+    # catch Timeout::Error or message from Rack::Timeout
+    if exception.is_a?(Timeout::Error) || /execution expired/ =~ exception.message
+      # prevent subsequent requests from reusing this mongo connection
+      Mongoid.database.connection.close
+    end
+    raise
+  end
+[/code]</p>
+
+<p>As a side note, Heroku’s new cedar stack does not have the 30 second limit if you’re streaming data – Rails 3.1 supports streaming.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Validating a Single Attribute in Rails ActiveRecord]]></title>
+    <link href="http://www.10hacks.com/ruby/2011/02/17/validating-a-single-attribute-in-rails-activerecord/"/>
+    <updated>2011-02-17T22:14:42-08:00</updated>
+    <id>http://www.10hacks.com/ruby/2011/02/17/validating-a-single-attribute-in-rails-activerecord</id>
+    <content type="html"><![CDATA[<p>Checking a single attribute on a model for validity doesn’t seem to be possible in Rails.  Or at least I couldn’t find a quick answer googling around or looking through the ActiveRecord code.</p>
+
+<p>What I really want to do is pass a hash into valid? with the attributes I want to validate or have an attribute_valid? method. This level of granularity is often useful in AJAX heavy apps. For instance, checking for username availability and validity as the user types during username selection.</p>
+
+<p>Here’s a quick solution for a User model.</p>
+
+<p>[code language=”ruby”]
+def attribute_valid?(attr, value)
+  u = User.new(attr =&gt; value))
+  u.valid?
+  !u.errors.has_key?(:username)
+end
+[/code]</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fundraising Advice from Buddy Press Founder]]></title>
+    <link href="http://www.10hacks.com/fundraising/2011/02/11/fundraising-advice-from-buddy-press-founder/"/>
+    <updated>2011-02-11T09:05:41-08:00</updated>
+    <id>http://www.10hacks.com/fundraising/2011/02/11/fundraising-advice-from-buddy-press-founder</id>
+    <content type="html"><![CDATA[<p><a href="http://finance.fortune.cnn.com/2010/12/05/how-to-raise-venture-capital-without-losing-your-soul/">Great startup fundraising article</a> from Michael Lazerow on how to raise money from VC’s without selling your soul.</p>
+
+<p>Take-aways: pick your deep pockets carefully and be wary of sharing too many of your secrets with VCs who might use your market education to fund your competitors. </p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3's unobtrusive javascript support...]]></title>
+    <link href="http://www.10hacks.com/jquery/rails3/ruby/2011/02/09/256/"/>
+    <updated>2011-02-09T11:57:18-08:00</updated>
+    <id>http://www.10hacks.com/jquery/rails3/ruby/2011/02/09/256</id>
+    <content type="html"><![CDATA[<p>Rails 3’s unobtrusive javascript support makes it easy to integrate <a href="http://jqueryui.com/demos/autocomplete/">jQuery UI Autocomplete</a> and any backend or custom query you want. There’s a <a href="https://github.com/crowdint/rails3-jquery-autocomplete">Rails3 jQuery Autocomplete</a> gem already available on github, but it’s not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?</p>
+
+<p>It’s easy.</p>
+
+<p>First, make sure your rails app is setup with jQuery support.</p>
+
+<p>Next, download <a href="http://jqueryui.com/download">jQuery UI Autocomplete</a>, copy the appropriate files into your javascripts and stylesheets directories, and make sure the JS and CSS files are loading properly in your app.</p>
+
+<p>Here’s the general process I use to setup autocomplete for Rails 3:</p>
+
+<p><strong>In the controller</strong></p>
+
+<ol>
+  <li>create a method to handle the autocomplete search request</li>
+</ol>
+
+<p><strong>In routes</strong></p>
+
+<ol>
+  <li>add a route for the method you created in the controller – this is your autocomplete search endpoint</li>
+</ol>
+
+<p><strong>In the view</strong></p>
+
+<ol>
+  <li>
+    <p>add a text field with a unique class name like ‘autocomplete’</p>
+  </li>
+  <li>
+    <p>add a unique data attribute like ‘data-endpoint’ to the text field and set it to the path of your autocomplete endpoint</p>
+  </li>
+</ol>
+
+<p><strong>In application.js</strong></p>
+
+<ol>
+  <li>
+    <p>enable jQuery Autocomplete on any DOM element with the class ‘autocomplete’ (or whatever you used in the view)</p>
+  </li>
+  <li>
+    <p>use the value of data-endpoint as the source URL for the jQuery Autocomplete widget</p>
+  </li>
+</ol>
+
+<p>In the following example, I’m tagging a user and using autocomplete to help suggest tags.</p>
+
+<p><strong>controllers/users/tags_controller.rb</strong></p>
+
+<p>[code language=”ruby”]
+class Users::TagsController &lt; ApplicationController
+  respond_to :json
+  skip_before_filter :authenticate_user!, :only =&gt; [:index]</p>
+
+<p>def index
+    @user = User.find(params[:user_id])
+    @tags = Tag.where([“LOWER(name) LIKE ?”, “#{params[:term].downcase}%”]).select(‘name’).limit(15).map {|tag| tag.name}
+    respond_with(@tags)
+  end</p>
+
+<p>def create
+    @user = User.find(params[:user_id])
+    tag = @user.tags.create!(params[:tag])
+    flash[:success] = ‘Tag added’
+    redirect_to user_path(@user)
+  end
+end
+[/code]</p>
+
+<p>The tags controller has two methods. One for creating a tag, and one (index) for handling tag autocomplete searches.</p>
+
+<p>The index method expects user_id and term params. In this example, the user_id is being handled in the path /users/:user_id/tags and jQuery Autocomplete sends in the term param.</p>
+
+<p><strong>routes.rb</strong></p>
+
+<p>[code lang=”ruby”]
+resources :users do
+  resources :tags, :only =&gt; [:index, :create], :controller =&gt; ‘users/tags’
+end
+[/code]</p>
+
+<p>This creates a /users/:user_id/tags route and a users_tags_path helper to use in your views.</p>
+
+<p><strong>views/users/show.html.haml</strong></p>
+
+<p>[code lang=”ruby”]
+= form_for [@user, @user.tags.build] do |f|
+  .field
+    = f.label :name, ‘Tag’
+    = f.text_field :name, :class =&gt; ‘autocomplete’, :’data-endpoint’ =&gt; user_tags_path(@user)
+  = f.submit ‘Add Tag’
+[/code]</p>
+
+<p><strong>javascripts/application.js</strong>
+[code lang=”ruby”]
+jQuery(function($){
+  $(‘.autocomplete’).each(function(){
+    var self = $(this);
+    self.autocomplete({source: self.attr(‘data-endpoint’)});
+  });
+});
+[/code]</p>
+
+<p>That’s all there is to it.  You can easily modify your controller and model code to use MongoDB, Solr, Redis, or whatever you want.</p>
+
+<p>Happy coding.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git Hacks for OSX]]></title>
+    <link href="http://www.10hacks.com/misc/2011/02/06/git-hacks-for-osx/"/>
+    <updated>2011-02-06T19:20:33-08:00</updated>
+    <id>http://www.10hacks.com/misc/2011/02/06/git-hacks-for-osx</id>
+    <content type="html"><![CDATA[<p>Use these git config settings and tools to make your life easier.</p>
+
+<p><a href="http://www.codethatmatters.com/2010/01/git-autocomplete-in-mac-os-x/">Git tab autocomplete for OSX</a> - enables tab autocomplete for most git commands</p>
+
+<p>Git autocomplete is super helpful if you have long branch names.</p>
+
+<p>Add the below code to your ~/.gitconfig file to enable color and popular short codes.</p>
+
+<p>[code language=”bash”]
+[color]
+	ui = auto
+[alias]
+	co = checkout
+	br = branch
+	st = status
+[/code]</p>
+
+<p><a href="http://gitx.frim.nl/">GitX</a> - git graphical viewer - better than gitk</p>
+
+<p>The <a href="https://github.com/brotherbard/gitx">brotherbard</a> fork of gitx has some recommended improvements.</p>
+
+<p>Thanks to <a href="https://github.com/empact">Ben Woolsey</a> for all these tips.  Ben is working with us on a new startup.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3 + STI: Making Associations Work Properly]]></title>
+    <link href="http://www.10hacks.com/hacks/rails3/2011/01/17/rails-3-sti/"/>
+    <updated>2011-01-17T23:13:30-08:00</updated>
+    <id>http://www.10hacks.com/hacks/rails3/2011/01/17/rails-3-sti</id>
+    <content type="html"><![CDATA[<p>I really like the idea of Single Table Inheritance (STI) for all sorts of applications to keep code DRY and make it easier to organize object behavior. The only problem is that Rails 3.0.3 doesn’t fully support STI with association collections.</p>
+
+<p>Let’s say you have a User model that has many badges. The badges will be stored in the badges table but you want to implement each badge in a subclass. All you have to do is make sure there’s a <strong>:type</strong> field of type string in your badges table and Rails STI support should take care of the rest (well, in theory).</p>
+
+<p>[code language=”ruby”]
+class User &lt; ActiveRecord::Base<br />
+  has_many :badges
+end</p>
+
+<p>class Badge &lt; ActiveRecord::Base<br />
+  belongs_to :user
+  def award
+    raise “Must implement in subclass”
+  end
+end</p>
+
+<p>class Badges::Superhero &lt; Badge
+  def award
+    user.status = ‘superhero’
+  end
+end
+[/code]</p>
+
+<p>Now you can do cool things like create a new Superhero badge and add it to a user’s badge collection.</p>
+
+<p>[code language=”ruby”]
+user = User.first
+badge = Badges::Superhero.new
+user.badges « badge
+[/code]</p>
+
+<p>But for some weird reason, you can’t use the best practice of building a badge directly from the user’s badges collection.</p>
+
+<p>[code language=”ruby”]
+user = User.first
+badge = user.badges.build(:type =&gt; Badges::Superhero)
+# badge.class == Badge
+[/code]</p>
+
+<p>This is particularly annoying if you’re trying to create new badges from a form where :type is a drop down menu.</p>
+
+<p>The reason the collection build method doesn’t work as expected is because :type is a protected field and ActiveRecord::AssociationReflection doesn’t fully support STI (at least in Rails 3.0.3).</p>
+
+<p>Not to fret, hacks to the rescue!</p>
+
+<p>You have two options to make STI work as expected.</p>
+
+<p>**Option 1: Override the Badge.new method to handle :type
+**</p>
+
+<p>[code language=”ruby”]
+class Badge &lt; ActiveRecord::Base<br />
+  belongs_to :user
+  self.abstract_class = true</p>
+
+<p>class « self
+    def new_with_cast(<em>a, &amp;b)
+      if (h = a.first).is_a? Hash and (type = h.symbolize_keys[self.class.inheritance_column.to_sym]) and (klass = type.to_s.constantize) != self
+        raise “Must be a subclass of Badge” unless klass &lt; self  # klass should be a descendant of self
+        return klass.new_without_cast(</em>a, &amp;b)
+      end
+      raise “Badge must be created through a subclass.”
+      new_without_cast(*a, &amp;b)
+    end
+    alias_method_chain :new, :cast
+  end
+end
+[/code]</p>
+
+<p>**Option 2: Patch AssociationReflection to behave more intelligently
+**</p>
+
+<p>[code language=”ruby”]
+class ActiveRecord::Reflection::AssociationReflection
+  def build_association(<em>opts)
+    col = klass.inheritance_column.to_sym
+    if (h = opts.first).is_a? Hash and (type = h.symbolize_keys[col]) and type.class == Class
+      opts.first[col].to_s.constantize.new(</em>opts)
+    elsif klass.abstract_class?
+      raise “#{klass.to_s} is an abstract class and can not be directly instantiated”
+    else
+      klass.new(*opts)
+    end
+  end
+end
+[/code]</p>
+
+<p>My preference is Option 2 even though it might break in future releases of Rails. I’d rather have Rails behaving as expected than pepper my models code with repetitive hacks.</p>
+
+<p>The above solutions were inspired from a couple of different <a href="http://coderrr.wordpress.com/2008/04/22/building-the-right-class-with-sti-in-rails/">posts</a> and <a href="http://stackoverflow.com/questions/2553931/can-nested-attributes-be-used-in-combination-with-inheritance">sources</a>.</p>
+
+<p>I submitted Option 2 as a <a href="https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/6306-collection-associations-build-method-not-supported-for-sti">patch for Rails</a>.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Devise + OmniAuth + Facebook API Hacks]]></title>
+    <link href="http://www.10hacks.com/rails3/ruby/2011/01/13/devise-omniauth-facebook-api-hacks/"/>
+    <updated>2011-01-13T19:12:16-08:00</updated>
+    <id>http://www.10hacks.com/rails3/ruby/2011/01/13/devise-omniauth-facebook-api-hacks</id>
+    <content type="html"><![CDATA[<p>While using <a href="https://github.com/plataformatec/devise">Devise</a> + <a href="https://github.com/intridea/omniauth">OmniAuth</a> for a new Rails 3 project, I got really curious about how to reuse OmniAuth’s strategy classes to fetch additional API data after a user has authenticated.</p>
+
+<p>A lot of people probably use libraries like <a href="https://github.com/nov/fb_graph">FbGraph</a> along with OmniAuth, but I wanted something extremely lightweight without duplicating code already in OmniAuth.</p>
+
+<p>I mostly followed Ryan Bates’ <a href="http://railscasts.com/episodes/235-omniauth-part-1">railscasts</a> on setting up Devise + OmniAuth.</p>
+
+<p>If you open the oa-oauth gem, you’ll see a lib/omniauth/strategies folder filled with all sorts of OAuth2 providers like Facebook, Twitter, and LinkedIn. Each of these provider classes has most if not everything needed to make direct API calls once an OAuth2 access_token is obtained.</p>
+
+<p>The basic idea is to store the access_token during an OAuth2 login process (Ryan covers this in his railscast) and later on use the token to fetch more data. To do this, you use the access_token to instantiate an OAuth2::AccessToken along with a Facebook specific OAuth2::Client. The Facebook client really just sets the site URL variable so the AccessToken knows where to send requests. It seems simple enough to just use OmniAuth’s strategy classes for the OAuth2::Client. Then I don’t have to maintain provider specific code myself.</p>
+
+<p>I dug around in the Devise, OmniAuth, and OAuth2 code for hours.  Long story short, the simplest solution is to just write your own provider client class instead of trying to reuse OmniAuth’s. Bummer. But way easier in the end. OmniAuth is a rack application designed for authentication only. It’s just too convoluted to try to reuse its strategy classes for additional API calls.</p>
+
+<p>Here’s the simple solution I ended up writing…</p>
+
+<p>Create lib/facebook.rb in your rails app</p>
+
+<p>[code language=”ruby”]
+module OAuth2
+  module Clients
+    class Facebook &lt; Client
+      def initialize(client_id, client_secret, opts = {})
+        opts[:site] = ‘https://graph.facebook.com/’
+        super(client_id, client_secret, opts)
+      end
+    end
+  end
+end
+[/code]</p>
+
+<p>Now you can use the Facebook client along with a user specific access_token (stored in a database during the OmniAuth login process) to fetch additional API data.</p>
+
+<p>[code language=”ruby”]
+require ‘facebook’
+client = OAuth2::Clients::Facebook.new(‘’, ‘’)
+token = OAuth2::AccessToken.new(client, access_token)
+token.get(‘/me/friends’)
+[/code]</p>
+
+<p>Note that you don’t need to set the client_id, and client_secret when creating a new Facebook object. The id and secret are only needed to initially obtain the access_token which you already have.</p>
+
+<p>On a side note, it’s good to keep in mind that every additional OmniAuth provider creates a new rack application which gets called on every request. Hopefully this will not be the case in future versions so that an arbitrary number of providers can be supported without any performance concerns.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing Online Groups]]></title>
+    <link href="http://www.10hacks.com/social%20web/2010/09/23/fixing-online-groups/"/>
+    <updated>2010-09-23T13:33:17-07:00</updated>
+    <id>http://www.10hacks.com/social%20web/2010/09/23/fixing-online-groups</id>
+    <content type="html"><![CDATA[<p><a href="http://simple10.com/wp-content/uploads/2010/09/hierarchical_groups_preview.png"><img src="http://simple10.com/wp-content/uploads/2010/09/hierarchical_groups_preview-300x225.png" alt="" /></a>It’s almost 2011 and online groups are still broken.  Sure, you can join a Facebook group to support your cause, create a Google or Yahoo group for your soccer club, setup a Ning or Drupal site for your small business, but good luck getting that group to talk to others across the web.</p>
+
+<p>Online groups are still treated as silos of individuals rather than first class citizens that can participate in other groups.  Silos are fine (and often desired) for small groups, but they just don’t scale to hundreds of thousands or millions of users.  Not to mention that most physical groups are composed of subgroups (ad hoc gatherings, committees, local chapters, etc.) that self organize in ways that are not reflected in most online tools.</p>
+
+<p>The future of online groups is context, not membership.</p>
+
+<p><a href="http://twitter.com/simple10/">Twitter</a> and <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> are headed in the right direction by contextualizing communication through topics rather than membership.  Tweeters (or is it twitterers?) use hash tags (#topic) to essentially join ad hoc topical conversations.  They can also create and join lists which function like traditional groups.  However, lists can not be nested which means there’s no way to model hierarchical groups.</p>
+
+<p><a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> is a technology and code project rather than a service like Twitter.  With PubSubHubBub, people (or servers) subscribe to topics on a hub.  Each hub can implement logic for publishing and aggregating posts per topic.  Hierarchical groups can be modeled by having a separate hub per subgroup where each hub is subscribed to the hub above it in the hierarchy.</p>
+
+<p>For instance…</p>
+
+<!-- more -->
+
+<p>Individuals subscribe to local hubs.  Local hubs subscribe to regional hubs, and regional hubs subscribe to the main global hub.  This effectively models a local chapter based global organization like a <a href="http://350.org">350.org</a>.  Only authorized users can publish to the global hub.  Regional and local hubs will automatically forward posts from the global hub.  Any individual can participate in a local hub.  Local posts are always rebroadcast to local subscribers.  Topics or posts that get a lot of local attention would then be sent to regional hubs and on up to the global hub if warranted.</p>
+
+<p>This hierarchical approach to groups was partially spec’ed out in my <a href="http://www.openactionnetwork.org/">Open Action Network</a> project that’s temporarily on the back burner since I’m busy with a new startup.  The project conceptually uses <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> and the <a href="http://www.salmon-protocol.org/">Salmon Protocol</a> to move messages around in hierarchical groups.</p>
+
+<p>There’s also a lot of promise for managing groups in the <a href="http://personaldatastore.info/">federated personal data store</a> model.  It works similarly to PubSubHubBub (and would be interoperable with hubs) but efficiently handles delegating of group permissions through XDI graphs and link contracts.  This allows for advanced permissions schemes where subgroups and individuals are granted granular access to other groups.  Messages and other group data are stored in graphs which have interesting semantic and social capabilities.  XDI messages can be tagged to prevent rebroadcast.  So a message posted in a local group node can stay local if that’s what the user intends.</p>
+
+<p>XDI for groups is still in early development, but it shows the significant promise i efficiently solving complicated group management and messaging use cases.  Join us on the <a href="http://groups.google.com/group/personaldatastore">personal data store mailing list</a> if you’re interested in participating in this discussion.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[APE Comet Server Local Dev Environment Setup]]></title>
+    <link href="http://www.10hacks.com/realtime/social%20web/webdev/2010/08/09/ape-comet-server-local-dev-environment-setup/"/>
+    <updated>2010-08-09T13:45:47-07:00</updated>
+    <id>http://www.10hacks.com/realtime/social%20web/webdev/2010/08/09/ape-comet-server-local-dev-environment-setup</id>
+    <content type="html"><![CDATA[<p><a href="http://www.ape-project.org">APE (Ajax Push Engine)</a> is a scalable comet or AJAX push server written in C.  It’s great for embedding HTML chat clients or making real-time games without Flash.</p>
+
+<p>I’ve been playing around with APE for a couple different applications.  Setting up the demos on a single server that runs both Apache and the APE server is relatively straight forward.  However, running the APE server separate from the web server is not as simple.</p>
+
+<p>Here’s my dev environment…</p>
+
+<ul>
+  <li>
+    <p>Web server: Ruby on Rails running locally on my mac at http://0.0.0.0:3000</p>
+  </li>
+  <li>
+    <p>APE server: running in a Debian VMWare server at http://192.168.0.99:6969</p>
+  </li>
+</ul>
+
+<p>The production environment is similar with <a href="http://heroku.com">Heroku</a> as the web server and <a href="http://www.linode.com">Linode</a> running the APE server.</p>
+
+<p>Here’s what you have to do to get the dev environment setup from scratch…</p>
+
+<ol>
+  <li>
+    <p>Download <a href="http://www.ape-project.org/download/APE_Complete_Package.html">APE Project</a></p>
+  </li>
+  <li>
+    <p>Follow the <a href="http://www.ape-project.org/wiki/index.php/Setup">APE doc</a> for installing the server</p>
+  </li>
+  <li>
+    <p>Create a new rails project and copy the ape-jsf folder into your rails project’s public dir</p>
+  </li>
+  <li>
+    <p>Edit /etc/hosts on your mac and add the entries below</p>
+  </li>
+  <li>
+    <p>Edit ape-jsf/Demos/config.js as directed below</p>
+  </li>
+  <li>
+    <p>Modify JS Request methods to use GET instead of POST</p>
+  </li>
+</ol>
+
+<p><strong>Add to /etc/hosts</strong></p>
+
+<p>[bash]</p>
+
+<p>192.168.0.99 ape.dummy-domain.com
+192.168.0.99 0.ape.dummy-domain.com
+192.168.0.99 1.ape.dummy-domain.com
+192.168.0.99 2.ape.dummy-domain.com
+192.168.0.99 3.ape.dummy-domain.com
+192.168.0.99 4.ape.dummy-domain.com
+192.168.0.99 5.ape.dummy-domain.com
+192.168.0.99 6.ape.dummy-domain.com
+192.168.0.99 7.ape.dummy-domain.com
+192.168.0.99 8.ape.dummy-domain.com
+192.168.0.99 9.ape.dummy-domain.com</p>
+
+<p>0.0.0.0 dummy-domain.com</p>
+
+<p>[/bash]</p>
+
+<p><strong>Edit ape-jsf/Demos/config.js</strong></p>
+
+<p>[javascript]</p>
+
+<p>APE.Config.baseUrl = ‘http://dummy-domain.com:3000/ape-jsf’; //APE JSF
+APE.Config.domain = ‘auto’;
+APE.Config.server = ‘ape.dummy-domain.com:6969’; //APE server URL</p>
+
+<p>[/javascript]</p>
+
+<p>Last but not least, edit ape-jsf/Tools/Check/index.html and modify all Request calls to use GET instead of POST.  By default, MooTools Request object uses POST for XHR requests which will cause a problem with Rails.</p>
+
+<p>[javascript]</p>
+
+<p>this.addTest(‘Loading Client’, function() {
+		var req = new Request({
+			‘url’: ‘../../Clients/MooTools.js’,
+			‘method’: ‘GET’,
+			‘evalResponse’: true,
+			‘onComplete’: function(resp) {
+				if (window.APE) this.fireEvent(‘testComplete’, {‘sucess’: true});
+				else this.fireEvent(‘testComplete’, {‘error’: “Can’t load client, check the file “ + window.location.href.replace(‘/Tools/Check/’, ‘’) + “/Clients/MooTools.js is available”});
+			}.bind(this)
+		}).send();
+}.bind(this));</p>
+
+<p>[/javascript]</p>
+
+<p>The test script should now run properly at http://dummy-domain.com:3000/ape-jsf/Toosl/Check/</p>
+
+<p>APE uses iframe and JSONP hacks to transparently handle javascript subdomain security issues.</p>
+
+<p>If you look at what’s going on in Firebug, you’ll see APE embedding an iframe in the page, setting the iframe domain to dummy-domain.com, and making calls to the APE server through iframe.  This trick only works if the main HTML page is on a different sub-domain than the APE server.  It will not work for two completely different domains.  This is a limitation of Javascript browser security and not APE.</p>
+
+<p>Thanks to the APE dev team for making an awesome comet server!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Building the Wikitude Sample App for iPhone 4]]></title>
+    <link href="http://www.10hacks.com/hacks/webdev/2010/08/08/building-the-wikitude-sample-app-for-iphone-4/"/>
+    <updated>2010-08-08T13:58:28-07:00</updated>
+    <id>http://www.10hacks.com/hacks/webdev/2010/08/08/building-the-wikitude-sample-app-for-iphone-4</id>
+    <content type="html"><![CDATA[<p>I’m new to iPhone development but wanted to see how quickly I could build an augmented reality prototype for a simple AR treasure hunt game.  I looked at the APIs for <a href="http://site.layar.com/create/platform-overview/">Layar</a>, <a href="http://artoolworks.com/Home.html">ARToolKit</a>, <a href="http://www.junaio.com/">Junaio</a>, and settled on <a href="http://www.wikitude.org/enwikitude-iphone-api">Wikitude</a> for this test.  Wikitude provides an augmented reality library that you can drop into your iPhone project in less than an hour.  Bad ass.  Assuming you’re not an iPhone dev n00b like me.  Then it takes you three hours.</p>
+
+<p>If you’ve never tried to build a downloaded sample app, hopefully this guide will save you a couple hours of futzing around with plist and project configuration.</p>
+
+<p>I’m using XCode 3.2.3 with the iOS SDK 4.0.1 and targeting an iPhone 4 device connected to my MacBook Pro.</p>
+
+<p><strong>Getting Started</strong></p>
+
+<ol>
+  <li>
+    <p>Download the <a href="http://www.wikitude.org/developers">Wikitude iPhone API</a> and unzip the sample app</p>
+  </li>
+  <li>
+    <p>Open WikitudeAPI-SCM-Test.xcodeproj in XCode</p>
+  </li>
+  <li>
+    <p>Click “Build and Run” on the XCode toolbar</p>
+  </li>
+</ol>
+
+<p>You’ll probably get one or more of the following errors:_ _</p>
+
+<ul>
+  <li>
+    <p><em>There is no SDK with the name or path ‘iphoneos3.1.2’.</em></p>
+  </li>
+  <li>
+    <p><em>Code Sign error: a valid provisioning profile matching the application’s Identifier ‘com.companyname.productname’ could not be found</em></p>
+  </li>
+</ul>
+
+<p>Time for to fix the sample app configuration.  Search paths, target architecture, base SDK, and code signing will all need to be changed in order to successfully build the project.</p>
+
+<p>Before you go any further, make sure you’re set up through the <a href="https://developer.apple.com/iphone/manage/overview/index.action">iPhone Dev Center Provisioning Portal</a> to sign code.  The Wikitude API will not run in a simulator, and building for devices requires a valid code signing identity.  You can apparently use the XCode Organizer to create your code signing profiles.  However, I kept getting an unexpected error and ended up doing everything through the web portal.  For simplicity, I created a wildcard domain (com.simple10.*) for the App ID so that I can use the same provisioning profile for other apps.</p>
+
+<p>Once your provisioning profile is ready to go, it’s time to fix the XCode project configuration so the sample app will build.</p>
+
+<p><strong>Fixing Config Options in XCode</strong></p>
+
+<p>Open the project info build options panel by double clicking on WikitudeAPI-SCM-Test project.</p>
+
+<p><strong><a href="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen1.png"><img src="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen1-300x172.png" alt="Wikitude Sample App Configuration" /></a></strong></p>
+
+<p>Make the following changes to the build options…</p>
+
+<p><strong>Architectures</strong></p>
+
+<ul>
+  <li>
+    <p>Architectures: Standard (armv6 armv7)</p>
+  </li>
+  <li>
+    <p>Base SDK: iPhone Device 4.0</p>
+  </li>
+  <li>
+    <p>Build Active Architecture Only: [checked]</p>
+  </li>
+</ul>
+
+<p><strong>Code Signing</strong></p>
+
+<ul>
+  <li>Code Signing Identity &gt; Any iPhone OS Device: [select your provisioned profile]</li>
+</ul>
+
+<p>Open the targets build option panel by expanding the Targets tree and double clicking on WikitudeAPI-SCM-Test.</p>
+
+<p>[](http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen2.png)<a href="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen2.png"><img src="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen2-300x218.png" alt="Wikitude Sample App Config Screen 2" /></a></p>
+
+<p>Make the following changes to the target build options…</p>
+
+<p><strong>Search Paths &gt; Library Search Paths</strong></p>
+
+<ul>
+  <li>
+    <p>Remove “$(SRCROOT)/../WikitudeAPI-SCM/build/Debug-iphoneos”</p>
+  </li>
+  <li>
+    <p>Remove “$(SRCROOT)/../../../Desktop/WikitudeAPI”</p>
+  </li>
+</ul>
+
+<p>Open WikitudeAPI_SCM_Test-Info.plist and edit the bundler identifier to match the domain used in your provisioning profile.</p>
+
+<p><a href="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen3.png"><img src="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen3-300x188.png" alt="Wikitude Sample App Screen 3" /></a></p>
+
+<p>Finally, make sure that Active Architecture setting in the build target drop down menu is set to armv6.</p>
+
+<p><a href="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen4.png"><img src="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen4-300x226.png" alt="" /></a></p>
+
+<p>Click Build and Run.  The app should build, deploy, and automatically run on your connected iPhone.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Macports to Homebrew]]></title>
+    <link href="http://www.10hacks.com/hacks/webdev/2010/08/06/macports-to-homebrew/"/>
+    <updated>2010-08-06T11:00:52-07:00</updated>
+    <id>http://www.10hacks.com/hacks/webdev/2010/08/06/macports-to-homebrew</id>
+    <content type="html"><![CDATA[<p>Thanks to a new macbook pro with a clean OS install and minimal dev tools, I made the switch from macports to homebrew.  Easy enough with a few caveats.</p>
+
+<p>The homebrew people recommend <a href="http://guide.macports.org/#installing.macports.uninstalling">uninstalling macports first</a>.</p>
+
+<p>Then <a href="http://wiki.github.com/mxcl/homebrew/installation">install homebrew</a>.</p>
+
+<p>Everything worked fine until trying to ‘<strong>brew install imagemagick</strong>’.  The compilation fails.  This seems to be a <a href="http://www.google.com/search?q=brew+install+imagemagick+fails&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a">common problem</a>.</p>
+
+<p>The quick solution was to ‘<strong>sudo brew install imagemagick</strong>’.  Compilation worked.  However, sudo installing ghostscript after installing imagemagick failed to find the jpeg lib which was previously installed without sudo.  Yuck!</p>
+
+<p>The final solution was to brew uninstall all image packages (jpeg, libtiff, ghostscript, etc.) and then run the following…</p>
+
+<p>[bash]
+$ brew list
+git
+$ sudo brew install ghostscript
+$ sudo brew install imagemagick
+$ brew list
+ghostscript    imagemagick    jpeg
+little-cms     git        jasper        libtiff
+pkg-config
+[/bash]</p>
+
+<p>I’m not sure if it’s possible to install ghostscript and imagemagick without using sudo.  I tried several times, and in the end sudo worked where other attempts failed.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How-To Make Favicons on OSX]]></title>
+    <link href="http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx/"/>
+    <updated>2010-03-13T06:14:00-08:00</updated>
+    <id>http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx</id>
+    <content type="html"><![CDATA[<p>Use Fireworks or Photoshop to make the icon PNGs of different sizes.  Then use Gimp to create the ico file. <a href="http://egressive.com/tutorial/creating-a-multi-resolution-favicon-including-transparency-with-the-gimp">Tutorial</a></p>
+
+<p>Or install a .ico <a href="http://www.telegraphics.com.au/sw/">file plugin</a> to Photoshop. <a href="http://www.photoshopsupport.com/tutorials/jennifer/favicon.html">Tutorial</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ordered Formsets in Google App Engine Patch]]></title>
+    <link href="http://www.10hacks.com/hacks/webdev/2009/10/19/google-app-engine-patch-django-formsets/"/>
+    <updated>2009-10-19T05:55:53-07:00</updated>
+    <id>http://www.10hacks.com/hacks/webdev/2009/10/19/google-app-engine-patch-django-formsets</id>
+    <content type="html"><![CDATA[<p>The current version (1.1RC) of <a href="http://code.google.com/p/app-engine-patch/">Google App Engine Patch</a> does not allow for easy ordering of forms in formsets.  Normally, Django obeys a model’s Meta.ordering property as the default for formset data.  However, Google App Engine Patch fetches unordered data by default.
+<!-- more -->
+There may already be an undocumented solution from the Google App Engine Patch team, but here’s a slick unobtrusive workaround that provides a lot of flexibility.</p>
+
+<p>First off, we need a new Formset class and formset factory function …</p>
+
+<p>[python]
+# formsets.py
+from django.forms.models import inlineformset_factory
+from django.forms.models import BaseInlineFormSet</p>
+
+<p>class OrderedFormset(BaseInlineFormSet):
+    def <strong>init</strong>(self, data=None, files=None, instance=None,
+                 save_as_new=False, prefix=None):
+        qs = ()
+        if hasattr(self.form, ‘Meta’) and hasattr(self.form.Meta, ‘ordering’):
+            qs = instance.<strong>getattribute</strong>(self.model.<strong>name</strong>.lower()+’_set’)
+            for i in self.form.Meta.ordering:
+                qs.order(i)
+        self.instance = instance
+        self.save_as_new = save_as_new
+        super(BaseInlineFormSet, self).<strong>init</strong>(data, files, prefix=prefix, queryset=qs)</p>
+
+<p>def orderedformset_factory(parent_model, model, **kwargs):
+    kwargs[‘formset’] = OrderedFormset
+    fs = inlineformset_factory(parent_model, model, **kwargs)
+    return fs&lt;/pre&gt;
+[/python]</p>
+
+<p>Usage is as simple as specifying formset_factory=orderedformset_factory for each formset field…</p>
+
+<p>[python]</p>
+<pre># forms.py
+from formsets import orderedformset_factory
+
+class GuestForm(forms.ModelForm):
+    confirmed = forms.BooleanField(required=False)
+    class Meta:
+        model = Guest
+        ordering = ('first_name',)
+
+class EventForm(forms.ModelForm):
+    guests = FormSetField(Guest, form=GuestForm, extra=10, can_order=False, formset_factory=orderedformset_factory)
+    class Meta:
+        model = Event
+        ordering = ('number',)
+EventForm = FormWithSets(EventForm)
+[/python]
+
+
+
+</pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Better Way to Grep Code]]></title>
+    <link href="http://www.10hacks.com/misc/2009/09/24/a-better-way-to-grep-code/"/>
+    <updated>2009-09-24T04:11:26-07:00</updated>
+    <id>http://www.10hacks.com/misc/2009/09/24/a-better-way-to-grep-code</id>
+    <content type="html"><![CDATA[<p>When grep’ing through code on OSX or linux, .svn files are a pain because grep will find code in the source file and in the corresponding svn file. To fix this, use the below bash script to omit .svn directories from grep searches.</p>
+
+<p>Code Grep (cg)</p>
+
+<p>Create a cg script in /usr/local/bin</p>
+
+<p>[code lang=”bash”]
+!/bin/sh</p>
+
+<p>if [ $# =  1 ]; then
+  grep -ir “$1” * | grep -v “.svn/”
+elif [ $# = 2 ]; then
+  grep -ir “$1” $2/* | grep -v “.svn/”
+else
+  echo “Doh! Too many parameters.ncg “search” [FLAGS]”
+fi
+[/code]</p>
+
+<p>Thanks to http://www.microshell.com/sysadmin/unix/customizing-grep-tool-to-exclude-svn/</p>
+
+<p>Include a few extra vars in your ~/.profile</p>
+
+<p>[code lang=”bash”]
+export SVN_EDITOR=/usr/bin/vim
+export GREP_OPTIONS=”-I –color=always”
+export CLICOLOR=1
+export LSCOLORS=cxfxcxdxbxegedabagacad
+[/code]</p>
+
+<p>And reload the profile with the source command</p>
+
+<p>[code lang=”bash”]
+&gt; source ~/.profile
+[/code] </p>
+]]></content>
+  </entry>
   
 </feed>

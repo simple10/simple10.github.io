@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Rails 3 + STI: Making Associations Work Properly - A Hackerpress Blog</title>
+  <meta name="author" content="Joe Johnston">
+
+  
+  <meta name="description" content="I really like the idea of Single Table Inheritance (STI) for all sorts of applications to keep code DRY and make it easier to organize object &hellip;">
+  
+  <meta name="apple-mobile-web-app-title" content="A Hackerpress Blog">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="/images/logos/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
+
+  <!-- Prefetch DNS for external assets -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  
+  <link rel="canonical" href="http://www.10hacks.com/hacks/rails3/2011/01/17/rails-3-sti">
+  <link href="/atom.xml" rel="alternate" title="A Hackerpress Blog" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/assets/app-49f1e024af8dc01e63da97811f24a41f.css">
+
+  
+
+</head>
+
+<body   >
+  <!-- <header role="banner"></header> -->
+  <nav role="navigation" class="container">
+  <!--
+  
+  <form action="http://google.com/search" method="get">
+    <fieldset role="search">
+      <input type="hidden" name="q" value="site:www.10hacks.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    </fieldset>
+  </form>
+   -->
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="" title="A Hackerpress Blog">A Hackerpress Blog</a>
+      <ul class="nav">
+        
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+        
+      </ul>
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="#"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
+        <a class="btn btn-primary" href="#"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <section class="page-header">
+  <div class="container">
+    Rails 3 + STI: Making Associations Work Properly 
+  </div>
+</section>
+
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rails 3 + STI: Making Associations Work Properly</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-17T23:13:30-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I really like the idea of Single Table Inheritance (STI) for all sorts of applications to keep code DRY and make it easier to organize object behavior. The only problem is that Rails 3.0.3 doesn’t fully support STI with association collections.</p>
+
+<p>Let’s say you have a User model that has many badges. The badges will be stored in the badges table but you want to implement each badge in a subclass. All you have to do is make sure there’s a <strong>:type</strong> field of type string in your badges table and Rails STI support should take care of the rest (well, in theory).</p>
+
+<p>[code language=”ruby”]
+class User &lt; ActiveRecord::Base<br />
+  has_many :badges
+end</p>
+
+<p>class Badge &lt; ActiveRecord::Base<br />
+  belongs_to :user
+  def award
+    raise “Must implement in subclass”
+  end
+end</p>
+
+<p>class Badges::Superhero &lt; Badge
+  def award
+    user.status = ‘superhero’
+  end
+end
+[/code]</p>
+
+<p>Now you can do cool things like create a new Superhero badge and add it to a user’s badge collection.</p>
+
+<p>[code language=”ruby”]
+user = User.first
+badge = Badges::Superhero.new
+user.badges « badge
+[/code]</p>
+
+<p>But for some weird reason, you can’t use the best practice of building a badge directly from the user’s badges collection.</p>
+
+<p>[code language=”ruby”]
+user = User.first
+badge = user.badges.build(:type =&gt; Badges::Superhero)
+# badge.class == Badge
+[/code]</p>
+
+<p>This is particularly annoying if you’re trying to create new badges from a form where :type is a drop down menu.</p>
+
+<p>The reason the collection build method doesn’t work as expected is because :type is a protected field and ActiveRecord::AssociationReflection doesn’t fully support STI (at least in Rails 3.0.3).</p>
+
+<p>Not to fret, hacks to the rescue!</p>
+
+<p>You have two options to make STI work as expected.</p>
+
+<p>**Option 1: Override the Badge.new method to handle :type
+**</p>
+
+<p>[code language=”ruby”]
+class Badge &lt; ActiveRecord::Base<br />
+  belongs_to :user
+  self.abstract_class = true</p>
+
+<p>class « self
+    def new_with_cast(<em>a, &amp;b)
+      if (h = a.first).is_a? Hash and (type = h.symbolize_keys[self.class.inheritance_column.to_sym]) and (klass = type.to_s.constantize) != self
+        raise “Must be a subclass of Badge” unless klass &lt; self  # klass should be a descendant of self
+        return klass.new_without_cast(</em>a, &amp;b)
+      end
+      raise “Badge must be created through a subclass.”
+      new_without_cast(*a, &amp;b)
+    end
+    alias_method_chain :new, :cast
+  end
+end
+[/code]</p>
+
+<p>**Option 2: Patch AssociationReflection to behave more intelligently
+**</p>
+
+<p>[code language=”ruby”]
+class ActiveRecord::Reflection::AssociationReflection
+  def build_association(<em>opts)
+    col = klass.inheritance_column.to_sym
+    if (h = opts.first).is_a? Hash and (type = h.symbolize_keys[col]) and type.class == Class
+      opts.first[col].to_s.constantize.new(</em>opts)
+    elsif klass.abstract_class?
+      raise “#{klass.to_s} is an abstract class and can not be directly instantiated”
+    else
+      klass.new(*opts)
+    end
+  end
+end
+[/code]</p>
+
+<p>My preference is Option 2 even though it might break in future releases of Rails. I’d rather have Rails behaving as expected than pepper my models code with repetitive hacks.</p>
+
+<p>The above solutions were inspired from a couple of different <a href="http://coderrr.wordpress.com/2008/04/22/building-the-right-class-with-sti-in-rails/">posts</a> and <a href="http://stackoverflow.com/questions/2553931/can-nested-attributes-be-used-in-combination-with-inheritance">sources</a>.</p>
+
+<p>I submitted Option 2 as a <a href="https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/6306-collection-associations-build-method-not-supported-for-sti">patch for Rails</a>.</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-17T23:13:30-08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    hacksrails3
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/hacks/rails3/2011/01/17/rails-3-sti/" data-via="" data-counturl="http://www.10hacks.com/hacks/rails3/2011/01/17/rails-3-sti/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/rails3/ruby/2011/01/13/devise-omniauth-facebook-api-hacks/" title="Previous Post: Devise + OmniAuth + Facebook API Hacks">&laquo; Devise + OmniAuth + Facebook API Hacks</a>
+      
+      
+        <a class="basic-alignment right" href="/misc/2011/02/06/git-hacks-for-osx/" title="Next Post: Git Hacks for OSX">Git Hacks for OSX &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+<section>
+  
+
+
+  Included file 'comments/disqus' not found in _includes directory
+
+
+
+</section>
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/ignore-jquery-jsonp-callbacks-in-mocha">Ignore jQuery JSONP Callbacks in Mocha</a>
+      </li>
+    
+      <li class="post">
+        <a href="/linux-default-gateway-route">Linux Default Gateway Route</a>
+      </li>
+    
+      <li class="post">
+        <a href="/rails3/ruby/2012/04/11/chaining-bundle-gemfiles/">Chaining Bundle Gemfiles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/save-only-changed-attributes-in-backbone-js">Save Only Changed Attributes in Backbone.js</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ruby/testing/2012/03/15/rspec-capybara-devise-login-tests/">RSpec + Capybara + Devise Login Tests</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="contactModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
+
+  <footer role="contentinfo">
+</footer>
+
+  <script src="/assets/app-0c2275567ca821cfac79954c41ff6570.js"></script>
+</body>
+</html>
