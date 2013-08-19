@@ -52,9 +52,8 @@ module Jekyll
     include Octopress::Date
     alias_method :orig_to_liquid, :to_liquid
     def to_liquid(attrs = ATTRIBUTES_FOR_LIQUID)
-      orig_to_liquid(attrs)
       date_format = site.config['date_format']
-      data.deep_merge({
+      orig_to_liquid(attrs).merge({
         date_formatted: format_date(self.date, date_format),
         updated_formatted: data.has_key?('updated') ? format_date(data['updated'], date_format) : nil
       })
