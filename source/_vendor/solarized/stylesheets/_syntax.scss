@@ -221,7 +221,7 @@ figure.code {
   padding: 0;
   border: 0;
   margin: 1em 0;
-  pre { margin-bottom: 0; }
+  pre { margin: 0; }
   figcaption {
     position: relative;
     @extend .code-title;
