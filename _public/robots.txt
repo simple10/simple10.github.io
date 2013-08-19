@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://10hacks.github.io/sitemap.xml 

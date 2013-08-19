@@ -5,7 +5,7 @@
 .jekyll-assets-cache
 .pygments-cache
 _deploy
-public
+_public
 sass.old
 source.old
 source/_stash
