@@ -8,6 +8,9 @@ subtitle: A blogging framework for hackers
 author: Joe Johnston
 description:
 
+search:
+  simple: http://google.com/search
+
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
 # http://www.ruby-doc.org/core-1.9.2/Time.html#method-i-strftime
