@@ -22,3 +22,8 @@ rake deploy
 3. Customize fonts as needed
 4. Download fonts into source/fonts
 5. Modify source/_vendor/flatui/stylesheets/icon-font.scss
+
+
+## CSS Frameworks
+
+See _plugins/assets.rb for including additional frontend asset goodies.
