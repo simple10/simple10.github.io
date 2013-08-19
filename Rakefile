@@ -52,7 +52,7 @@ task :generate do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Hackerpress theme." unless File.directory?(source_dir)
   puts "## Generating Site with Jekyll"
   system "compass compile --css-dir #{source_dir}/stylesheets"
-  system "jekyll"
+  system "jekyll build"
 end
 
 desc "Watch the site and regenerate when it changes"
@@ -60,7 +60,7 @@ task :watch do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Hackerpress theme." unless File.directory?(source_dir)
   puts "Starting to watch source with Jekyll and Compass."
   system "compass compile --css-dir #{source_dir}/stylesheets" unless File.exist?("#{source_dir}/stylesheets/screen.css")
-  jekyllPid = Process.spawn({"HACKERPRESS_ENV"=>"preview"}, "jekyll --auto")
+  jekyllPid = Process.spawn({"HACKERPRESS_ENV"=>"preview"}, "jekyll --watch")
   compassPid = Process.spawn("compass watch")
 
   trap("INT") {
@@ -76,7 +76,7 @@ task :preview do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Hackerpress theme." unless File.directory?(source_dir)
   puts "Starting to watch source with Jekyll and Compass. Starting Rack on port #{server_port}"
   system "compass compile --css-dir #{source_dir}/stylesheets" unless File.exist?("#{source_dir}/stylesheets/screen.css")
-  jekyllPid = Process.spawn({"HACKERPRESS_ENV"=>"preview"}, "jekyll --auto")
+  jekyllPid = Process.spawn({"HACKERPRESS_ENV"=>"preview"}, "jekyll --watch")
   compassPid = Process.spawn("compass watch")
   rackupPid = Process.spawn("rackup --port #{server_port}")
 
