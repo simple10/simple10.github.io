@@ -1,0 +1,10 @@
+{% case site.analytics.provider %}
+{% when "google" %}
+  {% include analytics/google.html %}
+{% when "getclicky" %}
+  {% include analytics/getclicky.html %}
+{% when "mixpanel" %}
+  {% include analytics/mixpanel.html %}
+{% when "piwik" %}
+  {% include analytics/piwik.html %}
+{% endcase %}

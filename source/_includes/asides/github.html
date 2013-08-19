@@ -1,11 +1,11 @@
-{% if site.github_user %}
+{% if site.github.user %}
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating...</li>
   </ul>
-  {% if site.github_show_profile_link %}
-  <a href="https://github.com/{{site.github_user}}">@{{site.github_user}}</a> on GitHub
+  {% if site.github.show_profile_link %}
+  <a href="https://github.com/{{site.github.user}}">@{{site.github.user}}</a> on GitHub
   {% endif %}
   <script type="text/javascript">
     $(document).ready(function(){
@@ -18,9 +18,9 @@
         }
 
         github.showRepos({
-            user: '{{site.github_user}}',
-            count: {{site.github_repo_count}},
-            skip_forks: {{site.github_skip_forks}},
+            user: '{{site.github.user}}',
+            count: {{site.github.repo_count}},
+            skip_forks: {{site.github.skip_forks}},
             target: '#gh_repos'
         });
     });

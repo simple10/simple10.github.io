@@ -96,7 +96,9 @@ redcarpet:
     - tables
     - hard_wrap
 
-pygments: false # default python pygments have been replaced by pygments.rb
+# default python pygments have been replaced by pygments.rb
+# todo: confirm that this is still optimal since jekyll 1.0+ is now being used
+pygments: false
 
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
@@ -110,38 +112,49 @@ pygments: false # default python pygments have been replaced by pygments.rb
 # ----------------------- #
 
 # Github repositories
-github_user:
-github_repo_count: 0
-github_show_profile_link: true
-github_skip_forks: true
+github:
+  user:
+  repo_count: 0
+  show_profile_link: true
+  skip_forks: true
 
-# Twitter
-twitter_user:
-twitter_tweet_button: true
+# Social sharing and commenting
+social:
+  twitter:
+    user:
+    tweet_button: true
 
-# Google +1
-google_plus_one: false
-google_plus_one_size: medium
+  google:
+    plus_one: false
+    plus_one_size: medium
+    plus_user:
+    # Hidden: No visible button, just add author information to search results
+    plus_hidden: false
 
-# Google Plus Profile
-# Hidden: No visible button, just add author information to search results
-googleplus_user:
-googleplus_hidden: false
+  pinboard:
+    user:
+    count: 3
 
-# Pinboard
-pinboard_user:
-pinboard_count: 3
+  delicious:
+    user:
+    count: 3
 
-# Delicious
-delicious_user:
-delicious_count: 3
+  disqus:
+    short_name:
+    show_comment_count: false
 
-# Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+  facebook:
+    like: false
 
-# Google Analytics
-google_analytics_tracking_id:
-
-# Facebook Like
-facebook_like: false
+# Analytics settings
+analytics:
+  provider: google
+  google:
+      tracking_id: 'UA-123-12'
+  getclicky:
+    site_id:
+  mixpanel:
+      token: '_MIXPANEL_TOKEN_'
+  piwik:
+      baseURL: 'myserver.tld/piwik' # Piwik installation address (without protocol)
+      idsite: '1'                   # the id of the site on Piwik
