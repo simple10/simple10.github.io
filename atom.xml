@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[A Hackerpress Blog]]></title>
-  <link href="http://10hacks.github.io/atom.xml" rel="self"/>
-  <link href="http://10hacks.github.io/"/>
-  <updated>2013-08-19T01:02:59-07:00</updated>
-  <id>http://10hacks.github.io/</id>
+  <link href="http://www.10hacks.com/atom.xml" rel="self"/>
+  <link href="http://www.10hacks.com/"/>
+  <updated>2013-08-19T01:27:23-07:00</updated>
+  <id>http://www.10hacks.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Joe Johnston]]></name>
     
   </author>
   <generator uri="http://www.10hacks.com/">Hackerpress</generator>
