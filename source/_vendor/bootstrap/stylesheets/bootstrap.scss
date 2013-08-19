@@ -22,7 +22,8 @@
 
 // Base CSS
 @import "type";
-@import "code";
+// Don't include code since we're using pygments
+//@import "code";
 @import "forms";
 @import "tables";
 
