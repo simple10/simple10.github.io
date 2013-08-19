@@ -3,7 +3,7 @@ author: joe
 comments: true
 date: 2012-03-24 21:23:02
 layout: post
-slug: save-only-changed-attributes-in-backbone-js
+permalink: save-only-changed-attributes-in-backbone-js
 title: Save Only Changed Attributes in Backbone.js
 wordpress_id: 301
 categories:
@@ -12,12 +12,15 @@ categories:
 - jquery
 ---
 
+{% callout %}
+As of Backbone 0.9.10, partial model updates are supported with `model.save(attrs, {patch: true})`
+{% endcallout %}
+
 Backbone.js syncs all model data to the server by default regardless of what actually changed. This makes a lot of frontend tasks and debugging much easier, but for some models, sending all the data every time is overkill.
 
 Here's a quick extension to backbone models and collections to only sync changes. Just call model.saveChanges instead of model.save and only your changes will be synced.
 
-[code language="javascript"]
-# CoffeeScript
+```coffeescript CoffeeScript
 cx_backbone_common =
   sync: (method, model, options) ->
     # Changed attributes will be available here if model.saveChanges was called instead of model.save
@@ -34,4 +37,4 @@ cx_backbone_model =
 
 _.extend(Backbone.Model.prototype, cx_backbone_common, cx_backbone_model)
 _.extend(Backbone.Collection.prototype, cx_backbone_common)
-[/code]
+```

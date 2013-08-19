@@ -13,6 +13,6 @@ categories:
 
 Useful little snippet to include gem files inside of each other.
 
-[code language="ruby"]
+```ruby
 eval(IO.read(File.expand_path('../somedir/Gemfile', __FILE__)), binding)
-[/code]
+```
