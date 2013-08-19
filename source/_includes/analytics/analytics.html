@@ -1,3 +1,5 @@
+{% if site.safe and site.analytics.provider and page.analytics != false %}
+
 {% case site.analytics.provider %}
 {% when "google" %}
   {% include analytics/google.html %}
@@ -8,3 +10,5 @@
 {% when "piwik" %}
   {% include analytics/piwik.html %}
 {% endcase %}
+
+{% endif %}

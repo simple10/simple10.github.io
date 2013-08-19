@@ -8,7 +8,7 @@
     {% unless page.meta == false %}
       <p class="meta">
         {% include post/date.html %}{{ time }}
-        {% if site.social.disqus.short_name and page.comments != false and post.comments != false and site.social.disqus.show_comment_count == true %}
+        {% if site.comments.disqus.short_name and page.comments != false and post.comments != false and site.comments.disqus.show_comment_count == true %}
          | <a href="{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread">Comments</a>
         {% endif %}
       </p>

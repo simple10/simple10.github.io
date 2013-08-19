@@ -118,7 +118,25 @@ github:
   show_profile_link: true
   skip_forks: true
 
-# Social sharing and commenting
+
+# Comment plugins
+comments:
+  provider: disqus
+  disqus:
+    short_name: 10hacks
+    show_comment_count: false
+  livefyre:
+    site_id: 123456
+  intensedebate:
+    account: 123abc
+  facebook:
+    appid: 123
+    num_posts: 5
+    width: 580
+    colorscheme: light
+
+
+# Social plugins
 social:
   twitter:
     user:
@@ -128,8 +146,7 @@ social:
     plus_one: false
     plus_one_size: medium
     plus_user:
-    # Hidden: No visible button, just add author information to search results
-    plus_hidden: false
+    plus_hidden: false  # hide button but author info will be included in search results
 
   pinboard:
     user:
@@ -139,14 +156,11 @@ social:
     user:
     count: 3
 
-  disqus:
-    short_name:
-    show_comment_count: false
-
   facebook:
     like: false
 
-# Analytics settings
+
+# Analytics plugins
 analytics:
   provider: google
   google:

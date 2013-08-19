@@ -25,12 +25,9 @@ single: true
     </p>
   </footer>
 </article>
-{% if site.social.disqus.short_name and page.comments == true %}
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite">{% include social/disqus_comments.html %}</div>
-  </section>
-{% endif %}
+<section>
+  {% include comments/comments.html %}
+</section>
 </div>
 {% unless page.sidebar == false %}
 <aside class="sidebar">
