@@ -3,9 +3,18 @@
 <body {% if page.body_id %} id="{{ page.body_id }}" {% endif %} {% if page.sidebar == false %} class="no-sidebar" {% endif %} {% if page.sidebar == 'collapse' or site.sidebar == 'collapse' %} class="collapse-sidebar sidebar-footer" {% endif %}>
   <!-- <header role="banner"></header> -->
   {% include nav.html %}
-  <div id="content">
-    {{ content | expand_urls: root_url }}
+  {% include page_header.html %}
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        {{ content | expand_urls: root_url }}
+      </div>
+    </div>
   </div>
+
+  {% include modals.html %}
   {% include footer.html %}
+  {% javascript app %}
 </body>
 </html>
