@@ -18,10 +18,10 @@ To make mocha ignore the JSONP callback functions, just add jQuery* to mocha's l
 
 For the browser based version of mocha, register the globals using the setup method.
 
-[code language="javascript"]
+```javascript
 mocha.setup({
   globals: ['jQuery*']
 });
-[/code]
+```
 
 This little tip was not obvious to me in the mocha documentation and required digging through the code a bit.
