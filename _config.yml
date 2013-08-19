@@ -2,11 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://10hacks.github.io
+url: http://www.10hacks.com
 title: A Hackerpress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
-simple_search: http://google.com/search
+subtitle: A blogging framework for hackers
+author: Joe Johnston
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
