@@ -15,6 +15,8 @@ group :development do
   gem 'stringex'
   gem 'liquid'
 
+  # gem 'pry'
+
   # Select one and update _config.yml markdown
   gem 'kramdown'
   # gem 'rdiscount'
