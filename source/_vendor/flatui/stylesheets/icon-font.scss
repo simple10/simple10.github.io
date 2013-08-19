@@ -26,7 +26,13 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="fui-"] {
 */
-.fui-arrow-right, .fui-arrow-left, .fui-cmd, .fui-check-inverted, .fui-heart, .fui-location, .fui-plus, .fui-check, .fui-cross, .fui-list, .fui-new, .fui-video, .fui-photo, .fui-volume, .fui-time, .fui-eye, .fui-chat, .fui-search, .fui-user, .fui-mail, .fui-lock, .fui-gear, .fui-radio-unchecked, .fui-radio-checked, .fui-checkbox-unchecked, .fui-checkbox-checked, .fui-calendar-solid, .fui-pause, .fui-play, .fui-check-inverted-2 {
+.fui-arrow-right, .fui-arrow-left, .fui-cmd, .fui-check-inverted, .fui-heart,
+.fui-location, .fui-plus, .fui-check, .fui-cross, .fui-list, .fui-new, .fui-video,
+.fui-photo, .fui-volume, .fui-time, .fui-eye, .fui-chat, .fui-search, .fui-user,
+.fui-mail, .fui-lock, .fui-gear, .fui-radio-unchecked, .fui-radio-checked,
+.fui-checkbox-unchecked, .fui-checkbox-checked, .fui-calendar-solid, .fui-pause,
+.fui-play, .fui-check-inverted-2,
+.fui-rss, .fui-twitter, .fui-github {
   display: inline-block;
 	font-family: 'Flat-UI-Icons';
 	speak: none;
@@ -125,4 +131,16 @@ you can use the generic selector below, but it's slower:
 }
 .fui-check-inverted-2:before {
 	content: "\e000";
+}
+.fui-rss:before {
+	content: "\e001";
+}
+.fui-twitter:before {
+	content: "\e002";
+}
+.fui-google-plus:before {
+	content: "\e003";
+}
+.fui-github:before {
+	content: "\e004";
 }
