@@ -8,6 +8,9 @@ subtitle: A blogging framework for hackers
 author: Joe Johnston
 description:
 
+paths:
+  base: /
+
 search:
   simple: http://google.com/search
 
@@ -57,6 +60,7 @@ assets:
     - _assets/stylesheets
     - _vendor/stylesheets
     - _vendor
+  # todo: detect production settings and dynamically enable uglifier
   # compress:
   #   js: uglifier
   #   css: sass
