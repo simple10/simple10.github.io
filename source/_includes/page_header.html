@@ -1,5 +1,10 @@
 <section class="page-header">
   <div class="container">
-    {{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}
+    {% if page.header %}
+      {{ page.header }}
+    {% else %}
+      {{ page.title }}
+    {% endif %}
+    {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}
   </div>
 </section>
