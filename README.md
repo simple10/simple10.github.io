@@ -11,9 +11,18 @@ Hackerpress Usage
 =================
 
 ```bash
+# run local server
+rake preview
+
+# deploy
 rake generate
 rake deploy
 ```
+
+# Config
+
+Edit _config.yml and restart the local server.
+
 
 ## Customizing Flat UI Fonts
 
