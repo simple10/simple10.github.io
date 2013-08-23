@@ -53,3 +53,13 @@ Liquid::Template.register_tag('callout', Jekyll::Callout)
 It seems pretty janky to poke around in the context object to get the
 markdown converter, but it works just fine and is unlikely to break anytime
 soon.
+
+The other option instead of using Liquid tags was to use kramdown's ability to
+add HTML attributes like CSS classes to blocks.
+
+```markdown
+> A simple blockquote with class="callout"
+{: .callout}
+```
+
+But this syntax is too specific to kramdown and a bit strange looking to my eye.
