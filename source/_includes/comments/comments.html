@@ -2,13 +2,13 @@
 
 {% case site.comments.provider %}
 {% when "disqus" %}
-  {% include comments/disqus %}
+  {% include comments/disqus.html %}
 {% when "livefyre" %}
-  {% include comments/livefyre %}
+  {% include comments/livefyre.html %}
 {% when "intensedebate" %}
-  {% include comments/intensedebate %}
+  {% include comments/intensedebate.html %}
 {% when "facebook" %}
-  {% include comments/facebook %}
+  {% include comments/facebook.html %}
 {% endcase %}
 
 {% endif %}
