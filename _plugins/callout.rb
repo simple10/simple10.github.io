@@ -13,11 +13,16 @@
 #   </aside>
 #
 
+require_relative 'date'
+
 module Jekyll
   class Callout < Liquid::Block
+    include Octopress::Date
+
     def render(context)
       content = convert_markdown(super, context)
-      "<aside class='callout'><p>#{content}</p></aside>"
+      title = render_title(context)
+      "<aside class='callout'>#{title}#{content}</aside>"
     end
 
     def convert_markdown(content, context)
@@ -26,6 +31,20 @@ module Jekyll
         c.is_a? Jekyll::Converters::Markdown
       }
       @converter && @converter.convert(content) || content
+    end
+
+    def render_title(context)
+      return '' if @markup.empty?
+      date_format = context.registers[:site].config['date_format']
+      title = convert_date(@markup, date_format)
+      "<header><span>#{title}</span></header>"
+    end
+
+    def convert_date(content, format)
+      content.gsub(/date:([^\s]+)/) {|s|
+        date = format_date($1, format)
+        "<span class='date'>#{date}</span>"
+      }
     end
   end
 end

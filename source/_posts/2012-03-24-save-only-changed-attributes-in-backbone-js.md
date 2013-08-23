@@ -12,7 +12,7 @@ categories:
 - jquery
 ---
 
-{% callout %}
+{% callout Update date:2013-06-01 %}
 As of Backbone 0.9.10, partial model updates are supported with `model.save(attrs, {patch: true})`
 {% endcallout %}
 

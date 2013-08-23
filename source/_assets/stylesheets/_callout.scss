@@ -1,0 +1,25 @@
+.callout {
+  background: $inverse;
+  border: 2px solid $warning;
+  border-radius: 6px;
+  margin: 18px 0;
+  padding: 10px 6px;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  header {
+    margin: -16px 0 6px -6px;
+    > span {
+      background: $warning;
+      color: $button-text;
+      font-size: 13px;
+      padding: 2px 10px;
+    }
+    .date {
+      font-size: 11px;
+      margin-left: 5px;
+    }
+  }
+}
