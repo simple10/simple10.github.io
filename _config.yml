@@ -145,9 +145,10 @@ social:
   twitter:
     user:
     tweet_button: true
+    follow_button: false
 
   google:
-    plus_one: false
+    plus_one: true
     plus_one_size: medium
     plus_user:
     plus_hidden: false  # hide button but author info will be included in search results
@@ -161,7 +162,8 @@ social:
     count: 3
 
   facebook:
-    like: false
+    like: true
+    app_id:
 
 
 # Analytics plugins

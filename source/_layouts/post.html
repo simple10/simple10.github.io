@@ -30,6 +30,9 @@ single: true
     {% include comments/comments.html %}
   </section>
 </div>
+    {% unless page.sharing == false %}
+      {% include social/share.html %}
+    {% endunless %}
 
 {% unless page.sidebar == false %}
 <aside class="sidebar">
@@ -39,4 +42,6 @@ single: true
     {% include_array default_asides %}
   {% endif %}
 </aside>
+{% unless page.sharing == false %}
+  {% include social/share_init.html %}
 {% endunless %}
