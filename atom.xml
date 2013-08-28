@@ -4,7 +4,7 @@
   <title><![CDATA[A Hackerpress Blog]]></title>
   <link href="http://www.10hacks.com/atom.xml" rel="self"/>
   <link href="http://www.10hacks.com/"/>
-  <updated>2013-08-28T09:15:56-07:00</updated>
+  <updated>2013-08-28T11:22:08-07:00</updated>
   <id>http://www.10hacks.com/</id>
   <author>
     <name><![CDATA[Joe Johnston]]></name>
@@ -69,9 +69,9 @@
   
   <entry>
     <title type="html"><![CDATA[Chaining Bundle Gemfiles]]></title>
-    <link href="http://www.10hacks.com/rails3/ruby/2012/04/11/chaining-bundle-gemfiles/"/>
+    <link href="http://www.10hacks.com/code/2012/04/11/chaining-bundle-gemfiles/"/>
     <updated>2012-04-11T11:38:47-07:00</updated>
-    <id>http://www.10hacks.com/rails3/ruby/2012/04/11/chaining-bundle-gemfiles</id>
+    <id>http://www.10hacks.com/code/2012/04/11/chaining-bundle-gemfiles</id>
     <content type="html"><![CDATA[<p>Useful little snippet to include gem files inside of each other.</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -131,9 +131,9 @@
   
   <entry>
     <title type="html"><![CDATA[RSpec + Capybara + Devise Login Tests]]></title>
-    <link href="http://www.10hacks.com/ruby/testing/2012/03/15/rspec-capybara-devise-login-tests/"/>
+    <link href="http://www.10hacks.com/rspec-capybara-devise-login-tests"/>
     <updated>2012-03-15T20:00:42-07:00</updated>
-    <id>http://www.10hacks.com/ruby/testing/2012/03/15/rspec-capybara-devise-login-tests</id>
+    <id>http://www.10hacks.com/rspec-capybara-devise-login-tests</id>
     <content type="html"><![CDATA[<p>For the new version of <a href="http://connect.me">Connect.Me</a> (in development), the interface is mostly driven through AJAX interactions. In the past, I’ve used Cucumber + Capybara to test JavaScript, but I really don’t like the Cucumber syntax and slow tests. I recently switched to RSpec request specs with Capybara. The only problem is testing testing JS on pages that require a login.</p>
 
 <p>Since Capybara runs in a different thread from the tests, session data is not available. So the Devise sign_in method does nothing for Capybara.</p>
@@ -141,98 +141,136 @@
 <p>There are basically two solutions to get Capybara to authenticate:</p>
 
 <ol>
-  <li>
-    <p>Use Capybara to login through a Devise login form by posting the user’s email and password</p>
-  </li>
-  <li>
-    <p>Set session data in Capybara to simulate a login (basically do the same thing that Devise’s sign_in does)</p>
-  </li>
+  <li>Use Capybara to login through a Devise login form by posting the user’s email and password</li>
+  <li>Set session data in Capybara to simulate a login (basically do the same thing that Devise’s sign_in does)</li>
 </ol>
 
 <p>For speed of tests reasons, I’d prefer to just set session data. After Googling around, I found <a href="http://stackoverflow.com/questions/9144865/rspec-capybara-request-specs-cant-get-devise-to-post-new-user-session">this solution</a> and modified it a bit.</p>
 
-<p>[code language=”ruby”]
-# spec/support/request_helpers.rb
-require ‘spec_helper’
-include Warden::Test::Helpers</p>
-
-<p>module RequestHelpers
-  def create_logged_in_user
-    user = Factory(:user)
-    login(user)
-    user
-  end</p>
-
-<p>def login(user)  <br />
-    login_as user, scope: :user
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># spec/support/request_helpers.rb</span>
+</span><span class="line"><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+</span><span class="line"><span class="kp">include</span> <span class="ss">Warden</span><span class="p">:</span><span class="ss">:Test</span><span class="o">::</span><span class="no">Helpers</span>
+</span><span class="line">
+</span><span class="line"><span class="k">module</span> <span class="nn">RequestHelpers</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">create_logged_in_user</span>
+</span><span class="line">    <span class="n">user</span> <span class="o">=</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">user</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">login_as</span> <span class="n">user</span><span class="p">,</span> <span class="ss">scope</span><span class="p">:</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Now you just need to call create_logged_in_user and you’re good to go.</p>
 
-<p>[code language=”ruby”]
-describe “user settings” do
-  let(:authed_user) { create_logged_in_user }</p>
-
-<p>it “should allow access” do
-    visit user_settings_path(authed_user)
-    # should be good!
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">describe</span> <span class="s2">&quot;user settings&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">let</span><span class="p">(</span><span class="ss">:authed_user</span><span class="p">)</span> <span class="p">{</span> <span class="n">create_logged_in_user</span> <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="n">it</span> <span class="s2">&quot;should allow access&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="n">visit</span> <span class="n">user_settings_path</span><span class="p">(</span><span class="n">authed_user</span><span class="p">)</span>
+</span><span class="line">    <span class="c1"># should be good!</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Resque Admin in Rails 3 Routes with CanCan]]></title>
-    <link href="http://www.10hacks.com/hacks/rails3/2011/07/08/resque-admin-in-rails-3-routes-with-cancan/"/>
+    <link href="http://www.10hacks.com/resque-admin-in-rails-3-routes-with-cancan"/>
     <updated>2011-07-08T12:01:49-07:00</updated>
-    <id>http://www.10hacks.com/hacks/rails3/2011/07/08/resque-admin-in-rails-3-routes-with-cancan</id>
+    <id>http://www.10hacks.com/resque-admin-in-rails-3-routes-with-cancan</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/defunkt/resque">Resque</a> is a background jobs queue that’s highly recommended over Delayed::Job if you are processing a lot of jobs. It uses <a href="http://redis.io/">Redis</a> as the backend which doesn’t suffer from db related bottlenecks under high load.</p>
 
 <p>Resque comes with a built-in admin interface that’s Rack compatible. In Rails 3, you can mount the Resque server admin directly in your routes.rb file.</p>
 
-<p>[code language=”ruby”]
-mount Resque::Server, at: ‘/resque’
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">mount</span> <span class="ss">Resque</span><span class="p">:</span><span class="ss">:Server</span><span class="p">,</span> <span class="ss">at</span><span class="p">:</span> <span class="s1">&#39;/resque&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>But you’ll definitely want to add password protection. Ryan Bates in his <a href="http://railscasts.com/episodes/271-resque">Resque RailsCast</a> covers the basics of using Devise and HTTP auth. However, you’ll probably want to hook into your existing ACL system. In my case, I’m using <a href="https://github.com/ryanb/cancan">CanCan</a>.</p>
 
 <p>CanCan is not available in the routes.rb by default, but it’s pretty easy to manually load the user and check permissions.</p>
 
-<p>[code language=”ruby”]
-# routes.rb
-namespace :admin do
-  constraints CanAccessResque do
-    mount Resque::Server, at: ‘resque’
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># routes.rb</span>
+</span><span class="line"><span class="n">namespace</span> <span class="ss">:admin</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">constraints</span> <span class="no">CanAccessResque</span> <span class="k">do</span>
+</span><span class="line">    <span class="n">mount</span> <span class="ss">Resque</span><span class="p">:</span><span class="ss">:Server</span><span class="p">,</span> <span class="ss">at</span><span class="p">:</span> <span class="s1">&#39;resque&#39;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>[code language=”ruby”]
-# config/initializers/admin.rb
-class CanAccessResque
-  def self.matches?(request)
-    current_user = request.env[‘warden’].user
-    return false if current_user.blank?
-    Ability.new(current_user).can? :manage, Resque
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># config/initializers/admin.rb</span>
+</span><span class="line"><span class="k">class</span> <span class="nc">CanAccessResque</span>
+</span><span class="line">  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">matches?</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</span><span class="line">    <span class="n">current_user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">env</span><span class="o">[</span><span class="s1">&#39;warden&#39;</span><span class="o">].</span><span class="n">user</span>
+</span><span class="line">    <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class="line">    <span class="no">Ability</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span><span class="o">.</span><span class="n">can?</span> <span class="ss">:manage</span><span class="p">,</span> <span class="no">Resque</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>[code language=”ruby”]
-# ability.rb
-class Ability
-  include CanCan::Ability
-  def initialize(user)
-    user ||= User.new
-    if user.is_admin?
-      can :manage, Resque
-    end
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># ability.rb</span>
+</span><span class="line"><span class="k">class</span> <span class="nc">Ability</span>
+</span><span class="line">  <span class="kp">include</span> <span class="ss">CanCan</span><span class="p">:</span><span class="ss">:Ability</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line">    <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_admin?</span>
+</span><span class="line">      <span class="n">can</span> <span class="ss">:manage</span><span class="p">,</span> <span class="no">Resque</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>You’ll need User.is_admin? method or change the logic in Ability to suit your project.</p>
 
@@ -244,16 +282,16 @@ end
   
   <entry>
     <title type="html"><![CDATA[Rescuing from Rack::Timeout to Close MongoDB Connection]]></title>
-    <link href="http://www.10hacks.com/hacks/mongodb/rails3/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/"/>
+    <link href="http://www.10hacks.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/"/>
     <updated>2011-07-07T15:56:09-07:00</updated>
-    <id>http://www.10hacks.com/hacks/mongodb/rails3/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection</id>
+    <id>http://www.10hacks.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection</id>
     <content type="html"><![CDATA[<p>I’m using Rack::Timeout on Heroku to kill requests before Heroku’s 30 second limit is reached. This helps applications play nice with cloud infrastructure but can cause some unexpected bugs with <a href="https://jira.mongodb.org/browse/RUBY-231?focusedCommentId=26045&amp;page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_26045">MongoDB connections being reused</a> by the next request.</p>
 
 <p>The errors showed up as…</p>
 
-<blockquote>
-  <p>Mongo::ConnectionFailure: Expected response 372 but got 371</p>
-</blockquote>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">Mongo::ConnectionFailure: Expected response 372 but got 371
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Mongo ruby driver &gt;=1.3 catches the reused request and raises an error, but this still means the first and next requests both returned errors. It’s much better to catch the initial timeout and close the connection.</p>
 
@@ -261,17 +299,25 @@ end
 
 <p>I <a href="http://www.google.com/search?sourceid=chrome&amp;ie=UTF-8&amp;q=rescue_from+timeout+error">googled around</a> and couldn’t find a more elegant solution, but the below snippet in ApplicationController does the trick.</p>
 
-<p>[code language=”ruby”]
-  # note: can not rescue from Timeout::Error directly because a timeout from Rack::Timeout ends up passing in Class as the exception
-  rescue_from Exception do |exception|
-    # catch Timeout::Error or message from Rack::Timeout
-    if exception.is_a?(Timeout::Error) || /execution expired/ =~ exception.message
-      # prevent subsequent requests from reusing this mongo connection
-      Mongoid.database.connection.close
-    end
-    raise
-  end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># note: can not rescue from Timeout::Error directly because a timeout from Rack::Timeout ends up passing in Class as the exception</span>
+</span><span class="line"><span class="n">rescue_from</span> <span class="no">Exception</span> <span class="k">do</span> <span class="o">|</span><span class="n">exception</span><span class="o">|</span>
+</span><span class="line">  <span class="c1"># catch Timeout::Error or message from Rack::Timeout</span>
+</span><span class="line">  <span class="k">if</span> <span class="n">exception</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="ss">Timeout</span><span class="p">:</span><span class="ss">:Error</span><span class="p">)</span> <span class="o">||</span> <span class="sr">/execution expired/</span> <span class="o">=~</span> <span class="n">exception</span><span class="o">.</span><span class="n">message</span>
+</span><span class="line">    <span class="c1"># prevent subsequent requests from reusing this mongo connection</span>
+</span><span class="line">    <span class="no">Mongoid</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">close</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">  <span class="k">raise</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>As a side note, Heroku’s new cedar stack does not have the 30 second limit if you’re streaming data – Rails 3.1 supports streaming.</p>
 ]]></content>
@@ -279,31 +325,34 @@ end
   
   <entry>
     <title type="html"><![CDATA[Validating a Single Attribute in Rails ActiveRecord]]></title>
-    <link href="http://www.10hacks.com/ruby/2011/02/17/validating-a-single-attribute-in-rails-activerecord/"/>
+    <link href="http://www.10hacks.com/code/2011/02/17/validating-a-single-attribute-in-rails-activerecord/"/>
     <updated>2011-02-17T22:14:42-08:00</updated>
-    <id>http://www.10hacks.com/ruby/2011/02/17/validating-a-single-attribute-in-rails-activerecord</id>
+    <id>http://www.10hacks.com/code/2011/02/17/validating-a-single-attribute-in-rails-activerecord</id>
     <content type="html"><![CDATA[<p>Checking a single attribute on a model for validity doesn’t seem to be possible in Rails.  Or at least I couldn’t find a quick answer googling around or looking through the ActiveRecord code.</p>
 
 <p>What I really want to do is pass a hash into valid? with the attributes I want to validate or have an attribute_valid? method. This level of granularity is often useful in AJAX heavy apps. For instance, checking for username availability and validity as the user types during username selection.</p>
 
 <p>Here’s a quick solution for a User model.</p>
 
-<p>[code language=”ruby”]
-def attribute_valid?(attr, value)
-  u = User.new(attr =&gt; value))
-  u.valid?
-  !u.errors.has_key?(:username)
-end
-[/code]</p>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">def</span> <span class="nf">attribute_valid?</span><span class="p">(</span><span class="kp">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class="line">  <span class="n">u</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="kp">attr</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">))</span>
+</span><span class="line">  <span class="n">u</span><span class="o">.</span><span class="n">valid?</span>
+</span><span class="line">  <span class="o">!</span><span class="n">u</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">has_key?</span><span class="p">(</span><span class="ss">:username</span><span class="p">)</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Rails 3's unobtrusive javascript support...]]></title>
-    <link href="http://www.10hacks.com/jquery/rails3/ruby/2011/02/09/256/"/>
+    <title type="html"><![CDATA[Rails 3's unobtrusive javascript support]]></title>
+    <link href="http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support/"/>
     <updated>2011-02-09T11:57:18-08:00</updated>
-    <id>http://www.10hacks.com/jquery/rails3/ruby/2011/02/09/256</id>
+    <id>http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support</id>
     <content type="html"><![CDATA[<p>Rails 3’s unobtrusive javascript support makes it easy to integrate <a href="http://jqueryui.com/demos/autocomplete/">jQuery UI Autocomplete</a> and any backend or custom query you want. There’s a <a href="https://github.com/crowdint/rails3-jquery-autocomplete">Rails3 jQuery Autocomplete</a> gem already available on github, but it’s not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?</p>
 
 <p>It’s easy.</p>
@@ -314,97 +363,117 @@ end
 
 <p>Here’s the general process I use to setup autocomplete for Rails 3:</p>
 
-<p><strong>In the controller</strong></p>
+<h2 id="controller">Controller</h2>
 
 <ol>
-  <li>create a method to handle the autocomplete search request</li>
+  <li>Create a method to handle the autocomplete search request</li>
 </ol>
 
-<p><strong>In routes</strong></p>
+<h2 id="routes">Routes</h2>
 
 <ol>
-  <li>add a route for the method you created in the controller – this is your autocomplete search endpoint</li>
+  <li>Add a route for the method you created in the controller – this is your autocomplete search endpoint</li>
 </ol>
 
-<p><strong>In the view</strong></p>
+<h2 id="view">View</h2>
 
 <ol>
-  <li>
-    <p>add a text field with a unique class name like ‘autocomplete’</p>
-  </li>
-  <li>
-    <p>add a unique data attribute like ‘data-endpoint’ to the text field and set it to the path of your autocomplete endpoint</p>
-  </li>
+  <li>Add a text field with a unique class name like ‘autocomplete’</li>
+  <li>Add a unique data attribute like ‘data-endpoint’ to the text field and set it to the path of your autocomplete endpoint</li>
 </ol>
 
-<p><strong>In application.js</strong></p>
+<h2 id="applicationjs">Application.js</h2>
 
 <ol>
-  <li>
-    <p>enable jQuery Autocomplete on any DOM element with the class ‘autocomplete’ (or whatever you used in the view)</p>
-  </li>
-  <li>
-    <p>use the value of data-endpoint as the source URL for the jQuery Autocomplete widget</p>
-  </li>
+  <li>Enable jQuery Autocomplete on any DOM element with the class ‘autocomplete’ (or whatever you used in the view)</li>
+  <li>Use the value of data-endpoint as the source URL for the jQuery Autocomplete widget</li>
 </ol>
 
 <p>In the following example, I’m tagging a user and using autocomplete to help suggest tags.</p>
 
-<p><strong>controllers/users/tags_controller.rb</strong></p>
+<h3 id="controllersuserstagscontrollerrb">controllers/users/tags_controller.rb</h3>
 
-<p>[code language=”ruby”]
-class Users::TagsController &lt; ApplicationController
-  respond_to :json
-  skip_before_filter :authenticate_user!, :only =&gt; [:index]</p>
-
-<p>def index
-    @user = User.find(params[:user_id])
-    @tags = Tag.where([“LOWER(name) LIKE ?”, “#{params[:term].downcase}%”]).select(‘name’).limit(15).map {|tag| tag.name}
-    respond_with(@tags)
-  end</p>
-
-<p>def create
-    @user = User.find(params[:user_id])
-    tag = @user.tags.create!(params[:tag])
-    flash[:success] = ‘Tag added’
-    redirect_to user_path(@user)
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Users</span><span class="o">::</span><span class="no">TagsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class="line">  <span class="n">respond_to</span> <span class="ss">:json</span>
+</span><span class="line">  <span class="n">skip_before_filter</span> <span class="ss">:authenticate_user!</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:index</span><span class="o">]</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">index</span>
+</span><span class="line">    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="vi">@tags</span> <span class="o">=</span> <span class="no">Tag</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">[</span><span class="s2">&quot;LOWER(name) LIKE ?&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:term</span><span class="o">].</span><span class="n">downcase</span><span class="si">}</span><span class="s2">%&quot;</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">tag</span><span class="o">|</span> <span class="n">tag</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+</span><span class="line">    <span class="n">respond_with</span><span class="p">(</span><span class="vi">@tags</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">create</span>
+</span><span class="line">    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="n">tag</span> <span class="o">=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:tag</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="n">flash</span><span class="o">[</span><span class="ss">:success</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;Tag added&#39;</span>
+</span><span class="line">    <span class="n">redirect_to</span> <span class="n">user_path</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>The tags controller has two methods. One for creating a tag, and one (index) for handling tag autocomplete searches.</p>
 
 <p>The index method expects user_id and term params. In this example, the user_id is being handled in the path /users/:user_id/tags and jQuery Autocomplete sends in the term param.</p>
 
-<p><strong>routes.rb</strong></p>
+<h3 id="routesrb">routes.rb</h3>
 
-<p>[code lang=”ruby”]
-resources :users do
-  resources :tags, :only =&gt; [:index, :create], :controller =&gt; ‘users/tags’
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">resources</span> <span class="ss">:users</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">resources</span> <span class="ss">:tags</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:index</span><span class="p">,</span> <span class="ss">:create</span><span class="o">]</span><span class="p">,</span> <span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="s1">&#39;users/tags&#39;</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>This creates a /users/:user_id/tags route and a users_tags_path helper to use in your views.</p>
 
-<p><strong>views/users/show.html.haml</strong></p>
+<h3 id="viewsusersshowhtmlhaml">views/users/show.html.haml</h3>
 
-<p>[code lang=”ruby”]
-= form_for [@user, @user.tags.build] do |f|
-  .field
-    = f.label :name, ‘Tag’
-    = f.text_field :name, :class =&gt; ‘autocomplete’, :’data-endpoint’ =&gt; user_tags_path(@user)
-  = f.submit ‘Add Tag’
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="o">=</span> <span class="n">form_for</span> <span class="o">[</span><span class="vi">@user</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">build</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class="line">  <span class="o">.</span><span class="n">field</span>
+</span><span class="line">    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:name</span><span class="p">,</span> <span class="s1">&#39;Tag&#39;</span>
+</span><span class="line">    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;autocomplete&#39;</span><span class="p">,</span> <span class="ss">:&#39;data-endpoint&#39;</span> <span class="o">=&gt;</span> <span class="n">user_tags_path</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span>
+</span><span class="line">  <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s1">&#39;Add Tag&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p><strong>javascripts/application.js</strong>
-[code lang=”ruby”]
-jQuery(function($){
-  $(‘.autocomplete’).each(function(){
-    var self = $(this);
-    self.autocomplete({source: self.attr(‘data-endpoint’)});
-  });
-});
-[/code]</p>
+<h3 id="javascriptsapplicationjs">javascripts/application.js</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">jQuery</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">){</span>
+</span><span class="line">  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.autocomplete&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class="line">    <span class="nx">self</span><span class="p">.</span><span class="nx">autocomplete</span><span class="p">({</span><span class="nx">source</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-endpoint&#39;</span><span class="p">)});</span>
+</span><span class="line">  <span class="p">});</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>That’s all there is to it.  You can easily modify your controller and model code to use MongoDB, Solr, Redis, or whatever you want.</p>
 
@@ -414,9 +483,9 @@ jQuery(function($){
   
   <entry>
     <title type="html"><![CDATA[Git Hacks for OSX]]></title>
-    <link href="http://www.10hacks.com/misc/2011/02/06/git-hacks-for-osx/"/>
+    <link href="http://www.10hacks.com/git-hacks-for-osx"/>
     <updated>2011-02-06T19:20:33-08:00</updated>
-    <id>http://www.10hacks.com/misc/2011/02/06/git-hacks-for-osx</id>
+    <id>http://www.10hacks.com/git-hacks-for-osx</id>
     <content type="html"><![CDATA[<p>Use these git config settings and tools to make your life easier.</p>
 
 <p><a href="http://www.codethatmatters.com/2010/01/git-autocomplete-in-mac-os-x/">Git tab autocomplete for OSX</a> - enables tab autocomplete for most git commands</p>
@@ -425,14 +494,19 @@ jQuery(function($){
 
 <p>Add the below code to your ~/.gitconfig file to enable color and popular short codes.</p>
 
-<p>[code language=”bash”]
-[color]
-	ui = auto
-[alias]
-	co = checkout
-	br = branch
-	st = status
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="o">[</span>color<span class="o">]</span>
+</span><span class="line">  <span class="nv">ui</span> <span class="o">=</span> auto
+</span><span class="line"><span class="o">[</span><span class="nb">alias</span><span class="o">]</span>
+</span><span class="line">  <span class="nv">co</span> <span class="o">=</span> checkout
+</span><span class="line">  <span class="nv">br</span> <span class="o">=</span> branch
+</span><span class="line">  <span class="nv">st</span> <span class="o">=</span> status
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><a href="http://gitx.frim.nl/">GitX</a> - git graphical viewer - better than gitk</p>
 
@@ -444,47 +518,66 @@ jQuery(function($){
   
   <entry>
     <title type="html"><![CDATA[Rails 3 + STI: Making Associations Work Properly]]></title>
-    <link href="http://www.10hacks.com/hacks/rails3/2011/01/17/rails-3-sti/"/>
+    <link href="http://www.10hacks.com/rails-3-sti"/>
     <updated>2011-01-17T23:13:30-08:00</updated>
-    <id>http://www.10hacks.com/hacks/rails3/2011/01/17/rails-3-sti</id>
+    <id>http://www.10hacks.com/rails-3-sti</id>
     <content type="html"><![CDATA[<p>I really like the idea of Single Table Inheritance (STI) for all sorts of applications to keep code DRY and make it easier to organize object behavior. The only problem is that Rails 3.0.3 doesn’t fully support STI with association collections.</p>
 
-<p>Let’s say you have a User model that has many badges. The badges will be stored in the badges table but you want to implement each badge in a subclass. All you have to do is make sure there’s a <strong>:type</strong> field of type string in your badges table and Rails STI support should take care of the rest (well, in theory).</p>
+<p>Let’s say you have a User model that has many badges. The badges will be stored in the badges table but you want to implement each badge in a subclass. All you have to do is make sure there’s a <code>:type</code> field of type string in your badges table and Rails STI support should take care of the rest (well, in theory).</p>
 
-<p>[code language=”ruby”]
-class User &lt; ActiveRecord::Base<br />
-  has_many :badges
-end</p>
-
-<p>class Badge &lt; ActiveRecord::Base<br />
-  belongs_to :user
-  def award
-    raise “Must implement in subclass”
-  end
-end</p>
-
-<p>class Badges::Superhero &lt; Badge
-  def award
-    user.status = ‘superhero’
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">has_many</span> <span class="ss">:badges</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">Badge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">award</span>
+</span><span class="line">    <span class="k">raise</span> <span class="s2">&quot;Must implement in subclass&quot;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">Badges</span><span class="o">::</span><span class="no">Superhero</span> <span class="o">&lt;</span> <span class="no">Badge</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">award</span>
+</span><span class="line">    <span class="n">user</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;superhero&#39;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Now you can do cool things like create a new Superhero badge and add it to a user’s badge collection.</p>
 
-<p>[code language=”ruby”]
-user = User.first
-badge = Badges::Superhero.new
-user.badges « badge
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">first</span>
+</span><span class="line"><span class="n">badge</span> <span class="o">=</span> <span class="ss">Badges</span><span class="p">:</span><span class="ss">:Superhero</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line"><span class="n">user</span><span class="o">.</span><span class="n">badges</span> <span class="o">&lt;&lt;</span> <span class="n">badge</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>But for some weird reason, you can’t use the best practice of building a badge directly from the user’s badges collection.</p>
 
-<p>[code language=”ruby”]
-user = User.first
-badge = user.badges.build(:type =&gt; Badges::Superhero)
-# badge.class == Badge
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">first</span>
+</span><span class="line"><span class="n">badge</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">badges</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="ss">:type</span> <span class="o">=&gt;</span> <span class="ss">Badges</span><span class="p">:</span><span class="ss">:Superhero</span><span class="p">)</span>
+</span><span class="line"><span class="c1"># badge.class == Badge</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>This is particularly annoying if you’re trying to create new badges from a form where :type is a drop down menu.</p>
 
@@ -494,52 +587,75 @@ badge = user.badges.build(:type =&gt; Badges::Superhero)
 
 <p>You have two options to make STI work as expected.</p>
 
-<p>**Option 1: Override the Badge.new method to handle :type
-**</p>
+<h3 id="option-1-override-the-badgenew-method-to-handle-type">Option 1: Override the Badge.new method to handle :type</h3>
 
-<p>[code language=”ruby”]
-class Badge &lt; ActiveRecord::Base<br />
-  belongs_to :user
-  self.abstract_class = true</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Badge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="nb">self</span><span class="o">.</span><span class="n">abstract_class</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">new_with_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">      <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">is_a?</span> <span class="no">Hash</span> <span class="ow">and</span> <span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">symbolize_keys</span><span class="o">[</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">inheritance_column</span><span class="o">.</span><span class="n">to_sym</span><span class="o">]</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">klass</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">constantize</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">self</span>
+</span><span class="line">        <span class="k">raise</span> <span class="s2">&quot;Must be a subclass of Badge&quot;</span> <span class="k">unless</span> <span class="n">klass</span> <span class="o">&lt;</span> <span class="nb">self</span>  <span class="c1"># klass should be a descendant of self</span>
+</span><span class="line">        <span class="k">return</span> <span class="n">klass</span><span class="o">.</span><span class="n">new_without_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">raise</span> <span class="s2">&quot;Badge must be created through a subclass.&quot;</span>
+</span><span class="line">      <span class="n">new_without_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">    <span class="n">alias_method_chain</span> <span class="ss">:new</span><span class="p">,</span> <span class="ss">:cast</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>class « self
-    def new_with_cast(<em>a, &amp;b)
-      if (h = a.first).is_a? Hash and (type = h.symbolize_keys[self.class.inheritance_column.to_sym]) and (klass = type.to_s.constantize) != self
-        raise “Must be a subclass of Badge” unless klass &lt; self  # klass should be a descendant of self
-        return klass.new_without_cast(</em>a, &amp;b)
-      end
-      raise “Badge must be created through a subclass.”
-      new_without_cast(*a, &amp;b)
-    end
-    alias_method_chain :new, :cast
-  end
-end
-[/code]</p>
+<h3 id="option-2-patch-associationreflection-to-behave-more-intelligently">Option 2: Patch AssociationReflection to behave more intelligently</h3>
 
-<p>**Option 2: Patch AssociationReflection to behave more intelligently
-**</p>
-
-<p>[code language=”ruby”]
-class ActiveRecord::Reflection::AssociationReflection
-  def build_association(<em>opts)
-    col = klass.inheritance_column.to_sym
-    if (h = opts.first).is_a? Hash and (type = h.symbolize_keys[col]) and type.class == Class
-      opts.first[col].to_s.constantize.new(</em>opts)
-    elsif klass.abstract_class?
-      raise “#{klass.to_s} is an abstract class and can not be directly instantiated”
-    else
-      klass.new(*opts)
-    end
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="ss">Reflection</span><span class="p">:</span><span class="ss">:AssociationReflection</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">build_association</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="n">col</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">inheritance_column</span><span class="o">.</span><span class="n">to_sym</span>
+</span><span class="line">    <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">is_a?</span> <span class="no">Hash</span> <span class="ow">and</span> <span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">symbolize_keys</span><span class="o">[</span><span class="n">col</span><span class="o">]</span><span class="p">)</span> <span class="ow">and</span> <span class="n">type</span><span class="o">.</span><span class="n">class</span> <span class="o">==</span> <span class="no">Class</span>
+</span><span class="line">      <span class="n">opts</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="n">col</span><span class="o">].</span><span class="n">to_s</span><span class="o">.</span><span class="n">constantize</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="k">elsif</span> <span class="n">klass</span><span class="o">.</span><span class="n">abstract_class?</span>
+</span><span class="line">      <span class="k">raise</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">klass</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2"> is an abstract class and can not be directly instantiated&quot;</span>
+</span><span class="line">    <span class="k">else</span>
+</span><span class="line">      <span class="n">klass</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>My preference is Option 2 even though it might break in future releases of Rails. I’d rather have Rails behaving as expected than pepper my models code with repetitive hacks.</p>
 
 <p>The above solutions were inspired from a couple of different <a href="http://coderrr.wordpress.com/2008/04/22/building-the-right-class-with-sti-in-rails/">posts</a> and <a href="http://stackoverflow.com/questions/2553931/can-nested-attributes-be-used-in-combination-with-inheritance">sources</a>.</p>
 
 <p>I submitted Option 2 as a <a href="https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/6306-collection-associations-build-method-not-supported-for-sti">patch for Rails</a>.</p>
-
 ]]></content>
   </entry>
   

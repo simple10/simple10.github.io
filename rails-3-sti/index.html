@@ -1,0 +1,450 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Rails 3 + STI: Making Associations Work Properly - A Hackerpress Blog</title>
+  <meta name="author" content="Joe Johnston">
+
+  
+  <meta name="description" content="I really like the idea of Single Table Inheritance (STI) for all sorts of applications to keep code DRY and make it easier to organize object &hellip;">
+  
+  <meta name="apple-mobile-web-app-title" content="A Hackerpress Blog">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="/images/logos/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
+
+  <!-- Prefetch DNS for external assets -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  
+  <link rel="canonical" href="http://www.10hacks.com/rails-3-sti">
+  <link href="/atom.xml" rel="alternate" title="A Hackerpress Blog" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/assets/app-9fd546d940e6daf7ad6676b35b49fa35.css">
+
+  
+
+</head>
+
+<body   >
+  <!-- <header role="banner"></header> -->
+  <nav role="navigation" class="container">
+  <!--
+  
+  <form action="http://google.com/search" method="get">
+    <fieldset role="search">
+      <input type="hidden" name="q" value="site:www.10hacks.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    </fieldset>
+  </form>
+   -->
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/" title="A Hackerpress Blog">A Hackerpress Blog</a>
+      <ul class="nav">
+        
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+        
+      </ul>
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="#"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
+        <a class="btn btn-primary" href="#"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <section class="page-header">
+  <div class="container">
+    
+      Rails 3 + STI: Making Associations Work Properly
+    
+    
+  </div>
+</section>
+
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        <article role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rails 3 + STI: Making Associations Work Properly</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-17T23:13:30-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I really like the idea of Single Table Inheritance (STI) for all sorts of applications to keep code DRY and make it easier to organize object behavior. The only problem is that Rails 3.0.3 doesn’t fully support STI with association collections.</p>
+
+<p>Let’s say you have a User model that has many badges. The badges will be stored in the badges table but you want to implement each badge in a subclass. All you have to do is make sure there’s a <code>:type</code> field of type string in your badges table and Rails STI support should take care of the rest (well, in theory).</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">has_many</span> <span class="ss">:badges</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">Badge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">award</span>
+</span><span class="line">    <span class="k">raise</span> <span class="s2">&quot;Must implement in subclass&quot;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">Badges</span><span class="o">::</span><span class="no">Superhero</span> <span class="o">&lt;</span> <span class="no">Badge</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">award</span>
+</span><span class="line">    <span class="n">user</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;superhero&#39;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now you can do cool things like create a new Superhero badge and add it to a user’s badge collection.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">first</span>
+</span><span class="line"><span class="n">badge</span> <span class="o">=</span> <span class="ss">Badges</span><span class="p">:</span><span class="ss">:Superhero</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line"><span class="n">user</span><span class="o">.</span><span class="n">badges</span> <span class="o">&lt;&lt;</span> <span class="n">badge</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>But for some weird reason, you can’t use the best practice of building a badge directly from the user’s badges collection.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">first</span>
+</span><span class="line"><span class="n">badge</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">badges</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="ss">:type</span> <span class="o">=&gt;</span> <span class="ss">Badges</span><span class="p">:</span><span class="ss">:Superhero</span><span class="p">)</span>
+</span><span class="line"><span class="c1"># badge.class == Badge</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This is particularly annoying if you’re trying to create new badges from a form where :type is a drop down menu.</p>
+
+<p>The reason the collection build method doesn’t work as expected is because :type is a protected field and ActiveRecord::AssociationReflection doesn’t fully support STI (at least in Rails 3.0.3).</p>
+
+<p>Not to fret, hacks to the rescue!</p>
+
+<p>You have two options to make STI work as expected.</p>
+
+<h3 id="option-1-override-the-badgenew-method-to-handle-type">Option 1: Override the Badge.new method to handle :type</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Badge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="nb">self</span><span class="o">.</span><span class="n">abstract_class</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">new_with_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">      <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">is_a?</span> <span class="no">Hash</span> <span class="ow">and</span> <span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">symbolize_keys</span><span class="o">[</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">inheritance_column</span><span class="o">.</span><span class="n">to_sym</span><span class="o">]</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">klass</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">constantize</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">self</span>
+</span><span class="line">        <span class="k">raise</span> <span class="s2">&quot;Must be a subclass of Badge&quot;</span> <span class="k">unless</span> <span class="n">klass</span> <span class="o">&lt;</span> <span class="nb">self</span>  <span class="c1"># klass should be a descendant of self</span>
+</span><span class="line">        <span class="k">return</span> <span class="n">klass</span><span class="o">.</span><span class="n">new_without_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">raise</span> <span class="s2">&quot;Badge must be created through a subclass.&quot;</span>
+</span><span class="line">      <span class="n">new_without_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">    <span class="n">alias_method_chain</span> <span class="ss">:new</span><span class="p">,</span> <span class="ss">:cast</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="option-2-patch-associationreflection-to-behave-more-intelligently">Option 2: Patch AssociationReflection to behave more intelligently</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="ss">Reflection</span><span class="p">:</span><span class="ss">:AssociationReflection</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">build_association</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="n">col</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">inheritance_column</span><span class="o">.</span><span class="n">to_sym</span>
+</span><span class="line">    <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">is_a?</span> <span class="no">Hash</span> <span class="ow">and</span> <span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">symbolize_keys</span><span class="o">[</span><span class="n">col</span><span class="o">]</span><span class="p">)</span> <span class="ow">and</span> <span class="n">type</span><span class="o">.</span><span class="n">class</span> <span class="o">==</span> <span class="no">Class</span>
+</span><span class="line">      <span class="n">opts</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="n">col</span><span class="o">].</span><span class="n">to_s</span><span class="o">.</span><span class="n">constantize</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="k">elsif</span> <span class="n">klass</span><span class="o">.</span><span class="n">abstract_class?</span>
+</span><span class="line">      <span class="k">raise</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">klass</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2"> is an abstract class and can not be directly instantiated&quot;</span>
+</span><span class="line">    <span class="k">else</span>
+</span><span class="line">      <span class="n">klass</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>My preference is Option 2 even though it might break in future releases of Rails. I’d rather have Rails behaving as expected than pepper my models code with repetitive hacks.</p>
+
+<p>The above solutions were inspired from a couple of different <a href="http://coderrr.wordpress.com/2008/04/22/building-the-right-class-with-sti-in-rails/">posts</a> and <a href="http://stackoverflow.com/questions/2553931/can-nested-attributes-be-used-in-combination-with-inheritance">sources</a>.</p>
+
+<p>I submitted Option 2 as a <a href="https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/6306-collection-associations-build-method-not-supported-for-sti">patch for Rails</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-17T23:13:30-08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/code/'>code</a>
+  
+</span>
+
+
+    </p>
+
+    
+      <div class="sharing">
+  
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/rails-3-sti" data-via="" data-counturl="http://www.10hacks.com/rails-3-sti" >Tweet</a>
+  
+  
+    <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-width="90" data-layout="button_count" data-send="false" data-show-faces="false"></div>
+  
+</div>
+
+    
+
+    <p class="meta">
+      
+        <a href="/rails3/ruby/2011/01/13/devise-omniauth-facebook-api-hacks/" title="Previous Post: Devise + OmniAuth + Facebook API Hacks">&laquo; Devise + OmniAuth + Facebook API Hacks</a>
+      
+      
+        <a href="/git-hacks-for-osx" title="Next Post: Git Hacks for OSX">Git Hacks for OSX &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+<section>
+  
+
+
+  
+<div id="disqus_thread" aria-live="polite"></div>
+<script type="text/javascript">
+      var disqus_shortname = '10hacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.10hacks.com/rails-3-sti';
+        var disqus_url = 'http://www.10hacks.com/rails-3-sti';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</section>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js#appId=&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="contactModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
+
+  <footer role="contentinfo">
+</footer>
+
+  <script src="/assets/app-0c2275567ca821cfac79954c41ff6570.js"></script>
+</body>
+</html>

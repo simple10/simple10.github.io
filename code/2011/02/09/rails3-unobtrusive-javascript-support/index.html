@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Rails 3's unobtrusive javascript support - A Hackerpress Blog</title>
+  <meta name="author" content="Joe Johnston">
+
+  
+  <meta name="description" content="Rails 3’s unobtrusive javascript support makes it easy to integrate jQuery UI Autocomplete and any backend or custom query you want. There’s a Rails3 &hellip;">
+  
+  <meta name="apple-mobile-web-app-title" content="A Hackerpress Blog">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="/images/logos/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
+
+  <!-- Prefetch DNS for external assets -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  
+  <link rel="canonical" href="http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support">
+  <link href="/atom.xml" rel="alternate" title="A Hackerpress Blog" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/assets/app-9fd546d940e6daf7ad6676b35b49fa35.css">
+
+  
+
+</head>
+
+<body   >
+  <!-- <header role="banner"></header> -->
+  <nav role="navigation" class="container">
+  <!--
+  
+  <form action="http://google.com/search" method="get">
+    <fieldset role="search">
+      <input type="hidden" name="q" value="site:www.10hacks.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    </fieldset>
+  </form>
+   -->
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/" title="A Hackerpress Blog">A Hackerpress Blog</a>
+      <ul class="nav">
+        
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+        
+      </ul>
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="#"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
+        <a class="btn btn-primary" href="#"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <section class="page-header">
+  <div class="container">
+    
+      Rails 3's unobtrusive javascript support
+    
+    
+  </div>
+</section>
+
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        <article role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rails 3's Unobtrusive Javascript Support</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-09T11:57:18-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Rails 3’s unobtrusive javascript support makes it easy to integrate <a href="http://jqueryui.com/demos/autocomplete/">jQuery UI Autocomplete</a> and any backend or custom query you want. There’s a <a href="https://github.com/crowdint/rails3-jquery-autocomplete">Rails3 jQuery Autocomplete</a> gem already available on github, but it’s not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?</p>
+
+<p>It’s easy.</p>
+
+<p>First, make sure your rails app is setup with jQuery support.</p>
+
+<p>Next, download <a href="http://jqueryui.com/download">jQuery UI Autocomplete</a>, copy the appropriate files into your javascripts and stylesheets directories, and make sure the JS and CSS files are loading properly in your app.</p>
+
+<p>Here’s the general process I use to setup autocomplete for Rails 3:</p>
+
+<h2 id="controller">Controller</h2>
+
+<ol>
+  <li>Create a method to handle the autocomplete search request</li>
+</ol>
+
+<h2 id="routes">Routes</h2>
+
+<ol>
+  <li>Add a route for the method you created in the controller – this is your autocomplete search endpoint</li>
+</ol>
+
+<h2 id="view">View</h2>
+
+<ol>
+  <li>Add a text field with a unique class name like ‘autocomplete’</li>
+  <li>Add a unique data attribute like ‘data-endpoint’ to the text field and set it to the path of your autocomplete endpoint</li>
+</ol>
+
+<h2 id="applicationjs">Application.js</h2>
+
+<ol>
+  <li>Enable jQuery Autocomplete on any DOM element with the class ‘autocomplete’ (or whatever you used in the view)</li>
+  <li>Use the value of data-endpoint as the source URL for the jQuery Autocomplete widget</li>
+</ol>
+
+<p>In the following example, I’m tagging a user and using autocomplete to help suggest tags.</p>
+
+<h3 id="controllersuserstagscontrollerrb">controllers/users/tags_controller.rb</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Users</span><span class="o">::</span><span class="no">TagsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class="line">  <span class="n">respond_to</span> <span class="ss">:json</span>
+</span><span class="line">  <span class="n">skip_before_filter</span> <span class="ss">:authenticate_user!</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:index</span><span class="o">]</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">index</span>
+</span><span class="line">    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="vi">@tags</span> <span class="o">=</span> <span class="no">Tag</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">[</span><span class="s2">&quot;LOWER(name) LIKE ?&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:term</span><span class="o">].</span><span class="n">downcase</span><span class="si">}</span><span class="s2">%&quot;</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">tag</span><span class="o">|</span> <span class="n">tag</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+</span><span class="line">    <span class="n">respond_with</span><span class="p">(</span><span class="vi">@tags</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">create</span>
+</span><span class="line">    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="n">tag</span> <span class="o">=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:tag</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="n">flash</span><span class="o">[</span><span class="ss">:success</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;Tag added&#39;</span>
+</span><span class="line">    <span class="n">redirect_to</span> <span class="n">user_path</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>The tags controller has two methods. One for creating a tag, and one (index) for handling tag autocomplete searches.</p>
+
+<p>The index method expects user_id and term params. In this example, the user_id is being handled in the path /users/:user_id/tags and jQuery Autocomplete sends in the term param.</p>
+
+<h3 id="routesrb">routes.rb</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">resources</span> <span class="ss">:users</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">resources</span> <span class="ss">:tags</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:index</span><span class="p">,</span> <span class="ss">:create</span><span class="o">]</span><span class="p">,</span> <span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="s1">&#39;users/tags&#39;</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This creates a /users/:user_id/tags route and a users_tags_path helper to use in your views.</p>
+
+<h3 id="viewsusersshowhtmlhaml">views/users/show.html.haml</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="o">=</span> <span class="n">form_for</span> <span class="o">[</span><span class="vi">@user</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">build</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class="line">  <span class="o">.</span><span class="n">field</span>
+</span><span class="line">    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:name</span><span class="p">,</span> <span class="s1">&#39;Tag&#39;</span>
+</span><span class="line">    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;autocomplete&#39;</span><span class="p">,</span> <span class="ss">:&#39;data-endpoint&#39;</span> <span class="o">=&gt;</span> <span class="n">user_tags_path</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span>
+</span><span class="line">  <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s1">&#39;Add Tag&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="javascriptsapplicationjs">javascripts/application.js</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">jQuery</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">){</span>
+</span><span class="line">  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.autocomplete&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class="line">    <span class="nx">self</span><span class="p">.</span><span class="nx">autocomplete</span><span class="p">({</span><span class="nx">source</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-endpoint&#39;</span><span class="p">)});</span>
+</span><span class="line">  <span class="p">});</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>That’s all there is to it.  You can easily modify your controller and model code to use MongoDB, Solr, Redis, or whatever you want.</p>
+
+<p>Happy coding.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-09T11:57:18-08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/code/'>code</a>
+  
+</span>
+
+
+    </p>
+
+    
+      <div class="sharing">
+  
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support/" data-via="" data-counturl="http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support/" >Tweet</a>
+  
+  
+    <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-width="90" data-layout="button_count" data-send="false" data-show-faces="false"></div>
+  
+</div>
+
+    
+
+    <p class="meta">
+      
+        <a href="/git-hacks-for-osx" title="Previous Post: Git Hacks for OSX">&laquo; Git Hacks for OSX</a>
+      
+      
+        <a href="/code/2011/02/17/validating-a-single-attribute-in-rails-activerecord/" title="Next Post: Validating a Single Attribute in Rails ActiveRecord">Validating a Single Attribute in Rails ActiveRecord &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+<section>
+  
+
+
+  
+<div id="disqus_thread" aria-live="polite"></div>
+<script type="text/javascript">
+      var disqus_shortname = '10hacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support/';
+        var disqus_url = 'http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</section>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js#appId=&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="contactModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
+
+  <footer role="contentinfo">
+</footer>
+
+  <script src="/assets/app-0c2275567ca821cfac79954c41ff6570.js"></script>
+</body>
+</html>

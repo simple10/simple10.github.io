@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>RSpec + Capybara + Devise Login Tests - A Hackerpress Blog</title>
+  <meta name="author" content="Joe Johnston">
+
+  
+  <meta name="description" content="For the new version of Connect.Me (in development), the interface is mostly driven through AJAX interactions. In the past, I’ve used Cucumber + &hellip;">
+  
+  <meta name="apple-mobile-web-app-title" content="A Hackerpress Blog">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="/images/logos/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
+
+  <!-- Prefetch DNS for external assets -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  
+  <link rel="canonical" href="http://www.10hacks.com/rspec-capybara-devise-login-tests">
+  <link href="/atom.xml" rel="alternate" title="A Hackerpress Blog" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/assets/app-9fd546d940e6daf7ad6676b35b49fa35.css">
+
+  
+
+</head>
+
+<body   >
+  <!-- <header role="banner"></header> -->
+  <nav role="navigation" class="container">
+  <!--
+  
+  <form action="http://google.com/search" method="get">
+    <fieldset role="search">
+      <input type="hidden" name="q" value="site:www.10hacks.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    </fieldset>
+  </form>
+   -->
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/" title="A Hackerpress Blog">A Hackerpress Blog</a>
+      <ul class="nav">
+        
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+        
+      </ul>
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="#"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
+        <a class="btn btn-primary" href="#"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <section class="page-header">
+  <div class="container">
+    
+      RSpec + Capybara + Devise Login Tests
+    
+    
+  </div>
+</section>
+
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        <article role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">RSpec + Capybara + Devise Login Tests</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-15T20:00:42-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>For the new version of <a href="http://connect.me">Connect.Me</a> (in development), the interface is mostly driven through AJAX interactions. In the past, I’ve used Cucumber + Capybara to test JavaScript, but I really don’t like the Cucumber syntax and slow tests. I recently switched to RSpec request specs with Capybara. The only problem is testing testing JS on pages that require a login.</p>
+
+<p>Since Capybara runs in a different thread from the tests, session data is not available. So the Devise sign_in method does nothing for Capybara.</p>
+
+<p>There are basically two solutions to get Capybara to authenticate:</p>
+
+<ol>
+  <li>Use Capybara to login through a Devise login form by posting the user’s email and password</li>
+  <li>Set session data in Capybara to simulate a login (basically do the same thing that Devise’s sign_in does)</li>
+</ol>
+
+<p>For speed of tests reasons, I’d prefer to just set session data. After Googling around, I found <a href="http://stackoverflow.com/questions/9144865/rspec-capybara-request-specs-cant-get-devise-to-post-new-user-session">this solution</a> and modified it a bit.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># spec/support/request_helpers.rb</span>
+</span><span class="line"><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+</span><span class="line"><span class="kp">include</span> <span class="ss">Warden</span><span class="p">:</span><span class="ss">:Test</span><span class="o">::</span><span class="no">Helpers</span>
+</span><span class="line">
+</span><span class="line"><span class="k">module</span> <span class="nn">RequestHelpers</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">create_logged_in_user</span>
+</span><span class="line">    <span class="n">user</span> <span class="o">=</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">user</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">login_as</span> <span class="n">user</span><span class="p">,</span> <span class="ss">scope</span><span class="p">:</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now you just need to call create_logged_in_user and you’re good to go.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">describe</span> <span class="s2">&quot;user settings&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">let</span><span class="p">(</span><span class="ss">:authed_user</span><span class="p">)</span> <span class="p">{</span> <span class="n">create_logged_in_user</span> <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="n">it</span> <span class="s2">&quot;should allow access&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="n">visit</span> <span class="n">user_settings_path</span><span class="p">(</span><span class="n">authed_user</span><span class="p">)</span>
+</span><span class="line">    <span class="c1"># should be good!</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-15T20:00:42-07:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/code/'>code</a>
+  
+</span>
+
+
+    </p>
+
+    
+      <div class="sharing">
+  
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/rspec-capybara-devise-login-tests" data-via="" data-counturl="http://www.10hacks.com/rspec-capybara-devise-login-tests" >Tweet</a>
+  
+  
+    <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-width="90" data-layout="button_count" data-send="false" data-show-faces="false"></div>
+  
+</div>
+
+    
+
+    <p class="meta">
+      
+        <a href="/resque-admin-in-rails-3-routes-with-cancan" title="Previous Post: Resque Admin in Rails 3 Routes with CanCan">&laquo; Resque Admin in Rails 3 Routes with CanCan</a>
+      
+      
+        <a href="/save-only-changed-attributes-in-backbone-js" title="Next Post: Save Only Changed Attributes in Backbone.js">Save Only Changed Attributes in Backbone.js &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+<section>
+  
+
+
+  
+<div id="disqus_thread" aria-live="polite"></div>
+<script type="text/javascript">
+      var disqus_shortname = '10hacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.10hacks.com/rspec-capybara-devise-login-tests';
+        var disqus_url = 'http://www.10hacks.com/rspec-capybara-devise-login-tests';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</section>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js#appId=&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="contactModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
+
+  <footer role="contentinfo">
+</footer>
+
+  <script src="/assets/app-0c2275567ca821cfac79954c41ff6570.js"></script>
+</body>
+</html>
