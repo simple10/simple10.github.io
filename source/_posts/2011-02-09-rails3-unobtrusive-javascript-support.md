@@ -12,13 +12,13 @@ tags:
 - rails3
 ---
 
-Rails 3's unobtrusive javascript support makes it easy to integrate [jQuery UI Autocomplete](http://jqueryui.com/demos/autocomplete/) and any backend or custom query you want. There's a [Rails3 jQuery Autocomplete](https://github.com/crowdint/rails3-jquery-autocomplete) gem already available on github, but it's not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?
+Rails 3's unobtrusive javascript support makes it easy to integrate [jQuery UI Autocomplete](http://jqueryui.com/demos/autocomplete/) and any backend or custom query you want. There's a [Rails3 jQuery Autocomplete](https://github.com/crowdint/rails3-jquery-autocomplete) gem already available on github, but it's not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?
 
 It's easy.
 
 First, make sure your rails app is setup with jQuery support.
 
-Next, download [jQuery UI Autocomplete](http://jqueryui.com/download), copy the appropriate files into your javascripts and stylesheets directories, and make sure the JS and CSS files are loading properly in your app.
+Next, download [jQuery UI Autocomplete](http://jqueryui.com/download), copy the appropriate files into your javascripts and stylesheets directories, and make sure the JS and CSS files are loading properly in your app.
 
 Here's the general process I use to setup autocomplete for Rails 3:
 

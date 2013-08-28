@@ -7,21 +7,23 @@ slug: google-app-engine-sdk-and-vmware-setup
 title: Google App Engine SDK and VMWare Setup
 wordpress_id: 101
 categories:
-- misc
+- dev
 tags:
 - google app engine
-- linux
 - localdev
+- vps
 ---
 
-VMWare network: bridged
+1. VMWare network: bridged
+2. OSX firewall: make sure to allow incoming connections to Python
+3. Start dev_appserver.py manually (not with the GUI)
 
-OSX firewall: make sure to allow incoming connections to Python
-
-Start dev_appserver.py manually (not with the GUI) with the following ...
-
+```bash
+# Start dev_appserver.py
 sudo /usr/local/bin/dev_appserver.py -a 192.168.0.50 -p 80 [Path to App]
 
-e.g. sudo /usr/local/bin/dev_appserver.py -a 192.168.0.50 -p 80 newdreamop/
+# example:
+# sudo /usr/local/bin/dev_appserver.py -a 192.168.0.50 -p 80 app/
+```
 
-Python (192.168.0.50) and VMWare can now connect to each other.  Yay for debugging!
+Python (192.168.0.50) and VMWare can now connect to each other. Hooray for debugging!

@@ -7,20 +7,19 @@ slug: google-app-engine-patch-django-formsets
 title: Ordered Formsets in Google App Engine Patch
 wordpress_id: 105
 categories:
-- hacks
-- webdev
+- code
 tags:
 - django
 - google app engine
 ---
 
-The current version (1.1RC) of [Google App Engine Patch](http://code.google.com/p/app-engine-patch/) does not allow for easy ordering of forms in formsets.  Normally, Django obeys a model's Meta.ordering property as the default for formset data.  However, Google App Engine Patch fetches unordered data by default.
-<!-- more -->
+The current version (1.1RC) of [Google App Engine Patch](http://code.google.com/p/app-engine-patch/) does not allow for easy ordering of forms in formsets. Normally, Django obeys a model's Meta.ordering property as the default for formset data. However, Google App Engine Patch fetches unordered data by default.
+
 There may already be an undocumented solution from the Google App Engine Patch team, but here's a slick unobtrusive workaround that provides a lot of flexibility.
 
-First off, we need a new Formset class and formset factory function ...
+First off, we need a new Formset class and formset factory function...
 
-[python]
+```python
 # formsets.py
 from django.forms.models import inlineformset_factory
 from django.forms.models import BaseInlineFormSet
@@ -40,13 +39,13 @@ class OrderedFormset(BaseInlineFormSet):
 def orderedformset_factory(parent_model, model, **kwargs):
     kwargs['formset'] = OrderedFormset
     fs = inlineformset_factory(parent_model, model, **kwargs)
-    return fs</pre>
-[/python]
+    return fs
+```
 
 Usage is as simple as specifying formset_factory=orderedformset_factory for each formset field...
 
-[python]
-<pre># forms.py
+```python
+# forms.py
 from formsets import orderedformset_factory
 
 class GuestForm(forms.ModelForm):
@@ -61,7 +60,7 @@ class EventForm(forms.ModelForm):
         model = Event
         ordering = ('number',)
 EventForm = FormWithSets(EventForm)
-[/python]
+```
 
 
 

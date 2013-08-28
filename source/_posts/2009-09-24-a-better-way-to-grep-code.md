@@ -7,10 +7,9 @@ slug: a-better-way-to-grep-code
 title: A Better Way to Grep Code
 wordpress_id: 98
 categories:
-- misc
+- dev
 tags:
 - linux
-- localdev
 - osx
 ---
 
@@ -18,33 +17,33 @@ When grep'ing through code on OSX or linux, .svn files are a pain because grep w
 
 Code Grep (cg)
 
-Create a cg script in /usr/local/bin
+Create a cg script in `/usr/local/bin`
 
-[code lang="bash"]
+```bash
 !/bin/sh
 
-if [ $# =  1 ]; then
+if [ $# = 1 ]; then
   grep -ir "$1" * | grep -v ".svn/"
 elif [ $# = 2 ]; then
   grep -ir "$1" $2/* | grep -v ".svn/"
 else
   echo "Doh! Too many parameters.ncg "search" [FLAGS]"
 fi
-[/code]
+```
 
-Thanks to http://www.microshell.com/sysadmin/unix/customizing-grep-tool-to-exclude-svn/
+Thanks to [Maresa Nirwan's article](http://www.microshell.com/sysadmin/unix/customizing-grep-tool-to-exclude-svn/).
 
 Include a few extra vars in your ~/.profile
 
-[code lang="bash"]
+```bash
 export SVN_EDITOR=/usr/bin/vim
 export GREP_OPTIONS="-I --color=always"
 export CLICOLOR=1
 export LSCOLORS=cxfxcxdxbxegedabagacad
-[/code]
+```
 
 And reload the profile with the source command
 
-[code lang="bash"]
-> source ~/.profile
-[/code] 
+```bash
+source ~/.profile
+```

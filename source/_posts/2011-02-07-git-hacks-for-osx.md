@@ -34,4 +34,4 @@ Add the below code to your ~/.gitconfig file to enable color and popular short c
 
 The [brotherbard](https://github.com/brotherbard/gitx) fork of gitx has some recommended improvements.
 
-Thanks to [Ben Woolsey](https://github.com/empact) for all these tips.  Ben is working with us on a new startup.
+Thanks to [Ben Woolsey](https://github.com/empact) for all these tips.  Ben is working with us on a new startup.

@@ -7,19 +7,19 @@ slug: google-app-engine-queries
 title: Google App Engine Queries
 wordpress_id: 86
 categories:
-- misc
+- dev
 tags:
 - google app engine
 ---
 
-Often, a model (table) needs to be queried to see if it's empty or not.  The fastest way to achieve this is ...
+Often, a model (table) needs to be queried to see if it's empty or not. The fastest way to achieve this is ...
 
-[code lang="python"]
+```python
 if len(User.all().fetch(1)) == 0
 print 'No users'
 
 if len(User.all().fetch(2)) == 1
 print 'Only one user'
-[/code]
+```
 
-Use this method instead of User.all().count() when testing if any of a specific model exists.  This should have better performance in cases where there are lots of the model (e.g. 1000+ Users) since count still needs to access each model in order to count it.
+Use this method instead of User.all().count() when testing if any of a specific model exists. This should have better performance in cases where there are lots of the model (e.g. 1000+ Users) since count still needs to access each model in order to count it.

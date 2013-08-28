@@ -7,7 +7,7 @@ slug: prevent-textmate-from-creating-resource-files-on-network-drives
 title: Prevent TextMate From Creating Resource Files on Network Drives
 wordpress_id: 84
 categories:
-- misc
+- dev
 tags:
 - localdev
 - osx
@@ -16,8 +16,8 @@ tags:
 
 In terminal:
 
-[code lang="bash"]
+```bash
 defaults write com.macromates.textmate OakDocumentDisableFSMetaData 1
-[/code]
+```
 
-http://manual.macromates.com/en/expert_preferences.html
+[TextMate Manual](http://manual.macromates.com/en/expert_preferences.html)

@@ -7,16 +7,18 @@ slug: django-google-app-engine-debugging
 title: Django Google App Engine Debugging
 wordpress_id: 88
 categories:
-- misc
+- dev
 tags:
-- debug
+- debugging
 - django
 - google app engine
 ---
 
-In templates ...
+Basic tools and techniques for reference.
 
-```
+### Debugging Templates
+
+```text
 {% raw %}
 {{ var|pprint }}
 
@@ -24,12 +26,14 @@ In templates ...
 {% endraw %}
 ```
 
-Tools
+### Tools
 
 [Debug Toolbar](http://github.com/robhudson/django-debug-toolbar/tree/master)
 
 [FirePython](http://firepython.binaryage.com/)
 
-[pdb](http://docs.python.org/library/pdb.html) (Python Debugger) | [Winpdb](http://winpdb.org/)
+[pdb](http://docs.python.org/library/pdb.html)
+
+[Winpdb](http://winpdb.org/)
 
 [Django Test Client](http://docs.djangoproject.com/en/dev/topics/testing/?from=olddocs)
