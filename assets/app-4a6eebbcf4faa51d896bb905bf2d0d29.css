@@ -8640,6 +8640,25 @@ figure.code {
     .page-header .softwrap {
       display: block; } }
 
+.callout {
+  background: white;
+  border: 2px solid #f1c40f;
+  border-radius: 6px;
+  margin: 18px 0;
+  padding: 10px 6px; }
+  .callout p:last-child {
+    margin-bottom: 0; }
+  .callout header {
+    margin: -16px 0 6px -6px; }
+    .callout header > span {
+      background: #f1c40f;
+      color: white;
+      font-size: 13px;
+      padding: 2px 10px; }
+    .callout header .date {
+      font-size: 11px;
+      margin-left: 5px; }
+
 body {
   font-weight: 300; }
 

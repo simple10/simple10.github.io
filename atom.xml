@@ -4,7 +4,7 @@
   <title><![CDATA[A Hackerpress Blog]]></title>
   <link href="http://www.10hacks.com/atom.xml" rel="self"/>
   <link href="http://www.10hacks.com/"/>
-  <updated>2013-08-19T08:06:45-07:00</updated>
+  <updated>2013-08-28T09:15:56-07:00</updated>
   <id>http://www.10hacks.com/</id>
   <author>
     <name><![CDATA[Joe Johnston]]></name>
@@ -85,9 +85,9 @@
     <link href="http://www.10hacks.com/save-only-changed-attributes-in-backbone-js"/>
     <updated>2012-03-24T14:23:02-07:00</updated>
     <id>http://www.10hacks.com/save-only-changed-attributes-in-backbone-js</id>
-    <content type="html"><![CDATA[<aside class="callout"><p>
+    <content type="html"><![CDATA[<aside class="callout"><header><span>Update <span class="date">Jun 1<span>st</span>, 2013</span> </span></header>
 <p>As of Backbone 0.9.10, partial model updates are supported with <code>model.save(attrs, {patch: true})</code></p>
-</p></aside>
+</aside>
 
 <p>Backbone.js syncs all model data to the server by default regardless of what actually changed. This makes a lot of frontend tasks and debugging much easier, but for some models, sending all the data every time is overkill.</p>
 
@@ -296,17 +296,6 @@ def attribute_valid?(attr, value)
 end
 [/code]</p>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Fundraising Advice from Buddy Press Founder]]></title>
-    <link href="http://www.10hacks.com/fundraising/2011/02/11/fundraising-advice-from-buddy-press-founder/"/>
-    <updated>2011-02-11T09:05:41-08:00</updated>
-    <id>http://www.10hacks.com/fundraising/2011/02/11/fundraising-advice-from-buddy-press-founder</id>
-    <content type="html"><![CDATA[<p><a href="http://finance.fortune.cnn.com/2010/12/05/how-to-raise-venture-capital-without-losing-your-soul/">Great startup fundraising article</a> from Michael Lazerow on how to raise money from VC’s without selling your soul.</p>
-
-<p>Take-aways: pick your deep pockets carefully and be wary of sharing too many of your secrets with VCs who might use your market education to fund your competitors. </p>
 ]]></content>
   </entry>
   
@@ -977,6 +966,17 @@ export LSCOLORS=cxfxcxdxbxegedabagacad
 <p>[code lang=”bash”]
 &gt; source ~/.profile
 [/code] </p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HiveMaps Makes Google Maps Easy]]></title>
+    <link href="http://www.10hacks.com/webdev/2009/09/24/hivemaps-makes-google-maps-easy/"/>
+    <updated>2009-09-24T04:08:36-07:00</updated>
+    <id>http://www.10hacks.com/webdev/2009/09/24/hivemaps-makes-google-maps-easy</id>
+    <content type="html"><![CDATA[<p>Just released <a href="http://socialhive.org/hivemaps">HiveMaps</a>.  An open source JavaScript framework for Google Maps that makes it super easy to put thousands of data points on a map.  HiveMaps supports client-side marker clustering, back button, dynamic marker lists, geocoding, embedding, and smart handling of overlapping markers.</p>
+
+<p>HiveMaps currently uses an improved version of <a href="http://googlegeodevelopers.blogspot.com/2009/04/markerclusterer-solution-to-too-many.html">MarkerClusterer</a> available in the <a href="http://code.google.com/p/hivemap/source/browse/trunk/js/markerclusterer.js">source code repo</a>.</p>
 ]]></content>
   </entry>
   
