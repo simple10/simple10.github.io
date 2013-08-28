@@ -1,0 +1,28 @@
+$number-bg: $warning;
+
+ol {
+  padding: 15px 10px 5px 23px;
+  margin: 20px 0;
+  list-style: none;
+  background: $white;
+  counter-reset: numList;
+  font-size: $base-font-size * 0.9;
+  li {
+    position: relative;
+    margin-bottom: 15px;
+    &:before {
+      counter-increment: numList;
+      content: counter(numList);
+      position: absolute;
+      left: -27px;
+      top: 2px;
+      font: normal 12px sans-serif;
+      text-align: center;
+      line-height: 18px;
+      width: 18px;
+      height: 17px;
+      color: $white;
+      background: $number-bg;
+    }
+  }
+}
