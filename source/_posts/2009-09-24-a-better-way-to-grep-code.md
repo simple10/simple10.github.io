@@ -9,8 +9,7 @@ wordpress_id: 98
 categories:
 - dev
 tags:
-- linux
-- osx
+- bash
 ---
 
 When grep'ing through code on OSX or linux, .svn files are a pain because grep will find code in the source file and in the corresponding svn file. To fix this, use the below bash script to omit .svn directories from grep searches.

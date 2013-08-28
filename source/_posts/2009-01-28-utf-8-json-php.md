@@ -11,7 +11,6 @@ categories:
 tags:
 - json
 - php
-- utf8
 ---
 
 We were running into problems on the awakeningthedreamer.org site where international characters were causing an error. The problem was that the form values being sent through JSON were only being run through escape and not encodeURIComponent.
