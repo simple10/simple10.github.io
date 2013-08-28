@@ -35,7 +35,8 @@ source: ./source
 destination: ./_public
 plugins: ./_plugins
 code_dir: downloads/code
-category_dir: blog/categories
+category_dir: category
+tag_dir: tag
 markdown: kramdown
 
 paginate: 10          # Posts per page on the blog index

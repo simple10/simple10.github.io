@@ -1,0 +1,6 @@
+<ul>
+{% assign tags = site.tags | sort_tags_by_length %}
+{% for tag in tags %}
+  <li><a href="{{ site.tag_dir }}/{{ tag[0] }}">{{ tag[0] }}</a> - {{ tag[1].size }}</li>
+{% endfor %}
+</ul>
