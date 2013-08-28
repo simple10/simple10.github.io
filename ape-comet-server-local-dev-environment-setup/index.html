@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>APE Comet Server Local Dev Environment Setup - 10 Hacks</title>
+  <meta name="author" content="Joe Johnston">
+
+  
+  <meta name="description" content="APE (Ajax Push Engine) is a scalable comet or AJAX push server written in C. It’s great for embedding HTML chat clients or making real-time games &hellip;">
+  
+  <meta name="apple-mobile-web-app-title" content="10 Hacks">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="/images/logos/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
+
+  <!-- Prefetch DNS for external assets -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  
+  <link rel="canonical" href="http://www.10hacks.com/ape-comet-server-local-dev-environment-setup">
+  <link href="/atom.xml" rel="alternate" title="10 Hacks" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/assets/app-dfb7b472daf9d87024999b78341fc0ad.css">
+
+  
+
+</head>
+
+<body   >
+  <!-- <header role="banner"></header> -->
+  <nav role="navigation" class="container">
+  <!--
+  
+  <form action="http://google.com/search" method="get">
+    <fieldset role="search">
+      <input type="hidden" name="q" value="site:www.10hacks.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    </fieldset>
+  </form>
+   -->
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/" title="10 Hacks">10 Hacks</a>
+      <ul class="nav">
+        
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+        
+      </ul>
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="#"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
+        <a class="btn btn-primary" href="#"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <section class="page-header">
+  <div class="container">
+    
+      APE Comet Server Local Dev Environment Setup
+    
+    
+  </div>
+</section>
+
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        <article role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">APE Comet Server Local Dev Environment Setup</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-09T13:45:47-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://www.ape-project.org">APE (Ajax Push Engine)</a> is a scalable comet or AJAX push server written in C. It’s great for embedding HTML chat clients or making real-time games without Flash.</p>
+
+<p>I’ve been playing around with APE for a couple different applications. Setting up the demos on a single server that runs both Apache and the APE server is relatively straight forward. However, running the APE server separate from the web server is not as simple.</p>
+
+<p>Here’s my dev environment…</p>
+
+<ul>
+  <li><strong>Web server:</strong> Ruby on Rails running locally on my mac at http://0.0.0.0:3000</li>
+  <li><strong>APE server:</strong> running in a Debian VMWare server at http://192.168.0.99:6969</li>
+</ul>
+
+<p>The production environment is similar with <a href="http://heroku.com">Heroku</a> as the web server and <a href="http://www.linode.com">Linode</a> running the APE server.</p>
+
+<p>Here’s what you have to do to get the dev environment setup from scratch…</p>
+
+<ol>
+  <li>Download <a href="http://www.ape-project.org/download/APE_Complete_Package.html">APE Project</a></li>
+  <li>Follow the <a href="http://www.ape-project.org/wiki/index.php/Setup">APE doc</a> for installing the server</li>
+  <li>Create a new rails project and copy the ape-jsf folder into your rails project’s public dir</li>
+  <li>Edit /etc/hosts on your mac and add the entries below</li>
+  <li>Edit ape-jsf/Demos/config.js as directed below</li>
+  <li>Modify JS Request methods to use GET instead of POST</li>
+</ol>
+
+<h3 id="add-to-etchosts">Add to /etc/hosts</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">192.168.0.99 ape.dummy-domain.com
+</span><span class="line">192.168.0.99 0.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 1.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 2.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 3.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 4.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 5.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 6.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 7.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 8.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 9.ape.dummy-domain.com
+</span><span class="line">
+</span><span class="line">0.0.0.0 dummy-domain.com
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="edit-ape-jsfdemosconfigjs">Edit ape-jsf/Demos/config.js</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">baseUrl</span> <span class="o">=</span> <span class="s1">&#39;http://dummy-domain.com:3000/ape-jsf&#39;</span><span class="p">;</span> <span class="c1">//APE JSF</span>
+</span><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">;</span>
+</span><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">server</span> <span class="o">=</span> <span class="s1">&#39;ape.dummy-domain.com:6969&#39;</span><span class="p">;</span> <span class="c1">//APE server URL</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Last but not least, edit ape-jsf/Tools/Check/index.html and modify all Request calls to use GET instead of POST. By default, MooTools Request object uses POST for XHR requests which will cause a problem with Rails.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="k">this</span><span class="p">.</span><span class="nx">addTest</span><span class="p">(</span><span class="s1">&#39;Loading Client&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Request</span><span class="p">({</span>
+</span><span class="line">   <span class="s1">&#39;url&#39;</span><span class="o">:</span> <span class="s1">&#39;../../Clients/MooTools.js&#39;</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;method&#39;</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;evalResponse&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;onComplete&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">APE</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">fireEvent</span><span class="p">(</span><span class="s1">&#39;testComplete&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;sucess&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+</span><span class="line">    <span class="k">else</span> <span class="k">this</span><span class="p">.</span><span class="nx">fireEvent</span><span class="p">(</span><span class="s1">&#39;testComplete&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;error&#39;</span><span class="o">:</span> <span class="s2">&quot;Can&#39;t load client, check the file &quot;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;/Tools/Check/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/Clients/MooTools.js is available&quot;</span><span class="p">});</span>
+</span><span class="line">   <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}).</span><span class="nx">send</span><span class="p">();</span>
+</span><span class="line"><span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>The test script should now run properly at http://dummy-domain.com:3000/ape-jsf/Toosl/Check/</p>
+
+<p>APE uses iframe and JSONP hacks to transparently handle javascript subdomain security issues.</p>
+
+<p>If you look at what’s going on in Firebug, you’ll see APE embedding an iframe in the page, setting the iframe domain to dummy-domain.com, and making calls to the APE server through iframe. This trick only works if the main HTML page is on a different sub-domain than the APE server. It will not work for two completely different domains. This is a limitation of Javascript browser security and not APE.</p>
+
+<p>Thanks to the APE dev team for making an awesome comet server!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-09T13:45:47-07:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/category/dev/'>dev</a>
+  
+</span>
+
+
+    </p>
+
+    
+      <div class="sharing">
+  
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/ape-comet-server-local-dev-environment-setup" data-via="" data-counturl="http://www.10hacks.com/ape-comet-server-local-dev-environment-setup" >Tweet</a>
+  
+  
+    <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-width="90" data-layout="button_count" data-send="false" data-show-faces="false"></div>
+  
+</div>
+
+    
+
+    <p class="meta">
+      
+        <a href="/building-the-wikitude-sample-app-for-iphone-4" title="Previous Post: Building the Wikitude Sample App for iPhone 4">&laquo; Building the Wikitude Sample App for iPhone 4</a>
+      
+      
+        <a href="/ideas/2010/09/23/fixing-online-groups/" title="Next Post: Fixing Online Groups">Fixing Online Groups &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+<section>
+  
+
+
+  
+<div id="disqus_thread" aria-live="polite"></div>
+<script type="text/javascript">
+      var disqus_shortname = '10hacks';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.10hacks.com/ape-comet-server-local-dev-environment-setup';
+        var disqus_url = 'http://www.10hacks.com/ape-comet-server-local-dev-environment-setup';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</section>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js#appId=&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="contactModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
+
+  <footer role="contentinfo">
+</footer>
+
+  <script src="/assets/app-0c2275567ca821cfac79954c41ff6570.js"></script>
+</body>
+</html>

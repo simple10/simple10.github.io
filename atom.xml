@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[A Hackerpress Blog]]></title>
+  <title><![CDATA[10 Hacks]]></title>
   <link href="http://www.10hacks.com/atom.xml" rel="self"/>
   <link href="http://www.10hacks.com/"/>
-  <updated>2013-08-28T11:22:08-07:00</updated>
+  <updated>2013-08-28T13:45:47-07:00</updated>
   <id>http://www.10hacks.com/</id>
   <author>
     <name><![CDATA[Joe Johnston]]></name>
@@ -43,15 +43,15 @@
     <id>http://www.10hacks.com/linux-default-gateway-route</id>
     <content type="html"><![CDATA[<p>I only seem to run into this once a year and rarely remember what to do off the top of my head.</p>
 
-<p><strong>Problem: </strong>configuring and starting network interfaces on Linux (usually Debian / Ubuntu)</p>
+<p>**Problem: **configuring and starting network interfaces on Linux (usually Debian / Ubuntu)</p>
 
-<p><strong>Solution: </strong>use ifup and ifdown, not ifconfig</p>
+<p>**Solution: **use ifup and ifdown, not ifconfig</p>
 
-<p>The problem I ran into was caused by a network interface going down on a server. Bringing the network back up with <code>ifconfig eth0 up</code> works except for one tasty little detail: ifconfig does not set a default gateway route. And for the life of me, I couldn’t remember where I was supposed to enable this route. I looked in <code>/etc/network/interfaces</code>, <code>/etc/network/if-*/*</code>, <code>/etc/rc.local</code>, etc. to no avail.</p>
+<p>The problem I ran into was caused by a network interface going down on a server. Bringing the network back up with <code>ifconfig eth0 up</code> works except for one tasty little detail: ifconfig does not set a default gateway route. And for the life of me, I couldn’t remember where I was supposed to enable this route. I looked in <code>/etc/network/interfaces</code>, <code>/etc/network/if-*/*</code>, <code>/etc/rc.local</code>, etc. to no avail.</p>
 
-<p>I ran <code>sudo route add default gw 192.168.0.1 eth0</code> to manually setup the route, but I still couldn’t figure out the best practice for enabling this route on reboot.</p>
+<p>I ran <code>sudo route add default gw 192.168.0.1 eth0</code> to manually setup the route, but I still couldn’t figure out the best practice for enabling this route on reboot.</p>
 
-<p>Finally, I looked at <code>/etc/init.d/networking</code> and noticed it was using <code>ifup</code> instead of <code>ifconfig</code>. Running <code>ifup eth0</code> setup the correct default gateway route with no need for any manual configuration.</p>
+<p>Finally, I looked at <code>/etc/init.d/networking</code> and noticed it was using <code>ifup</code> instead of <code>ifconfig</code>. Running <code>ifup eth0</code> setup the correct default gateway route with no need for any manual configuration.</p>
 
 <p>Useful commands:</p>
 
@@ -353,13 +353,13 @@
     <link href="http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support/"/>
     <updated>2011-02-09T11:57:18-08:00</updated>
     <id>http://www.10hacks.com/code/2011/02/09/rails3-unobtrusive-javascript-support</id>
-    <content type="html"><![CDATA[<p>Rails 3’s unobtrusive javascript support makes it easy to integrate <a href="http://jqueryui.com/demos/autocomplete/">jQuery UI Autocomplete</a> and any backend or custom query you want. There’s a <a href="https://github.com/crowdint/rails3-jquery-autocomplete">Rails3 jQuery Autocomplete</a> gem already available on github, but it’s not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?</p>
+    <content type="html"><![CDATA[<p>Rails 3’s unobtrusive javascript support makes it easy to integrate <a href="http://jqueryui.com/demos/autocomplete/">jQuery UI Autocomplete</a> and any backend or custom query you want. There’s a <a href="https://github.com/crowdint/rails3-jquery-autocomplete">Rails3 jQuery Autocomplete</a> gem already available on github, but it’s not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?</p>
 
 <p>It’s easy.</p>
 
 <p>First, make sure your rails app is setup with jQuery support.</p>
 
-<p>Next, download <a href="http://jqueryui.com/download">jQuery UI Autocomplete</a>, copy the appropriate files into your javascripts and stylesheets directories, and make sure the JS and CSS files are loading properly in your app.</p>
+<p>Next, download <a href="http://jqueryui.com/download">jQuery UI Autocomplete</a>, copy the appropriate files into your javascripts and stylesheets directories, and make sure the JS and CSS files are loading properly in your app.</p>
 
 <p>Here’s the general process I use to setup autocomplete for Rails 3:</p>
 
@@ -512,7 +512,7 @@
 
 <p>The <a href="https://github.com/brotherbard/gitx">brotherbard</a> fork of gitx has some recommended improvements.</p>
 
-<p>Thanks to <a href="https://github.com/empact">Ben Woolsey</a> for all these tips.  Ben is working with us on a new startup.</p>
+<p>Thanks to <a href="https://github.com/empact">Ben Woolsey</a> for all these tips.  Ben is working with us on a new startup.</p>
 ]]></content>
   </entry>
   
@@ -661,46 +661,58 @@
   
   <entry>
     <title type="html"><![CDATA[Devise + OmniAuth + Facebook API Hacks]]></title>
-    <link href="http://www.10hacks.com/rails3/ruby/2011/01/13/devise-omniauth-facebook-api-hacks/"/>
+    <link href="http://www.10hacks.com/devise-omniauth-facebook-api-hacks"/>
     <updated>2011-01-13T19:12:16-08:00</updated>
-    <id>http://www.10hacks.com/rails3/ruby/2011/01/13/devise-omniauth-facebook-api-hacks</id>
-    <content type="html"><![CDATA[<p>While using <a href="https://github.com/plataformatec/devise">Devise</a> + <a href="https://github.com/intridea/omniauth">OmniAuth</a> for a new Rails 3 project, I got really curious about how to reuse OmniAuth’s strategy classes to fetch additional API data after a user has authenticated.</p>
+    <id>http://www.10hacks.com/devise-omniauth-facebook-api-hacks</id>
+    <content type="html"><![CDATA[<p>While using <a href="https://github.com/plataformatec/devise">Devise</a> + <a href="https://github.com/intridea/omniauth">OmniAuth</a> for a new Rails 3 project, I got really curious about how to reuse OmniAuth’s strategy classes to fetch additional API data after a user has authenticated.</p>
 
-<p>A lot of people probably use libraries like <a href="https://github.com/nov/fb_graph">FbGraph</a> along with OmniAuth, but I wanted something extremely lightweight without duplicating code already in OmniAuth.</p>
+<p>A lot of people probably use libraries like <a href="https://github.com/nov/fb_graph">FbGraph</a> along with OmniAuth, but I wanted something extremely lightweight without duplicating code already in OmniAuth.</p>
 
 <p>I mostly followed Ryan Bates’ <a href="http://railscasts.com/episodes/235-omniauth-part-1">railscasts</a> on setting up Devise + OmniAuth.</p>
 
-<p>If you open the oa-oauth gem, you’ll see a lib/omniauth/strategies folder filled with all sorts of OAuth2 providers like Facebook, Twitter, and LinkedIn. Each of these provider classes has most if not everything needed to make direct API calls once an OAuth2 access_token is obtained.</p>
+<p>If you open the oa-oauth gem, you’ll see a <code>lib/omniauth/strategies</code> folder filled with all sorts of OAuth2 providers like Facebook, Twitter, and LinkedIn. Each of these provider classes has most if not everything needed to make direct API calls once an OAuth2 access_token is obtained.</p>
 
-<p>The basic idea is to store the access_token during an OAuth2 login process (Ryan covers this in his railscast) and later on use the token to fetch more data. To do this, you use the access_token to instantiate an OAuth2::AccessToken along with a Facebook specific OAuth2::Client. The Facebook client really just sets the site URL variable so the AccessToken knows where to send requests. It seems simple enough to just use OmniAuth’s strategy classes for the OAuth2::Client. Then I don’t have to maintain provider specific code myself.</p>
+<p>The basic idea is to store the access_token during an OAuth2 login process (Ryan covers this in his railscast) and later on use the token to fetch more data. To do this, you use the access_token to instantiate an OAuth2::AccessToken along with a Facebook specific <code>OAuth2::Client</code>. The Facebook client really just sets the site URL variable so the AccessToken knows where to send requests. It seems simple enough to just use OmniAuth’s strategy classes for the <code>OAuth2::Client</code>. Then I don’t have to maintain provider specific code myself.</p>
 
-<p>I dug around in the Devise, OmniAuth, and OAuth2 code for hours.  Long story short, the simplest solution is to just write your own provider client class instead of trying to reuse OmniAuth’s. Bummer. But way easier in the end. OmniAuth is a rack application designed for authentication only. It’s just too convoluted to try to reuse its strategy classes for additional API calls.</p>
+<p>I dug around in the Devise, OmniAuth, and OAuth2 code for hours.  Long story short, the simplest solution is to just write your own provider client class instead of trying to reuse OmniAuth’s. Bummer. But way easier in the end. OmniAuth is a rack application designed for authentication only. It’s just too convoluted to try to reuse its strategy classes for additional API calls.</p>
 
 <p>Here’s the simple solution I ended up writing…</p>
 
 <p>Create lib/facebook.rb in your rails app</p>
 
-<p>[code language=”ruby”]
-module OAuth2
-  module Clients
-    class Facebook &lt; Client
-      def initialize(client_id, client_secret, opts = {})
-        opts[:site] = ‘https://graph.facebook.com/’
-        super(client_id, client_secret, opts)
-      end
-    end
-  end
-end
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">module</span> <span class="nn">OAuth2</span>
+</span><span class="line">  <span class="k">module</span> <span class="nn">Clients</span>
+</span><span class="line">    <span class="k">class</span> <span class="nc">Facebook</span> <span class="o">&lt;</span> <span class="no">Client</span>
+</span><span class="line">      <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">opts</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class="line">        <span class="n">opts</span><span class="o">[</span><span class="ss">:site</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;https://graph.facebook.com/&#39;</span>
+</span><span class="line">        <span class="k">super</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Now you can use the Facebook client along with a user specific access_token (stored in a database during the OmniAuth login process) to fetch additional API data.</p>
 
-<p>[code language=”ruby”]
-require ‘facebook’
-client = OAuth2::Clients::Facebook.new(‘’, ‘’)
-token = OAuth2::AccessToken.new(client, access_token)
-token.get(‘/me/friends’)
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="nb">require</span> <span class="s1">&#39;facebook&#39;</span>
+</span><span class="line"><span class="n">client</span> <span class="o">=</span> <span class="ss">OAuth2</span><span class="p">:</span><span class="ss">:Clients</span><span class="o">::</span><span class="no">Facebook</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span><span class="line"><span class="n">token</span> <span class="o">=</span> <span class="ss">OAuth2</span><span class="p">:</span><span class="ss">:AccessToken</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">access_token</span><span class="p">)</span>
+</span><span class="line"><span class="n">token</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/me/friends&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Note that you don’t need to set the client_id, and client_secret when creating a new Facebook object. The id and secret are only needed to initially obtain the access_token which you already have.</p>
 
@@ -711,51 +723,47 @@ token.get(‘/me/friends’)
   
   <entry>
     <title type="html"><![CDATA[Fixing Online Groups]]></title>
-    <link href="http://www.10hacks.com/social%20web/2010/09/23/fixing-online-groups/"/>
+    <link href="http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups/"/>
     <updated>2010-09-23T13:33:17-07:00</updated>
-    <id>http://www.10hacks.com/social%20web/2010/09/23/fixing-online-groups</id>
-    <content type="html"><![CDATA[<p><a href="http://simple10.com/wp-content/uploads/2010/09/hierarchical_groups_preview.png"><img src="http://simple10.com/wp-content/uploads/2010/09/hierarchical_groups_preview-300x225.png" alt="" /></a>It’s almost 2011 and online groups are still broken.  Sure, you can join a Facebook group to support your cause, create a Google or Yahoo group for your soccer club, setup a Ning or Drupal site for your small business, but good luck getting that group to talk to others across the web.</p>
+    <id>http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups</id>
+    <content type="html"><![CDATA[<p>It’s almost 2011 and online groups are still broken. Sure, you can join a Facebook group to support your cause, create a Google or Yahoo group for your soccer club, setup a Ning or Drupal site for your small business, but good luck getting that group to talk to others across the web.</p>
 
-<p>Online groups are still treated as silos of individuals rather than first class citizens that can participate in other groups.  Silos are fine (and often desired) for small groups, but they just don’t scale to hundreds of thousands or millions of users.  Not to mention that most physical groups are composed of subgroups (ad hoc gatherings, committees, local chapters, etc.) that self organize in ways that are not reflected in most online tools.</p>
+<p><a href="http://www.10hacks.com/images/posts/hierarchical_groups.png"><img src="http://www.10hacks.com/images/posts/hierarchical_groups.png" alt="Group Communication Chart" /></a></p>
+
+<p>Online groups are still treated as silos of individuals rather than first class citizens that can participate in other groups. Silos are fine (and often desired) for small groups, but they just don’t scale to hundreds of thousands or millions of users. Not to mention that most physical groups are composed of subgroups (ad hoc gatherings, committees, local chapters, etc.) that self organize in ways that are not reflected in most online tools.</p>
 
 <p>The future of online groups is context, not membership.</p>
 
-<p><a href="http://twitter.com/simple10/">Twitter</a> and <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> are headed in the right direction by contextualizing communication through topics rather than membership.  Tweeters (or is it twitterers?) use hash tags (#topic) to essentially join ad hoc topical conversations.  They can also create and join lists which function like traditional groups.  However, lists can not be nested which means there’s no way to model hierarchical groups.</p>
+<p><a href="http://twitter.com/simple10/">Twitter</a> and <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> are headed in the right direction by contextualizing communication through topics rather than membership. Tweeters (or is it twitterers?) use hash tags (#topic) to essentially join ad hoc topical conversations. They can also create and join lists which function like traditional groups. However, lists can not be nested which means there’s no way to model hierarchical groups.</p>
 
-<p><a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> is a technology and code project rather than a service like Twitter.  With PubSubHubBub, people (or servers) subscribe to topics on a hub.  Each hub can implement logic for publishing and aggregating posts per topic.  Hierarchical groups can be modeled by having a separate hub per subgroup where each hub is subscribed to the hub above it in the hierarchy.</p>
+<p><a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> is a technology and code project rather than a service like Twitter. With PubSubHubBub, people (or servers) subscribe to topics on a hub. Each hub can implement logic for publishing and aggregating posts per topic. Hierarchical groups can be modeled by having a separate hub per subgroup where each hub is subscribed to the hub above it in the hierarchy.</p>
 
 <p>For instance…</p>
 
-<!-- more -->
+<p>Individuals subscribe to local hubs. Local hubs subscribe to regional hubs, and regional hubs subscribe to the main global hub. This effectively models a local chapter based global organization like a <a href="http://350.org">350.org</a>. Only authorized users can publish to the global hub. Regional and local hubs will automatically forward posts from the global hub. Any individual can participate in a local hub. Local posts are always rebroadcast to local subscribers. Topics or posts that get a lot of local attention would then be sent to regional hubs and on up to the global hub if warranted.</p>
 
-<p>Individuals subscribe to local hubs.  Local hubs subscribe to regional hubs, and regional hubs subscribe to the main global hub.  This effectively models a local chapter based global organization like a <a href="http://350.org">350.org</a>.  Only authorized users can publish to the global hub.  Regional and local hubs will automatically forward posts from the global hub.  Any individual can participate in a local hub.  Local posts are always rebroadcast to local subscribers.  Topics or posts that get a lot of local attention would then be sent to regional hubs and on up to the global hub if warranted.</p>
+<p>This hierarchical approach to groups was partially spec’ed out in my <a href="http://www.openactionnetwork.org/">Open Action Network</a> project that’s temporarily on the back burner since I’m busy with a new startup. The project conceptually uses <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> and the <a href="http://www.salmon-protocol.org/">Salmon Protocol</a> to move messages around in hierarchical groups.</p>
 
-<p>This hierarchical approach to groups was partially spec’ed out in my <a href="http://www.openactionnetwork.org/">Open Action Network</a> project that’s temporarily on the back burner since I’m busy with a new startup.  The project conceptually uses <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> and the <a href="http://www.salmon-protocol.org/">Salmon Protocol</a> to move messages around in hierarchical groups.</p>
+<p>There’s also a lot of promise for managing groups in the <a href="http://personaldatastore.info/">federated personal data store</a> model. It works similarly to PubSubHubBub (and would be interoperable with hubs) but efficiently handles delegating of group permissions through XDI graphs and link contracts. This allows for advanced permissions schemes where subgroups and individuals are granted granular access to other groups. Messages and other group data are stored in graphs which have interesting semantic and social capabilities. XDI messages can be tagged to prevent rebroadcast. So a message posted in a local group node can stay local if that’s what the user intends.</p>
 
-<p>There’s also a lot of promise for managing groups in the <a href="http://personaldatastore.info/">federated personal data store</a> model.  It works similarly to PubSubHubBub (and would be interoperable with hubs) but efficiently handles delegating of group permissions through XDI graphs and link contracts.  This allows for advanced permissions schemes where subgroups and individuals are granted granular access to other groups.  Messages and other group data are stored in graphs which have interesting semantic and social capabilities.  XDI messages can be tagged to prevent rebroadcast.  So a message posted in a local group node can stay local if that’s what the user intends.</p>
-
-<p>XDI for groups is still in early development, but it shows the significant promise i efficiently solving complicated group management and messaging use cases.  Join us on the <a href="http://groups.google.com/group/personaldatastore">personal data store mailing list</a> if you’re interested in participating in this discussion.</p>
+<p>XDI for groups is still in early development, but it shows the significant promise i efficiently solving complicated group management and messaging use cases. Join us on the <a href="http://groups.google.com/group/personaldatastore">personal data store mailing list</a> if you’re interested in participating in this discussion.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[APE Comet Server Local Dev Environment Setup]]></title>
-    <link href="http://www.10hacks.com/realtime/social%20web/webdev/2010/08/09/ape-comet-server-local-dev-environment-setup/"/>
+    <link href="http://www.10hacks.com/ape-comet-server-local-dev-environment-setup"/>
     <updated>2010-08-09T13:45:47-07:00</updated>
-    <id>http://www.10hacks.com/realtime/social%20web/webdev/2010/08/09/ape-comet-server-local-dev-environment-setup</id>
-    <content type="html"><![CDATA[<p><a href="http://www.ape-project.org">APE (Ajax Push Engine)</a> is a scalable comet or AJAX push server written in C.  It’s great for embedding HTML chat clients or making real-time games without Flash.</p>
+    <id>http://www.10hacks.com/ape-comet-server-local-dev-environment-setup</id>
+    <content type="html"><![CDATA[<p><a href="http://www.ape-project.org">APE (Ajax Push Engine)</a> is a scalable comet or AJAX push server written in C. It’s great for embedding HTML chat clients or making real-time games without Flash.</p>
 
-<p>I’ve been playing around with APE for a couple different applications.  Setting up the demos on a single server that runs both Apache and the APE server is relatively straight forward.  However, running the APE server separate from the web server is not as simple.</p>
+<p>I’ve been playing around with APE for a couple different applications. Setting up the demos on a single server that runs both Apache and the APE server is relatively straight forward. However, running the APE server separate from the web server is not as simple.</p>
 
 <p>Here’s my dev environment…</p>
 
 <ul>
-  <li>
-    <p>Web server: Ruby on Rails running locally on my mac at http://0.0.0.0:3000</p>
-  </li>
-  <li>
-    <p>APE server: running in a Debian VMWare server at http://192.168.0.99:6969</p>
-  </li>
+  <li><strong>Web server:</strong> Ruby on Rails running locally on my mac at http://0.0.0.0:3000</li>
+  <li><strong>APE server:</strong> running in a Debian VMWare server at http://192.168.0.99:6969</li>
 </ul>
 
 <p>The production environment is similar with <a href="http://heroku.com">Heroku</a> as the web server and <a href="http://www.linode.com">Linode</a> running the APE server.</p>
@@ -763,79 +771,85 @@ token.get(‘/me/friends’)
 <p>Here’s what you have to do to get the dev environment setup from scratch…</p>
 
 <ol>
-  <li>
-    <p>Download <a href="http://www.ape-project.org/download/APE_Complete_Package.html">APE Project</a></p>
-  </li>
-  <li>
-    <p>Follow the <a href="http://www.ape-project.org/wiki/index.php/Setup">APE doc</a> for installing the server</p>
-  </li>
-  <li>
-    <p>Create a new rails project and copy the ape-jsf folder into your rails project’s public dir</p>
-  </li>
-  <li>
-    <p>Edit /etc/hosts on your mac and add the entries below</p>
-  </li>
-  <li>
-    <p>Edit ape-jsf/Demos/config.js as directed below</p>
-  </li>
-  <li>
-    <p>Modify JS Request methods to use GET instead of POST</p>
-  </li>
+  <li>Download <a href="http://www.ape-project.org/download/APE_Complete_Package.html">APE Project</a></li>
+  <li>Follow the <a href="http://www.ape-project.org/wiki/index.php/Setup">APE doc</a> for installing the server</li>
+  <li>Create a new rails project and copy the ape-jsf folder into your rails project’s public dir</li>
+  <li>Edit /etc/hosts on your mac and add the entries below</li>
+  <li>Edit ape-jsf/Demos/config.js as directed below</li>
+  <li>Modify JS Request methods to use GET instead of POST</li>
 </ol>
 
-<p><strong>Add to /etc/hosts</strong></p>
+<h3 id="add-to-etchosts">Add to /etc/hosts</h3>
 
-<p>[bash]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">192.168.0.99 ape.dummy-domain.com
+</span><span class="line">192.168.0.99 0.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 1.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 2.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 3.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 4.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 5.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 6.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 7.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 8.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 9.ape.dummy-domain.com
+</span><span class="line">
+</span><span class="line">0.0.0.0 dummy-domain.com
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>192.168.0.99 ape.dummy-domain.com
-192.168.0.99 0.ape.dummy-domain.com
-192.168.0.99 1.ape.dummy-domain.com
-192.168.0.99 2.ape.dummy-domain.com
-192.168.0.99 3.ape.dummy-domain.com
-192.168.0.99 4.ape.dummy-domain.com
-192.168.0.99 5.ape.dummy-domain.com
-192.168.0.99 6.ape.dummy-domain.com
-192.168.0.99 7.ape.dummy-domain.com
-192.168.0.99 8.ape.dummy-domain.com
-192.168.0.99 9.ape.dummy-domain.com</p>
+<h3 id="edit-ape-jsfdemosconfigjs">Edit ape-jsf/Demos/config.js</h3>
 
-<p>0.0.0.0 dummy-domain.com</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">baseUrl</span> <span class="o">=</span> <span class="s1">&#39;http://dummy-domain.com:3000/ape-jsf&#39;</span><span class="p">;</span> <span class="c1">//APE JSF</span>
+</span><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">;</span>
+</span><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">server</span> <span class="o">=</span> <span class="s1">&#39;ape.dummy-domain.com:6969&#39;</span><span class="p">;</span> <span class="c1">//APE server URL</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>[/bash]</p>
+<p>Last but not least, edit ape-jsf/Tools/Check/index.html and modify all Request calls to use GET instead of POST. By default, MooTools Request object uses POST for XHR requests which will cause a problem with Rails.</p>
 
-<p><strong>Edit ape-jsf/Demos/config.js</strong></p>
-
-<p>[javascript]</p>
-
-<p>APE.Config.baseUrl = ‘http://dummy-domain.com:3000/ape-jsf’; //APE JSF
-APE.Config.domain = ‘auto’;
-APE.Config.server = ‘ape.dummy-domain.com:6969’; //APE server URL</p>
-
-<p>[/javascript]</p>
-
-<p>Last but not least, edit ape-jsf/Tools/Check/index.html and modify all Request calls to use GET instead of POST.  By default, MooTools Request object uses POST for XHR requests which will cause a problem with Rails.</p>
-
-<p>[javascript]</p>
-
-<p>this.addTest(‘Loading Client’, function() {
-		var req = new Request({
-			‘url’: ‘../../Clients/MooTools.js’,
-			‘method’: ‘GET’,
-			‘evalResponse’: true,
-			‘onComplete’: function(resp) {
-				if (window.APE) this.fireEvent(‘testComplete’, {‘sucess’: true});
-				else this.fireEvent(‘testComplete’, {‘error’: “Can’t load client, check the file “ + window.location.href.replace(‘/Tools/Check/’, ‘’) + “/Clients/MooTools.js is available”});
-			}.bind(this)
-		}).send();
-}.bind(this));</p>
-
-<p>[/javascript]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="k">this</span><span class="p">.</span><span class="nx">addTest</span><span class="p">(</span><span class="s1">&#39;Loading Client&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Request</span><span class="p">({</span>
+</span><span class="line">   <span class="s1">&#39;url&#39;</span><span class="o">:</span> <span class="s1">&#39;../../Clients/MooTools.js&#39;</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;method&#39;</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;evalResponse&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;onComplete&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">APE</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">fireEvent</span><span class="p">(</span><span class="s1">&#39;testComplete&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;sucess&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+</span><span class="line">    <span class="k">else</span> <span class="k">this</span><span class="p">.</span><span class="nx">fireEvent</span><span class="p">(</span><span class="s1">&#39;testComplete&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;error&#39;</span><span class="o">:</span> <span class="s2">&quot;Can&#39;t load client, check the file &quot;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;/Tools/Check/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/Clients/MooTools.js is available&quot;</span><span class="p">});</span>
+</span><span class="line">   <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}).</span><span class="nx">send</span><span class="p">();</span>
+</span><span class="line"><span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>The test script should now run properly at http://dummy-domain.com:3000/ape-jsf/Toosl/Check/</p>
 
 <p>APE uses iframe and JSONP hacks to transparently handle javascript subdomain security issues.</p>
 
-<p>If you look at what’s going on in Firebug, you’ll see APE embedding an iframe in the page, setting the iframe domain to dummy-domain.com, and making calls to the APE server through iframe.  This trick only works if the main HTML page is on a different sub-domain than the APE server.  It will not work for two completely different domains.  This is a limitation of Javascript browser security and not APE.</p>
+<p>If you look at what’s going on in Firebug, you’ll see APE embedding an iframe in the page, setting the iframe domain to dummy-domain.com, and making calls to the APE server through iframe. This trick only works if the main HTML page is on a different sub-domain than the APE server. It will not work for two completely different domains. This is a limitation of Javascript browser security and not APE.</p>
 
 <p>Thanks to the APE dev team for making an awesome comet server!</p>
 ]]></content>
@@ -843,69 +857,56 @@ APE.Config.server = ‘ape.dummy-domain.com:6969’; //APE server URL</p>
   
   <entry>
     <title type="html"><![CDATA[Building the Wikitude Sample App for iPhone 4]]></title>
-    <link href="http://www.10hacks.com/hacks/webdev/2010/08/08/building-the-wikitude-sample-app-for-iphone-4/"/>
+    <link href="http://www.10hacks.com/building-the-wikitude-sample-app-for-iphone-4"/>
     <updated>2010-08-08T13:58:28-07:00</updated>
-    <id>http://www.10hacks.com/hacks/webdev/2010/08/08/building-the-wikitude-sample-app-for-iphone-4</id>
-    <content type="html"><![CDATA[<p>I’m new to iPhone development but wanted to see how quickly I could build an augmented reality prototype for a simple AR treasure hunt game.  I looked at the APIs for <a href="http://site.layar.com/create/platform-overview/">Layar</a>, <a href="http://artoolworks.com/Home.html">ARToolKit</a>, <a href="http://www.junaio.com/">Junaio</a>, and settled on <a href="http://www.wikitude.org/enwikitude-iphone-api">Wikitude</a> for this test.  Wikitude provides an augmented reality library that you can drop into your iPhone project in less than an hour.  Bad ass.  Assuming you’re not an iPhone dev n00b like me.  Then it takes you three hours.</p>
+    <id>http://www.10hacks.com/building-the-wikitude-sample-app-for-iphone-4</id>
+    <content type="html"><![CDATA[<p>I’m new to iPhone development but wanted to see how quickly I could build an augmented reality prototype for a simple AR treasure hunt game. I looked at the APIs for <a href="http://site.layar.com/create/platform-overview/">Layar</a>, <a href="http://artoolworks.com/Home.html">ARToolKit</a>, <a href="http://www.junaio.com/">Junaio</a>, and settled on <a href="http://www.wikitude.org/enwikitude-iphone-api">Wikitude</a> for this test. Wikitude provides an augmented reality library that you can drop into your iPhone project in less than an hour. Bad ass. Assuming you’re not an iPhone dev n00b like me. Then it takes you three hours.</p>
 
 <p>If you’ve never tried to build a downloaded sample app, hopefully this guide will save you a couple hours of futzing around with plist and project configuration.</p>
 
 <p>I’m using XCode 3.2.3 with the iOS SDK 4.0.1 and targeting an iPhone 4 device connected to my MacBook Pro.</p>
 
-<p><strong>Getting Started</strong></p>
+<h2 id="getting-started">Getting Started</h2>
 
 <ol>
-  <li>
-    <p>Download the <a href="http://www.wikitude.org/developers">Wikitude iPhone API</a> and unzip the sample app</p>
-  </li>
-  <li>
-    <p>Open WikitudeAPI-SCM-Test.xcodeproj in XCode</p>
-  </li>
-  <li>
-    <p>Click “Build and Run” on the XCode toolbar</p>
-  </li>
+  <li>Download the <a href="http://www.wikitude.org/developers">Wikitude iPhone API</a> and unzip the sample app</li>
+  <li>Open WikitudeAPI-SCM-Test.xcodeproj in XCode</li>
+  <li>Click “Build and Run” on the XCode toolbar</li>
 </ol>
 
-<p>You’ll probably get one or more of the following errors:_ _</p>
+<p>You’ll probably get one or more of the following errors:</p>
 
-<ul>
-  <li>
-    <p><em>There is no SDK with the name or path ‘iphoneos3.1.2’.</em></p>
-  </li>
-  <li>
-    <p><em>Code Sign error: a valid provisioning profile matching the application’s Identifier ‘com.companyname.productname’ could not be found</em></p>
-  </li>
-</ul>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="text"><span class="line">There is no SDK with the name or path &#39;iphoneos3.1.2&#39;.
+</span><span class="line">
+</span><span class="line">Code Sign error: a valid provisioning profile matching the application&#39;s Identifier &#39;com.companyname.productname&#39; could not be found
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>Time for to fix the sample app configuration.  Search paths, target architecture, base SDK, and code signing will all need to be changed in order to successfully build the project.</p>
+<p>Time for to fix the sample app configuration. Search paths, target architecture, base SDK, and code signing will all need to be changed in order to successfully build the project.</p>
 
-<p>Before you go any further, make sure you’re set up through the <a href="https://developer.apple.com/iphone/manage/overview/index.action">iPhone Dev Center Provisioning Portal</a> to sign code.  The Wikitude API will not run in a simulator, and building for devices requires a valid code signing identity.  You can apparently use the XCode Organizer to create your code signing profiles.  However, I kept getting an unexpected error and ended up doing everything through the web portal.  For simplicity, I created a wildcard domain (com.simple10.*) for the App ID so that I can use the same provisioning profile for other apps.</p>
+<p>Before you go any further, make sure you’re set up through the <a href="https://developer.apple.com/iphone/manage/overview/index.action">iPhone Dev Center Provisioning Portal</a> to sign code. The Wikitude API will not run in a simulator, and building for devices requires a valid code signing identity. You can apparently use the XCode Organizer to create your code signing profiles. However, I kept getting an unexpected error and ended up doing everything through the web portal. For simplicity, I created a wildcard domain (com.simple10.*) for the App ID so that I can use the same provisioning profile for other apps.</p>
 
 <p>Once your provisioning profile is ready to go, it’s time to fix the XCode project configuration so the sample app will build.</p>
 
-<p><strong>Fixing Config Options in XCode</strong></p>
+<h2 id="fixing-config-options-in-xcode">Fixing Config Options in XCode</h2>
 
 <p>Open the project info build options panel by double clicking on WikitudeAPI-SCM-Test project.</p>
 
-<p><strong><a href="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen1.png"><img src="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen1-300x172.png" alt="Wikitude Sample App Configuration" /></a></strong></p>
+<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen1.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen1.png" alt="Wikitude Sample App Configuration" /></a></p>
 
 <p>Make the following changes to the build options…</p>
 
-<p><strong>Architectures</strong></p>
+<h3 id="architectures">Architectures</h3>
 
 <ul>
-  <li>
-    <p>Architectures: Standard (armv6 armv7)</p>
-  </li>
-  <li>
-    <p>Base SDK: iPhone Device 4.0</p>
-  </li>
-  <li>
-    <p>Build Active Architecture Only: [checked]</p>
-  </li>
+  <li>Architectures: Standard (armv6 armv7)</li>
+  <li>Base SDK: iPhone Device 4.0</li>
+  <li>Build Active Architecture Only: [checked]</li>
 </ul>
 
-<p><strong>Code Signing</strong></p>
+<h3 id="code-signing">Code Signing</h3>
 
 <ul>
   <li>Code Signing Identity &gt; Any iPhone OS Device: [select your provisioned profile]</li>
@@ -913,47 +914,43 @@ APE.Config.server = ‘ape.dummy-domain.com:6969’; //APE server URL</p>
 
 <p>Open the targets build option panel by expanding the Targets tree and double clicking on WikitudeAPI-SCM-Test.</p>
 
-<p>[](http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen2.png)<a href="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen2.png"><img src="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen2-300x218.png" alt="Wikitude Sample App Config Screen 2" /></a></p>
+<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen2.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen2.png" alt="Wikitude Sample App Config Screen 2" /></a></p>
 
 <p>Make the following changes to the target build options…</p>
 
-<p><strong>Search Paths &gt; Library Search Paths</strong></p>
+<h3 id="search-paths--library-search-paths">Search Paths &gt; Library Search Paths</h3>
 
 <ul>
-  <li>
-    <p>Remove “$(SRCROOT)/../WikitudeAPI-SCM/build/Debug-iphoneos”</p>
-  </li>
-  <li>
-    <p>Remove “$(SRCROOT)/../../../Desktop/WikitudeAPI”</p>
-  </li>
+  <li>Remove “$(SRCROOT)/../WikitudeAPI-SCM/build/Debug-iphoneos”</li>
+  <li>Remove “$(SRCROOT)/../../../Desktop/WikitudeAPI”</li>
 </ul>
 
 <p>Open WikitudeAPI_SCM_Test-Info.plist and edit the bundler identifier to match the domain used in your provisioning profile.</p>
 
-<p><a href="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen3.png"><img src="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen3-300x188.png" alt="Wikitude Sample App Screen 3" /></a></p>
+<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen3.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen3.png" alt="Wikitude Sample App Screen 3" /></a></p>
 
 <p>Finally, make sure that Active Architecture setting in the build target drop down menu is set to armv6.</p>
 
-<p><a href="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen4.png"><img src="http://simple10.com/wp-content/uploads/2010/08/wikitude_sample_config_screen4-300x226.png" alt="" /></a></p>
+<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen4.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen4.png" alt="Wikitude Sample App Screen 4" /></a></p>
 
-<p>Click Build and Run.  The app should build, deploy, and automatically run on your connected iPhone.</p>
+<p>Click Build and Run. The app should build, deploy, and automatically run on your connected iPhone.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Macports to Homebrew]]></title>
-    <link href="http://www.10hacks.com/hacks/webdev/2010/08/06/macports-to-homebrew/"/>
+    <link href="http://www.10hacks.com/dev/2010/08/06/macports-to-homebrew/"/>
     <updated>2010-08-06T11:00:52-07:00</updated>
-    <id>http://www.10hacks.com/hacks/webdev/2010/08/06/macports-to-homebrew</id>
-    <content type="html"><![CDATA[<p>Thanks to a new macbook pro with a clean OS install and minimal dev tools, I made the switch from macports to homebrew.  Easy enough with a few caveats.</p>
+    <id>http://www.10hacks.com/dev/2010/08/06/macports-to-homebrew</id>
+    <content type="html"><![CDATA[<p>Thanks to a new macbook pro with a clean OS install and minimal dev tools, I made the switch from macports to homebrew. Easy enough with a few caveats.</p>
 
 <p>The homebrew people recommend <a href="http://guide.macports.org/#installing.macports.uninstalling">uninstalling macports first</a>.</p>
 
 <p>Then <a href="http://wiki.github.com/mxcl/homebrew/installation">install homebrew</a>.</p>
 
-<p>Everything worked fine until trying to ‘<strong>brew install imagemagick</strong>’.  The compilation fails.  This seems to be a <a href="http://www.google.com/search?q=brew+install+imagemagick+fails&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a">common problem</a>.</p>
+<p>Everything worked fine until trying to ‘<strong>brew install imagemagick</strong>’. The compilation fails. This seems to be a <a href="http://www.google.com/search?q=brew+install+imagemagick+fails&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a">common problem</a>.</p>
 
-<p>The quick solution was to ‘<strong>sudo brew install imagemagick</strong>’.  Compilation worked.  However, sudo installing ghostscript after installing imagemagick failed to find the jpeg lib which was previously installed without sudo.  Yuck!</p>
+<p>The quick solution was to ‘<strong>sudo brew install imagemagick</strong>’. Compilation worked. However, sudo installing ghostscript after installing imagemagick failed to find the jpeg lib which was previously installed without sudo. Yuck!</p>
 
 <p>The final solution was to brew uninstall all image packages (jpeg, libtiff, ghostscript, etc.) and then run the following…</p>
 
@@ -963,12 +960,12 @@ git
 $ sudo brew install ghostscript
 $ sudo brew install imagemagick
 $ brew list
-ghostscript    imagemagick    jpeg
-little-cms     git        jasper        libtiff
+ghostscript   imagemagick   jpeg
+little-cms   git      jasper      libtiff
 pkg-config
 [/bash]</p>
 
-<p>I’m not sure if it’s possible to install ghostscript and imagemagick without using sudo.  I tried several times, and in the end sudo worked where other attempts failed.</p>
+<p>I’m not sure if it’s possible to install ghostscript and imagemagick without using sudo. I tried several times, and in the end sudo worked where other attempts failed.</p>
 ]]></content>
   </entry>
   
@@ -977,7 +974,7 @@ pkg-config
     <link href="http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx/"/>
     <updated>2010-03-13T06:14:00-08:00</updated>
     <id>http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx</id>
-    <content type="html"><![CDATA[<p>Use Fireworks or Photoshop to make the icon PNGs of different sizes.  Then use Gimp to create the ico file. <a href="http://egressive.com/tutorial/creating-a-multi-resolution-favicon-including-transparency-with-the-gimp">Tutorial</a></p>
+    <content type="html"><![CDATA[<p>Use Fireworks or Photoshop to make the icon PNGs of different sizes. Then use Gimp to create the ico file. <a href="http://egressive.com/tutorial/creating-a-multi-resolution-favicon-including-transparency-with-the-gimp">Tutorial</a></p>
 
 <p>Or install a .ico <a href="http://www.telegraphics.com.au/sw/">file plugin</a> to Photoshop. <a href="http://www.photoshopsupport.com/tutorials/jennifer/favicon.html">Tutorial</a>.</p>
 ]]></content>
@@ -985,112 +982,153 @@ pkg-config
   
   <entry>
     <title type="html"><![CDATA[Ordered Formsets in Google App Engine Patch]]></title>
-    <link href="http://www.10hacks.com/hacks/webdev/2009/10/19/google-app-engine-patch-django-formsets/"/>
+    <link href="http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets/"/>
     <updated>2009-10-19T05:55:53-07:00</updated>
-    <id>http://www.10hacks.com/hacks/webdev/2009/10/19/google-app-engine-patch-django-formsets</id>
-    <content type="html"><![CDATA[<p>The current version (1.1RC) of <a href="http://code.google.com/p/app-engine-patch/">Google App Engine Patch</a> does not allow for easy ordering of forms in formsets.  Normally, Django obeys a model’s Meta.ordering property as the default for formset data.  However, Google App Engine Patch fetches unordered data by default.
-<!-- more -->
-There may already be an undocumented solution from the Google App Engine Patch team, but here’s a slick unobtrusive workaround that provides a lot of flexibility.</p>
+    <id>http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets</id>
+    <content type="html"><![CDATA[<p>The current version (1.1RC) of <a href="http://code.google.com/p/app-engine-patch/">Google App Engine Patch</a> does not allow for easy ordering of forms in formsets. Normally, Django obeys a model’s Meta.ordering property as the default for formset data. However, Google App Engine Patch fetches unordered data by default.</p>
 
-<p>First off, we need a new Formset class and formset factory function …</p>
+<p>There may already be an undocumented solution from the Google App Engine Patch team, but here’s a slick unobtrusive workaround that provides a lot of flexibility.</p>
 
-<p>[python]
-# formsets.py
-from django.forms.models import inlineformset_factory
-from django.forms.models import BaseInlineFormSet</p>
+<p>First off, we need a new Formset class and formset factory function…</p>
 
-<p>class OrderedFormset(BaseInlineFormSet):
-    def <strong>init</strong>(self, data=None, files=None, instance=None,
-                 save_as_new=False, prefix=None):
-        qs = ()
-        if hasattr(self.form, ‘Meta’) and hasattr(self.form.Meta, ‘ordering’):
-            qs = instance.<strong>getattribute</strong>(self.model.<strong>name</strong>.lower()+’_set’)
-            for i in self.form.Meta.ordering:
-                qs.order(i)
-        self.instance = instance
-        self.save_as_new = save_as_new
-        super(BaseInlineFormSet, self).<strong>init</strong>(data, files, prefix=prefix, queryset=qs)</p>
-
-<p>def orderedformset_factory(parent_model, model, **kwargs):
-    kwargs[‘formset’] = OrderedFormset
-    fs = inlineformset_factory(parent_model, model, **kwargs)
-    return fs&lt;/pre&gt;
-[/python]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># formsets.py</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">django.forms.models</span> <span class="kn">import</span> <span class="n">inlineformset_factory</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">django.forms.models</span> <span class="kn">import</span> <span class="n">BaseInlineFormSet</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">OrderedFormset</span><span class="p">(</span><span class="n">BaseInlineFormSet</span><span class="p">):</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+</span><span class="line">                 <span class="n">save_as_new</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class="line">        <span class="n">qs</span> <span class="o">=</span> <span class="p">()</span>
+</span><span class="line">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="p">,</span> <span class="s">&#39;Meta&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">Meta</span><span class="p">,</span> <span class="s">&#39;ordering&#39;</span><span class="p">):</span>
+</span><span class="line">            <span class="n">qs</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;_set&#39;</span><span class="p">)</span>
+</span><span class="line">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">ordering</span><span class="p">:</span>
+</span><span class="line">                <span class="n">qs</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">instance</span>
+</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">save_as_new</span> <span class="o">=</span> <span class="n">save_as_new</span>
+</span><span class="line">        <span class="nb">super</span><span class="p">(</span><span class="n">BaseInlineFormSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">qs</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="k">def</span> <span class="nf">orderedformset_factory</span><span class="p">(</span><span class="n">parent_model</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class="line">    <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;formset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedFormset</span>
+</span><span class="line">    <span class="n">fs</span> <span class="o">=</span> <span class="n">inlineformset_factory</span><span class="p">(</span><span class="n">parent_model</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class="line">    <span class="k">return</span> <span class="n">fs</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Usage is as simple as specifying formset_factory=orderedformset_factory for each formset field…</p>
 
-<p>[python]</p>
-<pre># forms.py
-from formsets import orderedformset_factory
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># forms.py</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">formsets</span> <span class="kn">import</span> <span class="n">orderedformset_factory</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">GuestForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+</span><span class="line">    <span class="n">confirmed</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</span><span class="line">    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class="line">        <span class="n">model</span> <span class="o">=</span> <span class="n">Guest</span>
+</span><span class="line">        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;first_name&#39;</span><span class="p">,)</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">EventForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+</span><span class="line">    <span class="n">guests</span> <span class="o">=</span> <span class="n">FormSetField</span><span class="p">(</span><span class="n">Guest</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">GuestForm</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">can_order</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">formset_factory</span><span class="o">=</span><span class="n">orderedformset_factory</span><span class="p">)</span>
+</span><span class="line">    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class="line">        <span class="n">model</span> <span class="o">=</span> <span class="n">Event</span>
+</span><span class="line">        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;number&#39;</span><span class="p">,)</span>
+</span><span class="line"><span class="n">EventForm</span> <span class="o">=</span> <span class="n">FormWithSets</span><span class="p">(</span><span class="n">EventForm</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-class GuestForm(forms.ModelForm):
-    confirmed = forms.BooleanField(required=False)
-    class Meta:
-        model = Guest
-        ordering = ('first_name',)
-
-class EventForm(forms.ModelForm):
-    guests = FormSetField(Guest, form=GuestForm, extra=10, can_order=False, formset_factory=orderedformset_factory)
-    class Meta:
-        model = Event
-        ordering = ('number',)
-EventForm = FormWithSets(EventForm)
-[/python]
-
-
-
-</pre>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[A Better Way to Grep Code]]></title>
-    <link href="http://www.10hacks.com/misc/2009/09/24/a-better-way-to-grep-code/"/>
+    <link href="http://www.10hacks.com/dev/2009/09/24/a-better-way-to-grep-code/"/>
     <updated>2009-09-24T04:11:26-07:00</updated>
-    <id>http://www.10hacks.com/misc/2009/09/24/a-better-way-to-grep-code</id>
+    <id>http://www.10hacks.com/dev/2009/09/24/a-better-way-to-grep-code</id>
     <content type="html"><![CDATA[<p>When grep’ing through code on OSX or linux, .svn files are a pain because grep will find code in the source file and in the corresponding svn file. To fix this, use the below bash script to omit .svn directories from grep searches.</p>
 
 <p>Code Grep (cg)</p>
 
-<p>Create a cg script in /usr/local/bin</p>
+<p>Create a cg script in <code>/usr/local/bin</code></p>
 
-<p>[code lang=”bash”]
-!/bin/sh</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">!/bin/sh
+</span><span class="line">
+</span><span class="line"><span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span><span class="o">=</span> 1 <span class="o">]</span>; <span class="k">then</span>
+</span><span class="line"><span class="k">  </span>grep -ir <span class="s2">&quot;$1&quot;</span> * | grep -v <span class="s2">&quot;.svn/&quot;</span>
+</span><span class="line"><span class="k">elif</span> <span class="o">[</span> <span class="nv">$# </span><span class="o">=</span> 2 <span class="o">]</span>; <span class="k">then</span>
+</span><span class="line"><span class="k">  </span>grep -ir <span class="s2">&quot;$1&quot;</span> <span class="nv">$2</span>/* | grep -v <span class="s2">&quot;.svn/&quot;</span>
+</span><span class="line"><span class="k">else</span>
+</span><span class="line"><span class="k">  </span><span class="nb">echo</span> <span class="s2">&quot;Doh! Too many parameters.ncg &quot;</span>search<span class="s2">&quot; [FLAGS]&quot;</span>
+</span><span class="line"><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>if [ $# =  1 ]; then
-  grep -ir “$1” * | grep -v “.svn/”
-elif [ $# = 2 ]; then
-  grep -ir “$1” $2/* | grep -v “.svn/”
-else
-  echo “Doh! Too many parameters.ncg “search” [FLAGS]”
-fi
-[/code]</p>
-
-<p>Thanks to http://www.microshell.com/sysadmin/unix/customizing-grep-tool-to-exclude-svn/</p>
+<p>Thanks to <a href="http://www.microshell.com/sysadmin/unix/customizing-grep-tool-to-exclude-svn/">Maresa Nirwan’s article</a>.</p>
 
 <p>Include a few extra vars in your ~/.profile</p>
 
-<p>[code lang=”bash”]
-export SVN_EDITOR=/usr/bin/vim
-export GREP_OPTIONS=”-I –color=always”
-export CLICOLOR=1
-export LSCOLORS=cxfxcxdxbxegedabagacad
-[/code]</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nb">export </span><span class="nv">SVN_EDITOR</span><span class="o">=</span>/usr/bin/vim
+</span><span class="line"><span class="nb">export </span><span class="nv">GREP_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-I --color=always&quot;</span>
+</span><span class="line"><span class="nb">export </span><span class="nv">CLICOLOR</span><span class="o">=</span>1
+</span><span class="line"><span class="nb">export </span><span class="nv">LSCOLORS</span><span class="o">=</span>cxfxcxdxbxegedabagacad
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>And reload the profile with the source command</p>
 
-<p>[code lang=”bash”]
-&gt; source ~/.profile
-[/code] </p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nb">source</span> ~/.profile
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[HiveMaps Makes Google Maps Easy]]></title>
-    <link href="http://www.10hacks.com/webdev/2009/09/24/hivemaps-makes-google-maps-easy/"/>
+    <link href="http://www.10hacks.com/code/2009/09/24/hivemaps-makes-google-maps-easy/"/>
     <updated>2009-09-24T04:08:36-07:00</updated>
-    <id>http://www.10hacks.com/webdev/2009/09/24/hivemaps-makes-google-maps-easy</id>
-    <content type="html"><![CDATA[<p>Just released <a href="http://socialhive.org/hivemaps">HiveMaps</a>.  An open source JavaScript framework for Google Maps that makes it super easy to put thousands of data points on a map.  HiveMaps supports client-side marker clustering, back button, dynamic marker lists, geocoding, embedding, and smart handling of overlapping markers.</p>
+    <id>http://www.10hacks.com/code/2009/09/24/hivemaps-makes-google-maps-easy</id>
+    <content type="html"><![CDATA[<p>Just released <a href="http://socialhive.org/hivemaps">HiveMaps</a>. An open source JavaScript framework for Google Maps that makes it super easy to put thousands of data points on a map. HiveMaps supports client-side marker clustering, back button, dynamic marker lists, geocoding, embedding, and smart handling of overlapping markers.</p>
 
 <p>HiveMaps currently uses an improved version of <a href="http://googlegeodevelopers.blogspot.com/2009/04/markerclusterer-solution-to-too-many.html">MarkerClusterer</a> available in the <a href="http://code.google.com/p/hivemap/source/browse/trunk/js/markerclusterer.js">source code repo</a>.</p>
 ]]></content>
