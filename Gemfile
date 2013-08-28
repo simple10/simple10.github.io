@@ -7,6 +7,7 @@ group :development do
   gem 'pygments.rb'
   gem 'haml'
   gem 'compass'
+  gem 'bourbon'
   gem 'sass'
   gem 'coffee-script'
   gem 'uglifier'

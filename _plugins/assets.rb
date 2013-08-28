@@ -4,4 +4,4 @@ require "jekyll-assets"
 # require "jekyll-assets/compass"
 #
 # Enable bourbon goodies
-# require "jekyll-assets/bourbon"
+require "jekyll-assets/bourbon"
