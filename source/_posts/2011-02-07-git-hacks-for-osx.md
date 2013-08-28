@@ -3,11 +3,14 @@ author: joe
 comments: true
 date: 2011-02-07 03:20:33
 layout: post
+permalink: git-hacks-for-osx
 slug: git-hacks-for-osx
 title: Git Hacks for OSX
 wordpress_id: 246
 categories:
-- misc
+- code
+tags:
+- git
 ---
 
 Use these git config settings and tools to make your life easier.
@@ -18,14 +21,14 @@ Git autocomplete is super helpful if you have long branch names.
 
 Add the below code to your ~/.gitconfig file to enable color and popular short codes.
 
-[code language="bash"]
+```bash
 [color]
-	ui = auto
+  ui = auto
 [alias]
-	co = checkout
-	br = branch
-	st = status
-[/code]
+  co = checkout
+  br = branch
+  st = status
+```
 
 [GitX](http://gitx.frim.nl/) - git graphical viewer - better than gitk
 

@@ -7,8 +7,9 @@ slug: chaining-bundle-gemfiles
 title: Chaining Bundle Gemfiles
 wordpress_id: 307
 categories:
+- code
+tags:
 - rails3
-- ruby
 ---
 
 Useful little snippet to include gem files inside of each other.

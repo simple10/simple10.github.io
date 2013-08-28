@@ -7,8 +7,9 @@ permalink: linux-default-gateway-route
 title: Linux Default Gateway Route
 wordpress_id: 312
 categories:
-- linux
 - sysadmin
+tags:
+- networking
 ---
 
 I only seem to run into this once a year and rarely remember what to do off the top of my head.

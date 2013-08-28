@@ -7,7 +7,7 @@ slug: validating-a-single-attribute-in-rails-activerecord
 title: Validating a Single Attribute in Rails ActiveRecord
 wordpress_id: 274
 categories:
-- ruby
+- code
 tags:
 - rails3
 ---
@@ -18,11 +18,10 @@ What I really want to do is pass a hash into valid? with the attributes I want t
 
 Here's a quick solution for a User model.
 
-[code language="ruby"]
+```ruby
 def attribute_valid?(attr, value)
   u = User.new(attr => value))
   u.valid?
   !u.errors.has_key?(:username)
 end
-[/code]
-
+```

@@ -3,15 +3,11 @@ author: joe
 comments: true
 date: 2011-02-09 19:57:18
 layout: post
-slug: '256'
-title: Rails 3's unobtrusive javascript support...
+title: Rails 3's unobtrusive javascript support
 wordpress_id: 256
 categories:
-- jquery
-- rails3
-- ruby
+- code
 tags:
-- autocomplete
 - jquery
 - rails3
 ---
@@ -26,49 +22,29 @@ Next, download [jQuery UI Autocomplete](http://jqueryui.com/download), copy the
 
 Here's the general process I use to setup autocomplete for Rails 3:
 
-**In the controller**
-
-
-
+## Controller
 	
-  1. create a method to handle the autocomplete search request
+1. Create a method to handle the autocomplete search request
 
-
-**In routes**
-
-
-
+## Routes
 	
-  1. add a route for the method you created in the controller – this is your autocomplete search endpoint
+1. Add a route for the method you created in the controller – this is your autocomplete search endpoint
 
+## View
 
-**In the view**
+1. Add a text field with a unique class name like 'autocomplete'
+2. Add a unique data attribute like 'data-endpoint' to the text field and set it to the path of your autocomplete endpoint
 
-
-
+## Application.js
 	
-  1. add a text field with a unique class name like 'autocomplete'
-
-	
-  2. add a unique data attribute like 'data-endpoint' to the text field and set it to the path of your autocomplete endpoint
-
-
-**In application.js**
-
-
-
-	
-  1. enable jQuery Autocomplete on any DOM element with the class 'autocomplete' (or whatever you used in the view)
-
-	
-  2. use the value of data-endpoint as the source URL for the jQuery Autocomplete widget
-
+1. Enable jQuery Autocomplete on any DOM element with the class 'autocomplete' (or whatever you used in the view)
+2. Use the value of data-endpoint as the source URL for the jQuery Autocomplete widget
 
 In the following example, I'm tagging a user and using autocomplete to help suggest tags.
 
-**controllers/users/tags_controller.rb**
+### controllers/users/tags_controller.rb
 
-[code language="ruby"]
+```ruby
 class Users::TagsController < ApplicationController
   respond_to :json
   skip_before_filter :authenticate_user!, :only => [:index]
@@ -86,42 +62,43 @@ class Users::TagsController < ApplicationController
     redirect_to user_path(@user)
   end
 end
-[/code]
+```
 
 The tags controller has two methods. One for creating a tag, and one (index) for handling tag autocomplete searches.
 
 The index method expects user_id and term params. In this example, the user_id is being handled in the path /users/:user_id/tags and jQuery Autocomplete sends in the term param.
 
-**routes.rb**
+### routes.rb
 
-[code lang="ruby"]
+```ruby
 resources :users do
   resources :tags, :only => [:index, :create], :controller => 'users/tags'
 end
-[/code]
+```
 
 This creates a /users/:user_id/tags route and a users_tags_path helper to use in your views.
 
-**views/users/show.html.haml**
+### views/users/show.html.haml
 
-[code lang="ruby"]
+```ruby
 = form_for [@user, @user.tags.build] do |f|
   .field
     = f.label :name, 'Tag'
     = f.text_field :name, :class => 'autocomplete', :'data-endpoint' => user_tags_path(@user)
   = f.submit 'Add Tag'
-[/code]
+```
 
 
-**javascripts/application.js**
-[code lang="ruby"]
+### javascripts/application.js
+
+```javascript
 jQuery(function($){
   $('.autocomplete').each(function(){
     var self = $(this);
     self.autocomplete({source: self.attr('data-endpoint')});
   });
 });
-[/code]
+```
 
 That's all there is to it.  You can easily modify your controller and model code to use MongoDB, Solr, Redis, or whatever you want.
 

@@ -7,9 +7,9 @@ permalink: save-only-changed-attributes-in-backbone-js
 title: Save Only Changed Attributes in Backbone.js
 wordpress_id: 301
 categories:
+- code
+tags:
 - backbone.js
-- hacks
-- jquery
 ---
 
 {% callout Update date:2013-06-01 %}

@@ -3,11 +3,13 @@ author: joe
 comments: true
 date: 2011-07-08 19:01:49
 layout: post
+permalink: resque-admin-in-rails-3-routes-with-cancan
 slug: resque-admin-in-rails-3-routes-with-cancan
 title: Resque Admin in Rails 3 Routes with CanCan
 wordpress_id: 284
 categories:
-- hacks
+- code
+tags:
 - rails3
 ---
 
@@ -15,24 +17,24 @@ categories:
 
 Resque comes with a built-in admin interface that's Rack compatible. In Rails 3, you can mount the Resque server admin directly in your routes.rb file.
 
-[code language="ruby"]
+```ruby
 mount Resque::Server, at: '/resque'
-[/code]
+```
 
 But you'll definitely want to add password protection. Ryan Bates in his [Resque RailsCast](http://railscasts.com/episodes/271-resque) covers the basics of using Devise and HTTP auth. However, you'll probably want to hook into your existing ACL system. In my case, I'm using [CanCan](https://github.com/ryanb/cancan).
 
 CanCan is not available in the routes.rb by default, but it's pretty easy to manually load the user and check permissions.
 
-[code language="ruby"]
+```ruby
 # routes.rb
 namespace :admin do
   constraints CanAccessResque do
     mount Resque::Server, at: 'resque'
   end
 end
-[/code]
+```
 
-[code language="ruby"]
+```ruby
 # config/initializers/admin.rb
 class CanAccessResque
   def self.matches?(request)
@@ -41,9 +43,9 @@ class CanAccessResque
     Ability.new(current_user).can? :manage, Resque
   end
 end
-[/code]
+```
 
-[code language="ruby"]
+```ruby
 # ability.rb
 class Ability
   include CanCan::Ability
@@ -54,7 +56,7 @@ class Ability
     end
   end
 end
-[/code]
+```
 
 You'll need User.is_admin? method or change the logic in Ability to suit your project.
 
