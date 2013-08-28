@@ -20,12 +20,6 @@ header:
       {% endfor %}
     </ol>
   </section>
-
-  <section class="categories">
-    <h2>Topics</h2>
-    {% include categories.html %}
-  </section>
-
   <ol class="nav  pagination">
     <li class="pagination__prev">
       {% if paginator.previous_page %}
@@ -43,6 +37,10 @@ header:
       {% endif %}
     </li>
   </ol>
+  <section class="categories">
+    <h2>Topics</h2>
+    {% include categories.html %}
+  </section>
 </div>
 
 <aside class="sidebar">
