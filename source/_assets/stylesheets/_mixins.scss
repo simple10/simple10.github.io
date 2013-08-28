@@ -12,6 +12,13 @@
   border: $border;
 }
 
+// Set box-shadow to override bourbon's box-shadow deprecation warning
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow;
+     -moz-box-shadow: $shadow;
+          box-shadow: $shadow;
+}
+
 @mixin selection($bg, $color: inherit, $text-shadow: none){
   * {
     &::-moz-selection { background: $bg; color: $color; text-shadow: $text-shadow; }
@@ -25,6 +32,12 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+@mixin ribbon-wrap($size, $color, $direction: right) {
+  @include triangle($size, $color, down);
+  @if $direction == right { border-left: none; }
+  @if $direction == left { border-right: none; }
 }
 
 @function text-color($color, $dark: dark, $light: light){
