@@ -1,5 +1,6 @@
 <ul>
-{% for category in site.categories %}
+{% assign categories = site.categories | sort_tags_by_length  %}
+{% for category in categories %}
   <li><a href="{{ site.category_dir }}/{{ category[0] }}">{{ category[0] }}</a> - {{ category[1].size }}</li>
 {% endfor %}
 </ul>
