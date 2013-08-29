@@ -13,7 +13,7 @@
         {% endif %}
         var disqus_identifier = '{{ comments_id }}';
         var disqus_url = '{{ site.url }}{{ page.url }}';
-        var disqus_title = '{{ page.title }}';
+        var disqus_title = '{{ page.title | escape }}';
         var disqus_script = 'embed.js';
       {% else %}
         var disqus_script = 'count.js';
