@@ -6,8 +6,8 @@
         // var disqus_developer = 1;
         {% if page.comments_id %}
           {% assign comments_id = page.comments_id %}
-        {% else if page.slug %}
-          {% assign comments_id = page.slug %}
+        {% else if page.permalink %}
+          {% assign comments_id = page.permalink %}
         {% else %}
           {% assign comments_id = page.url %}
         {% endif %}
