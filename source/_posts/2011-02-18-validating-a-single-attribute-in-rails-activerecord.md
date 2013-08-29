@@ -4,7 +4,7 @@ comments: true
 date: 2011-02-18 06:14:42
 layout: post
 title: Validating a Single Attribute in Rails ActiveRecord
-wordpress_id: 274
+comments_id: 1661921881
 categories:
 - code
 tags:

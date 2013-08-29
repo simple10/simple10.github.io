@@ -4,7 +4,7 @@ comments: true
 date: 2011-02-09 19:57:18
 layout: post
 title: Rails 3's unobtrusive javascript support
-wordpress_id: 256
+comments_id: 1661921862
 categories:
 - code
 tags:
