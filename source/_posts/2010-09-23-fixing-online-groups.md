@@ -2,6 +2,7 @@
 author: joe
 date: 2010-09-23 20:33:17
 layout: post
+comments_id: fixing-online-groups
 title: Fixing Online Groups
 categories:
 - ideas

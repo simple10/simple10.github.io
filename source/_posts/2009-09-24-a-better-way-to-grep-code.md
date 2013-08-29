@@ -2,6 +2,7 @@
 author: joe
 date: 2009-09-24 11:11:26
 layout: post
+comments_id: a-better-way-to-grep-code
 title: A Better Way to Grep Code
 categories:
 - dev

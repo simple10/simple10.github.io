@@ -3,6 +3,7 @@ author: joe
 date: 2012-03-16 03:00:42
 layout: post
 permalink: rspec-capybara-devise-login-tests
+comments_id: rspec_capybara_devise_login_tests
 title: RSpec + Capybara + Devise Login Tests
 categories:
 - code

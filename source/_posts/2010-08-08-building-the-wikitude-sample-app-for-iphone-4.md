@@ -3,6 +3,7 @@ author: joe
 date: 2010-08-08 20:58:28
 layout: post
 permalink: building-the-wikitude-sample-app-for-iphone-4
+comments_id: building_the_wikitude_sample_app_for_iphone_4
 title: Building the Wikitude Sample App for iPhone 4
 categories:
 - dev

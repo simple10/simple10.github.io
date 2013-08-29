@@ -2,6 +2,7 @@
 author: joe
 date: 2011-02-09 19:57:18
 layout: post
+comments_id: rails_3039s_unobtrusive_javascript_support
 title: Rails 3's unobtrusive javascript support
 categories:
 - code

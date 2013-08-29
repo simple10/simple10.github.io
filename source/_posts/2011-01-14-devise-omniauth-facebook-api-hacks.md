@@ -3,6 +3,7 @@ author: joe
 date: 2011-01-14 03:12:16
 layout: post
 permalink: devise-omniauth-facebook-api-hacks
+comments_id: devise_omniauth_facebook_api_hacks
 title: Devise + OmniAuth + Facebook API Hacks
 categories:
 - code
