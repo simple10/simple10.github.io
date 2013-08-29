@@ -3,7 +3,6 @@ author: joe
 comments: true
 date: 2011-07-07 22:56:09
 layout: post
-slug: rescuing-from-racktimeout-to-close-mongodb-connection
 title: Rescuing from Rack::Timeout to Close MongoDB Connection
 wordpress_id: 278
 categories:

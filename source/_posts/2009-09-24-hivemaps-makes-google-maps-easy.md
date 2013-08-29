@@ -3,7 +3,6 @@ author: joe
 comments: true
 date: 2009-09-24 11:08:36
 layout: post
-slug: hivemaps-makes-google-maps-easy
 title: HiveMaps Makes Google Maps Easy
 wordpress_id: 103
 categories:

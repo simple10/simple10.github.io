@@ -3,7 +3,6 @@ author: joe
 comments: true
 date: 2009-08-31 21:50:19
 layout: post
-slug: google-app-engine-sdk-and-vmware-setup
 title: Google App Engine SDK and VMWare Setup
 wordpress_id: 101
 categories:

@@ -3,7 +3,6 @@ author: joe
 comments: true
 date: 2011-02-18 06:14:42
 layout: post
-slug: validating-a-single-attribute-in-rails-activerecord
 title: Validating a Single Attribute in Rails ActiveRecord
 wordpress_id: 274
 categories:

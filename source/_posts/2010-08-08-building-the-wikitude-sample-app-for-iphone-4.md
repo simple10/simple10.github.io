@@ -4,7 +4,6 @@ comments: true
 date: 2010-08-08 20:58:28
 layout: post
 permalink: building-the-wikitude-sample-app-for-iphone-4
-slug: building-the-wikitude-sample-app-for-iphone-4
 title: Building the Wikitude Sample App for iPhone 4
 wordpress_id: 133
 categories:

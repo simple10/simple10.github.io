@@ -4,7 +4,6 @@ comments: true
 date: 2010-08-09 20:45:47
 layout: post
 permalink: ape-comet-server-local-dev-environment-setup
-slug: ape-comet-server-local-dev-environment-setup
 title: APE Comet Server Local Dev Environment Setup
 wordpress_id: 147
 categories:

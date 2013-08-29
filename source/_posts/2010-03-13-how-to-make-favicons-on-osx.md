@@ -3,7 +3,6 @@ author: joe
 comments: true
 date: 2010-03-13 14:14:00
 layout: post
-slug: how-to-make-favicons-on-osx
 title: How-To Make Favicons on OSX
 wordpress_id: 120
 categories:
