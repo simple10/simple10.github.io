@@ -2,7 +2,7 @@
 <div id="disqus_thread" aria-live="polite"></div>
 <script type="text/javascript">
       var disqus_shortname = '{{ site.comments.disqus.short_name }}';
-      {% if page.comments == true %}
+      {% if page.comments != false %}
         // var disqus_developer = 1;
         {% if page.comments_id %}
           {% assign comments_id = page.comments_id %}
