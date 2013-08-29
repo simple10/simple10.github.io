@@ -5,7 +5,7 @@ date: 2011-01-14 03:12:16
 layout: post
 permalink: devise-omniauth-facebook-api-hacks
 title: Devise + OmniAuth + Facebook API Hacks
-comments_id: 1661921802
+wordpress_id: 186
 categories:
 - code
 tags:

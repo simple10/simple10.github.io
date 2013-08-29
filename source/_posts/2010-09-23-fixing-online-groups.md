@@ -4,7 +4,7 @@ comments: true
 date: 2010-09-23 20:33:17
 layout: post
 title: Fixing Online Groups
-comments_id: 1661921798
+wordpress_id: 162
 categories:
 - ideas
 tags:
