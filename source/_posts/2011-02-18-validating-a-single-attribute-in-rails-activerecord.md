@@ -3,7 +3,7 @@ author: joe
 date: 2011-02-18 06:14:42
 layout: post
 title: Validating a Single Attribute in Rails ActiveRecord
-comments_id: validating_a_single_attribute_in_rails_activerecord
+comments_id: 274 http://www.simple10.com/?p=274"
 categories:
 - code
 tags:

@@ -3,7 +3,7 @@ author: joe
 date: 2010-08-09 20:45:47
 layout: post
 permalink: ape-comet-server-local-dev-environment-setup
-comments_id: ape_comet_server_local_dev_environment_setup
+comments_id: 147 http://www.simple10.com/?p=147
 title: APE Comet Server Local Dev Environment Setup
 categories:
 - dev
