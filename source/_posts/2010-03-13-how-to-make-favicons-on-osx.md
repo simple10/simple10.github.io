@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2010-03-13 14:14:00
 layout: post
 title: How-To Make Favicons on OSX
-wordpress_id: 120
 categories:
 - design
 tags:

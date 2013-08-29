@@ -1,11 +1,9 @@
 ---
 author: joe
-comments: true
 date: 2013-03-13 23:52:31
 layout: post
 permalink: ignore-jquery-jsonp-callbacks-in-mocha
 title: Ignore jQuery JSONP Callbacks in Mocha
-wordpress_id: 322
 categories:
 - code
 tags:

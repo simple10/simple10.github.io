@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2009-07-28 10:26:13
 layout: post
 title: Django Google App Engine Debugging
-wordpress_id: 88
 categories:
 - dev
 tags:

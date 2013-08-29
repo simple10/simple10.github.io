@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2010-09-23 20:33:17
 layout: post
 title: Fixing Online Groups
-wordpress_id: 162
 categories:
 - ideas
 tags:

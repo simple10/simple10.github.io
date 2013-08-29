@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2009-09-24 11:11:26
 layout: post
 title: A Better Way to Grep Code
-wordpress_id: 98
 categories:
 - dev
 tags:

@@ -1,11 +1,9 @@
 ---
 author: joe
-comments: true
 date: 2013-03-06 19:21:44
 layout: post
 permalink: linux-default-gateway-route
 title: Linux Default Gateway Route
-wordpress_id: 312
 categories:
 - sysadmin
 tags:

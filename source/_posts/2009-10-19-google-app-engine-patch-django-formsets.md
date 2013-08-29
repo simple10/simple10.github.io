@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2009-10-19 12:55:53
 layout: post
 title: Ordered Formsets in Google App Engine Patch
-wordpress_id: 105
 categories:
 - code
 tags:

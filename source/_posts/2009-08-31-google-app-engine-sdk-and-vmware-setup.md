@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2009-08-31 21:50:19
 layout: post
 title: Google App Engine SDK and VMWare Setup
-wordpress_id: 101
 categories:
 - dev
 tags:

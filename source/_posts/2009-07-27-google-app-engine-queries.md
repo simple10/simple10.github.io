@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2009-07-27 12:51:30
 layout: post
 title: Google App Engine Queries
-wordpress_id: 86
 categories:
 - dev
 tags:

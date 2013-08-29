@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2009-01-28 17:32:30
 layout: post
 title: UTF-8 + JSON + PHP
-wordpress_id: 58
 categories:
 - code
 tags:

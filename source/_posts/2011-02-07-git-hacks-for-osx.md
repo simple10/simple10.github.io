@@ -1,11 +1,9 @@
 ---
 author: joe
-comments: true
 date: 2011-02-07 03:20:33
 layout: post
 permalink: git-hacks-for-osx
 title: Git Hacks for OSX
-wordpress_id: 246
 categories:
 - code
 tags:

@@ -1,10 +1,8 @@
 ---
 author: joe
-comments: true
 date: 2010-08-06 18:00:52
 layout: post
 title: Macports to Homebrew
-wordpress_id: 130
 categories:
 - dev
 tags:
