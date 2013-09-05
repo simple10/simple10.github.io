@@ -6,9 +6,4 @@
 .pygments-cache
 _deploy
 _public
-sass.old
-source.old
-source/_stash
-source/stylesheets/screen.css
-node_modules
 
