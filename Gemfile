@@ -2,8 +2,8 @@ source "https://rubygems.org"
 
 group :development do
   gem 'rake'
-  gem 'jekyll', '~> 1.1.2'
-  gem 'jekyll-assets', "~> 0.7.1"
+  gem 'jekyll', '>= 1.1.2'
+  gem 'jekyll-assets', ">= 0.7.1"
   gem 'pygments.rb'
   gem 'haml'
   gem 'compass'
