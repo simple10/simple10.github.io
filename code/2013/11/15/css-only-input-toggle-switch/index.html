@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>CSS Only + Accessible Input Toggle Switch - 10 Hacks</title>
+  <meta name="author" content="Joe Johnston">
+
+  
+  <meta name="description" content="CSS input toggle switches are nothing new, but I’ve yet to see one that is Bootstrap 3 compatible, doesn’t use JavaScript, accepts tab focus and &hellip;">
+  
+  <meta name="apple-mobile-web-app-title" content="10 Hacks">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="/images/logos/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
+
+  <!-- Prefetch DNS for external assets -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  
+  <link rel="canonical" href="http://www.10hacks.com/code/2013/11/15/css-only-input-toggle-switch">
+  <link href="/atom.xml" rel="alternate" title="10 Hacks" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/assets/app-4b572b6a4bef935693e53b251f96a0cd.css">
+  <script src="/assets/head-d92d16045604cdb37199b5ea0e7c26f5.js"></script>
+</head>
+
+<body   >
+  <nav role="navigation" class="container">
+  <!--
+  
+  <form action="http://google.com/search" method="get">
+    <fieldset role="search">
+      <input type="hidden" name="q" value="site:www.10hacks.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    </fieldset>
+  </form>
+   -->
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/" title="10 Hacks">
+        <img src="/images/logos/logo.svg">
+        10 Hacks
+      </a>
+      <ul class="nav">
+        
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+        
+      </ul>
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="https://twitter.com/joejohnston"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
+        <a class="btn btn-primary" href="https://github.com/simple10"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        <article role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">CSS Only + Accessible Input Toggle Switch</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-15T15:10:00Z" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>CSS input toggle switches are nothing new, but I’ve yet to see one that is 
+Bootstrap 3 compatible, doesn’t use JavaScript, accepts tab focus and
+styles properly, and doesn’t break accessibility. So I wrote one.</p>
+
+<p><a href="http://jsfiddle.net/simple10/5x99N/2/">Demo on JSFiddle</a> - but without JS ;-)</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+</pre></td><td class="code"><pre><code class="css"><span class="line"><span class="c">/* Toggle instances */</span>
+</span><span class="line"> <span class="nc">.toggle</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">width</span><span class="o">:</span> <span class="m">140px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="c">/* General toggle styles */</span>
+</span><span class="line"> <span class="nc">.toggle</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+</span><span class="line">    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line">    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+</span><span class="line">    <span class="k">white-space</span><span class="o">:</span> <span class="k">nowrap</span><span class="p">;</span>
+</span><span class="line">    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">select</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class="line">    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">select</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class="line">    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">select</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class="line">    <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">select</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class="line">    <span class="n">user</span><span class="o">-</span><span class="n">select</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="nt">input</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+</span><span class="line">    <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="o">&gt;</span> <span class="nt">div</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+</span><span class="line">    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line">    <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="nt">label</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+</span><span class="line">    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">-100</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line">    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line">    <span class="k">width</span><span class="o">:</span> <span class="m">200</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line">    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="k">margin</span> <span class="m">0.15s</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">1</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">035</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">665</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">91</span><span class="p">);</span>
+</span><span class="line">    <span class="n">transition</span><span class="o">:</span> <span class="k">margin</span> <span class="m">0.15s</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">1</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">035</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">665</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">91</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="nt">label</span><span class="nd">:before</span><span class="o">,</span> <span class="nc">.toggle</span> <span class="nt">label</span><span class="nd">:after</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">content</span><span class="o">:</span><span class="s2">&quot; &quot;</span><span class="p">;</span>
+</span><span class="line">    <span class="k">display</span><span class="o">:</span> <span class="n">table</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="nt">label</span><span class="nd">:after</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="nt">label</span> <span class="nc">.btn</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+</span><span class="line">    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="nt">input</span><span class="nd">:focus</span> <span class="o">+</span> <span class="nt">div</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">outline</span><span class="o">:</span> <span class="k">thin</span> <span class="k">dotted</span> <span class="m">#333</span><span class="p">;</span>
+</span><span class="line">    <span class="k">outline</span><span class="o">:</span> <span class="m">5px</span> <span class="k">auto</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">focus</span><span class="o">-</span><span class="n">ring</span><span class="o">-</span><span class="k">color</span><span class="p">;</span>
+</span><span class="line">    <span class="k">outline</span><span class="o">-</span><span class="n">offset</span><span class="o">:</span> <span class="m">-2px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="nt">input</span><span class="nd">:checked</span> <span class="o">+</span> <span class="nt">div</span> <span class="o">&gt;</span> <span class="nt">label</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">margin-left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle</span> <span class="nt">input</span><span class="nd">:checked</span> <span class="o">+</span> <span class="nt">div</span> <span class="o">&gt;</span> <span class="nt">label</span> <span class="nc">.toggle-handle</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">left</span><span class="o">:</span> <span class="m">90</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line">    <span class="k">left</span><span class="o">:</span> <span class="n">calc</span><span class="p">(</span><span class="m">90</span><span class="o">%</span> <span class="o">-</span> <span class="m">2px</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle-on</span><span class="o">,</span> <span class="nc">.toggle-off</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line">    <span class="k">width</span><span class="o">:</span> <span class="m">50</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle-on</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">padding-right</span><span class="o">:</span> <span class="m">10</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle-off</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">padding-left</span><span class="o">:</span> <span class="m">10</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle-handle</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">width</span><span class="o">:</span> <span class="m">10</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line">    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line">    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+</span><span class="line">    <span class="k">left</span><span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
+</span><span class="line">    <span class="k">top</span><span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
+</span><span class="line">    <span class="k">bottom</span><span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
+</span><span class="line">    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="k">left</span> <span class="m">0.15s</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">1</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">035</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">665</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">91</span><span class="p">);</span>
+</span><span class="line">    <span class="n">transition</span><span class="o">:</span> <span class="k">left</span> <span class="m">0.15s</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">1</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">035</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">665</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">91</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle-align</span> <span class="nc">.toggle-on</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">text-align</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+</span><span class="line">    <span class="k">padding-right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nc">.toggle-align</span> <span class="nc">.toggle-off</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+</span><span class="line">    <span class="k">padding-left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;toggle&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;t1&quot;</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="nt">/&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">&quot;t1&quot;</span> <span class="na">name=</span><span class="s">&quot;t1&quot;</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span> <span class="nt">/&gt;</span>
+</span><span class="line">    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;btn&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;t1&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;toggle-on btn btn-success&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;glyphicon glyphicon-ok&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+</span><span class="line">Public<span class="nt">&lt;/div&gt;</span>
+</span><span class="line">            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;toggle-handle btn btn-default&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class="line">            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;toggle-off btn btn-warning active&quot;</span><span class="nt">&gt;</span>Private <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;glyphicon glyphicon-lock&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+</span><span class="line">
+</span><span class="line">            <span class="nt">&lt;/div&gt;</span>
+</span><span class="line">        <span class="nt">&lt;/label&gt;</span>
+</span><span class="line">    <span class="nt">&lt;/div&gt;</span>
+</span><span class="line"><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>If you have stacked toggles, just add toggle-align class to <code>&lt;div class="toggle toggle-align"&gt;</code> 
+to align text. This is optional, but looks better IMHO.</p>
+
+<h2 id="other-toggle-switches-for-reference">Other toggle switches for reference:</h2>
+
+<ul>
+  <li><a href="http://www.bootstrap-switch.org/">http://www.bootstrap-switch.org/</a></li>
+  <li><a href="http://minhur.github.io/bootstrap-toggle/">http://minhur.github.io/bootstrap-toggle/</a></li>
+  <li><a href="http://ghinda.net/css-toggle-switch/">http://ghinda.net/css-toggle-switch/</a></li>
+</ul>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-15T15:10:00Z" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/category/code/'>code</a>
+  
+</span>
+
+
+    </p>
+
+    
+      <div class="sharing">
+  
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/code/2013/11/15/css-only-input-toggle-switch/" data-via="joejohnston" data-counturl="http://www.10hacks.com/code/2013/11/15/css-only-input-toggle-switch/" >Tweet</a>
+  
+  
+    <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-width="90" data-layout="button_count" data-send="false" data-show-faces="false"></div>
+  
+</div>
+
+    
+
+    <p class="meta">
+      
+        <a href="/code/2013/10/25/disable-google-maps-tab-index/" title="Previous Post: How to Disable Google Maps Tab Index">&laquo; How to Disable Google Maps Tab Index</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+<section>
+  
+
+
+  
+<div id="disqus_thread" aria-live="polite"></div>
+<script type="text/javascript">
+      var disqus_shortname = '10hacks';
+      
+        // var disqus_developer = 1;
+        
+          
+        
+        var disqus_identifier = '';
+        var disqus_url = 'http://www.10hacks.com/code/2013/11/15/css-only-input-toggle-switch/';
+        var disqus_title = 'CSS Only + Accessible Input Toggle Switch';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</section>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js#appId=&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="contactModalLabel">Contact Me</h3>
+  </div>
+  <div class="modal-body">
+    <p>Email: <a href="mailto:joe@10hacks.com?subject=[10Hacks] Contact Me" target="_blank">joe@10hacks.com</a></p>
+    <p><small>Please include [10Hacks] in the subject line. Thanks!</small></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" data-dismiss="modal">OK</button>
+  </div>
+</div>
+
+  <footer role="contentinfo">
+</footer>
+
+  <script src="/assets/app-f7ffe072f168a685fc7907507b69cd57.js"></script>
+  
+
+</body>
+</html>
