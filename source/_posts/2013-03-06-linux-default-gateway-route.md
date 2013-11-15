@@ -12,9 +12,9 @@ tags:
 
 I only seem to run into this once a year and rarely remember what to do off the top of my head.
 
-**Problem: **configuring and starting network interfaces on Linux (usually Debian / Ubuntu)
+**Problem:** configuring and starting network interfaces on Linux (usually Debian / Ubuntu)
 
-**Solution: **use ifup and ifdown, not ifconfig
+**Solution:** use ifup and ifdown, not ifconfig
 
 The problem I ran into was caused by a network interface going down on a server. Bringing the network back up with `ifconfig eth0 up` works except for one tasty little detail: ifconfig does not set a default gateway route. And for the life of me, I couldn't remember where I was supposed to enable this route. I looked in `/etc/network/interfaces`, `/etc/network/if-*/*`, `/etc/rc.local`, etc. to no avail.
 
