@@ -4,7 +4,7 @@
   <title><![CDATA[10 Hacks]]></title>
   <link href="http://www.10hacks.com/atom.xml" rel="self"/>
   <link href="http://www.10hacks.com/"/>
-  <updated>2013-11-15T13:20:22-08:00</updated>
+  <updated>2013-11-15T14:15:12-08:00</updated>
   <id>http://www.10hacks.com/</id>
   <author>
     <name><![CDATA[Joe Johnston]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://www.10hacks.com/">Hackerpress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How to Disable Google Maps Tab Index]]></title>
+    <link href="http://www.10hacks.com/code/2013/10/25/disable-google-maps-tab-index/"/>
+    <updated>2013-10-25T17:30:00Z</updated>
+    <id>http://www.10hacks.com/code/2013/10/25/disable-google-maps-tab-index</id>
+    <content type="html"><![CDATA[<p>By default, the logo and links on an embedded Google Map accept tab focus.
+However, if the map is embedded in a form, you probably want tabbing to
+skip over the map since the map links have nothing to do with your form.</p>
+
+<p>The easiest way is to wait until the map loads and then set the tabindex
+attributes to a high number, effectively disabling tab focus on the map.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="c1"># Empty div</span>
+</span><span class="line"><span class="nv">$map = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;.map&#39;</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># Init Google Map</span>
+</span><span class="line"><span class="nv">gmap = </span><span class="k">new</span> <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="nx">$map</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># Set tabindex on all &lt;a&gt; elements once map has loaded</span>
+</span><span class="line"><span class="nv">listener = </span><span class="nx">gmap</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s">&#39;tilesloaded&#39;</span><span class="p">,</span> <span class="o">=&gt;</span>
+</span><span class="line">  <span class="nx">$map</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;tabindex&#39;</span><span class="p">,</span> <span class="mi">999</span><span class="p">)</span>
+</span><span class="line">  <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="nx">listener</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Tabindex could also be set to -1, but it’s technically not valid HTML5.
+Setting tabindex to a sufficiently high number works just fine.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Ignore jQuery JSONP Callbacks in Mocha]]></title>
@@ -1120,17 +1159,6 @@ pkg-config
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 </pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nb">source</span> ~/.profile
 </span></code></pre></td></tr></table></div></figure></notextile></div>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[HiveMaps Makes Google Maps Easy]]></title>
-    <link href="http://www.10hacks.com/code/2009/09/24/hivemaps-makes-google-maps-easy/"/>
-    <updated>2009-09-24T11:08:36Z</updated>
-    <id>http://www.10hacks.com/code/2009/09/24/hivemaps-makes-google-maps-easy</id>
-    <content type="html"><![CDATA[<p>Just released <a href="http://socialhive.org/hivemaps">HiveMaps</a>. An open source JavaScript framework for Google Maps that makes it super easy to put thousands of data points on a map. HiveMaps supports client-side marker clustering, back button, dynamic marker lists, geocoding, embedding, and smart handling of overlapping markers.</p>
-
-<p>HiveMaps currently uses an improved version of <a href="http://googlegeodevelopers.blogspot.com/2009/04/markerclusterer-solution-to-too-many.html">MarkerClusterer</a> available in the <a href="http://code.google.com/p/hivemap/source/browse/trunk/js/markerclusterer.js">source code repo</a>.</p>
 ]]></content>
   </entry>
   
