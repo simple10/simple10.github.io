@@ -4,7 +4,7 @@
   <title><![CDATA[10 Hacks]]></title>
   <link href="http://www.10hacks.com/atom.xml" rel="self"/>
   <link href="http://www.10hacks.com/"/>
-  <updated>2013-11-15T13:18:15-08:00</updated>
+  <updated>2013-11-15T13:20:22-08:00</updated>
   <id>http://www.10hacks.com/</id>
   <author>
     <name><![CDATA[Joe Johnston]]></name>
@@ -43,9 +43,9 @@
     <id>http://www.10hacks.com/linux-default-gateway-route</id>
     <content type="html"><![CDATA[<p>I only seem to run into this once a year and rarely remember what to do off the top of my head.</p>
 
-<p>**Problem: **configuring and starting network interfaces on Linux (usually Debian / Ubuntu)</p>
+<p><strong>Problem:</strong> configuring and starting network interfaces on Linux (usually Debian / Ubuntu)</p>
 
-<p>**Solution: **use ifup and ifdown, not ifconfig</p>
+<p><strong>Solution:</strong> use ifup and ifdown, not ifconfig</p>
 
 <p>The problem I ran into was caused by a network interface going down on a server. Bringing the network back up with <code>ifconfig eth0 up</code> works except for one tasty little detail: ifconfig does not set a default gateway route. And for the life of me, I couldn’t remember where I was supposed to enable this route. I looked in <code>/etc/network/interfaces</code>, <code>/etc/network/if-*/*</code>, <code>/etc/rc.local</code>, etc. to no avail.</p>
 
