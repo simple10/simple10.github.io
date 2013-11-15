@@ -1,0 +1,1137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[10 Hacks]]></title>
+  <link href="http://www.10hacks.com/atom.xml" rel="self"/>
+  <link href="http://www.10hacks.com/"/>
+  <updated>2013-11-15T13:18:15-08:00</updated>
+  <id>http://www.10hacks.com/</id>
+  <author>
+    <name><![CDATA[Joe Johnston]]></name>
+    
+  </author>
+  <generator uri="http://www.10hacks.com/">Hackerpress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ignore jQuery JSONP Callbacks in Mocha]]></title>
+    <link href="http://www.10hacks.com/ignore-jquery-jsonp-callbacks-in-mocha"/>
+    <updated>2013-03-13T23:52:31Z</updated>
+    <id>http://www.10hacks.com/ignore-jquery-jsonp-callbacks-in-mocha</id>
+    <content type="html"><![CDATA[<p><a href="http://visionmedia.github.com/mocha/">Mocha</a> reports global variable leaks by default. If you’re using jQuery to fetch JSONP data, mocha will report the random jQuery callback functions as leaks.</p>
+
+<p>To make mocha ignore the JSONP callback functions, just add jQuery* to mocha’s list of registered globals.</p>
+
+<p>For the browser based version of mocha, register the globals using the setup method.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">mocha</span><span class="p">.</span><span class="nx">setup</span><span class="p">({</span>
+</span><span class="line">  <span class="nx">globals</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;jQuery*&#39;</span><span class="p">]</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This little tip was not obvious to me in the mocha documentation and required digging through the code a bit.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Linux Default Gateway Route]]></title>
+    <link href="http://www.10hacks.com/linux-default-gateway-route"/>
+    <updated>2013-03-06T19:21:44Z</updated>
+    <id>http://www.10hacks.com/linux-default-gateway-route</id>
+    <content type="html"><![CDATA[<p>I only seem to run into this once a year and rarely remember what to do off the top of my head.</p>
+
+<p>**Problem: **configuring and starting network interfaces on Linux (usually Debian / Ubuntu)</p>
+
+<p>**Solution: **use ifup and ifdown, not ifconfig</p>
+
+<p>The problem I ran into was caused by a network interface going down on a server. Bringing the network back up with <code>ifconfig eth0 up</code> works except for one tasty little detail: ifconfig does not set a default gateway route. And for the life of me, I couldn’t remember where I was supposed to enable this route. I looked in <code>/etc/network/interfaces</code>, <code>/etc/network/if-*/*</code>, <code>/etc/rc.local</code>, etc. to no avail.</p>
+
+<p>I ran <code>sudo route add default gw 192.168.0.1 eth0</code> to manually setup the route, but I still couldn’t figure out the best practice for enabling this route on reboot.</p>
+
+<p>Finally, I looked at <code>/etc/init.d/networking</code> and noticed it was using <code>ifup</code> instead of <code>ifconfig</code>. Running <code>ifup eth0</code> setup the correct default gateway route with no need for any manual configuration.</p>
+
+<p>Useful commands:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">lspci
+</span><span class="line">netstat
+</span><span class="line">sudo route -n
+</span><span class="line">sudo route add default gw 192.168.0.1 eth0
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Chaining Bundle Gemfiles]]></title>
+    <link href="http://www.10hacks.com/code/2012/04/11/chaining-bundle-gemfiles/"/>
+    <updated>2012-04-11T18:38:47Z</updated>
+    <id>http://www.10hacks.com/code/2012/04/11/chaining-bundle-gemfiles</id>
+    <content type="html"><![CDATA[<p>Useful little snippet to include gem files inside of each other.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="nb">eval</span><span class="p">(</span><span class="no">IO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;../somedir/Gemfile&#39;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)),</span> <span class="nb">binding</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Save Only Changed Attributes in Backbone.js]]></title>
+    <link href="http://www.10hacks.com/save-only-changed-attributes-in-backbone-js"/>
+    <updated>2012-03-24T21:23:02Z</updated>
+    <id>http://www.10hacks.com/save-only-changed-attributes-in-backbone-js</id>
+    <content type="html"><![CDATA[<aside class="callout"><header><span>Update <span class="date">Jun 1<span>st</span>, 2013</span> </span></header>
+<p>As of Backbone 0.9.10, partial model updates are supported with <code>model.save(attrs, {patch: true})</code></p>
+</aside>
+
+<p>Backbone.js syncs all model data to the server by default regardless of what actually changed. This makes a lot of frontend tasks and debugging much easier, but for some models, sending all the data every time is overkill.</p>
+
+<p>Here’s a quick extension to backbone models and collections to only sync changes. Just call model.saveChanges instead of model.save and only your changes will be synced.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CoffeeScript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="nv">cx_backbone_common =</span>
+</span><span class="line">  <span class="nv">sync: </span><span class="nf">(method, model, options) -&gt;</span>
+</span><span class="line">    <span class="c1"># Changed attributes will be available here if model.saveChanges was called instead of model.save</span>
+</span><span class="line">    <span class="k">if</span> <span class="nx">method</span> <span class="o">==</span> <span class="s">&#39;update&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">model</span><span class="p">.</span><span class="nx">changedAttributes</span><span class="p">()</span>
+</span><span class="line">      <span class="nv">options.data = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">model</span><span class="p">.</span><span class="nx">changedAttributes</span><span class="p">())</span>
+</span><span class="line">      <span class="nv">options.contentType = </span><span class="s">&#39;application/json&#39;</span><span class="p">;</span>
+</span><span class="line">    <span class="nx">Backbone</span><span class="p">.</span><span class="nx">sync</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">model</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="nv">cx_backbone_model =</span>
+</span><span class="line">  <span class="c1"># Calling this method instead of set will force sync to only send changed attributes</span>
+</span><span class="line">  <span class="c1"># Changed event will not be triggered until after the model is synced</span>
+</span><span class="line">  <span class="nv">saveChanges: </span><span class="nf">(attrs) -&gt;</span>
+</span><span class="line">    <span class="nx">@save</span><span class="p">(</span><span class="nx">attrs</span><span class="p">,</span> <span class="p">{</span><span class="nv">wait: </span><span class="kc">true</span><span class="p">})</span>
+</span><span class="line">
+</span><span class="line"><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">cx_backbone_common</span><span class="p">,</span> <span class="nx">cx_backbone_model</span><span class="p">)</span>
+</span><span class="line"><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">cx_backbone_common</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RSpec + Capybara + Devise Login Tests]]></title>
+    <link href="http://www.10hacks.com/rspec-capybara-devise-login-tests"/>
+    <updated>2012-03-16T03:00:42Z</updated>
+    <id>http://www.10hacks.com/rspec-capybara-devise-login-tests</id>
+    <content type="html"><![CDATA[<p>For the new version of <a href="http://connect.me">Connect.Me</a> (in development), the interface is mostly driven through AJAX interactions. In the past, I’ve used Cucumber + Capybara to test JavaScript, but I really don’t like the Cucumber syntax and slow tests. I recently switched to RSpec request specs with Capybara. The only problem is testing testing JS on pages that require a login.</p>
+
+<p>Since Capybara runs in a different thread from the tests, session data is not available. So the Devise sign_in method does nothing for Capybara.</p>
+
+<p>There are basically two solutions to get Capybara to authenticate:</p>
+
+<ol>
+  <li>Use Capybara to login through a Devise login form by posting the user’s email and password</li>
+  <li>Set session data in Capybara to simulate a login (basically do the same thing that Devise’s sign_in does)</li>
+</ol>
+
+<p>For speed of tests reasons, I’d prefer to just set session data. After Googling around, I found <a href="http://stackoverflow.com/questions/9144865/rspec-capybara-request-specs-cant-get-devise-to-post-new-user-session">this solution</a> and modified it a bit.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># spec/support/request_helpers.rb</span>
+</span><span class="line"><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+</span><span class="line"><span class="kp">include</span> <span class="ss">Warden</span><span class="p">:</span><span class="ss">:Test</span><span class="o">::</span><span class="no">Helpers</span>
+</span><span class="line">
+</span><span class="line"><span class="k">module</span> <span class="nn">RequestHelpers</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">create_logged_in_user</span>
+</span><span class="line">    <span class="n">user</span> <span class="o">=</span> <span class="no">Factory</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">user</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">login_as</span> <span class="n">user</span><span class="p">,</span> <span class="ss">scope</span><span class="p">:</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now you just need to call create_logged_in_user and you’re good to go.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">describe</span> <span class="s2">&quot;user settings&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">let</span><span class="p">(</span><span class="ss">:authed_user</span><span class="p">)</span> <span class="p">{</span> <span class="n">create_logged_in_user</span> <span class="p">}</span>
+</span><span class="line">
+</span><span class="line">  <span class="n">it</span> <span class="s2">&quot;should allow access&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="n">visit</span> <span class="n">user_settings_path</span><span class="p">(</span><span class="n">authed_user</span><span class="p">)</span>
+</span><span class="line">    <span class="c1"># should be good!</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Resque Admin in Rails 3 Routes with CanCan]]></title>
+    <link href="http://www.10hacks.com/resque-admin-in-rails-3-routes-with-cancan"/>
+    <updated>2011-07-08T19:01:49Z</updated>
+    <id>http://www.10hacks.com/resque-admin-in-rails-3-routes-with-cancan</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/defunkt/resque">Resque</a> is a background jobs queue that’s highly recommended over Delayed::Job if you are processing a lot of jobs. It uses <a href="http://redis.io/">Redis</a> as the backend which doesn’t suffer from db related bottlenecks under high load.</p>
+
+<p>Resque comes with a built-in admin interface that’s Rack compatible. In Rails 3, you can mount the Resque server admin directly in your routes.rb file.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">mount</span> <span class="ss">Resque</span><span class="p">:</span><span class="ss">:Server</span><span class="p">,</span> <span class="ss">at</span><span class="p">:</span> <span class="s1">&#39;/resque&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>But you’ll definitely want to add password protection. Ryan Bates in his <a href="http://railscasts.com/episodes/271-resque">Resque RailsCast</a> covers the basics of using Devise and HTTP auth. However, you’ll probably want to hook into your existing ACL system. In my case, I’m using <a href="https://github.com/ryanb/cancan">CanCan</a>.</p>
+
+<p>CanCan is not available in the routes.rb by default, but it’s pretty easy to manually load the user and check permissions.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># routes.rb</span>
+</span><span class="line"><span class="n">namespace</span> <span class="ss">:admin</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">constraints</span> <span class="no">CanAccessResque</span> <span class="k">do</span>
+</span><span class="line">    <span class="n">mount</span> <span class="ss">Resque</span><span class="p">:</span><span class="ss">:Server</span><span class="p">,</span> <span class="ss">at</span><span class="p">:</span> <span class="s1">&#39;resque&#39;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># config/initializers/admin.rb</span>
+</span><span class="line"><span class="k">class</span> <span class="nc">CanAccessResque</span>
+</span><span class="line">  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">matches?</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</span><span class="line">    <span class="n">current_user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">env</span><span class="o">[</span><span class="s1">&#39;warden&#39;</span><span class="o">].</span><span class="n">user</span>
+</span><span class="line">    <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class="line">    <span class="no">Ability</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span><span class="o">.</span><span class="n">can?</span> <span class="ss">:manage</span><span class="p">,</span> <span class="no">Resque</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># ability.rb</span>
+</span><span class="line"><span class="k">class</span> <span class="nc">Ability</span>
+</span><span class="line">  <span class="kp">include</span> <span class="ss">CanCan</span><span class="p">:</span><span class="ss">:Ability</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="line">    <span class="n">user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line">    <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_admin?</span>
+</span><span class="line">      <span class="n">can</span> <span class="ss">:manage</span><span class="p">,</span> <span class="no">Resque</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>You’ll need User.is_admin? method or change the logic in Ability to suit your project.</p>
+
+<p>Now an authenticated user with is_admin? == true will be able to access Resque admin. Other users will get a 404 since no route matches.</p>
+
+<p>Thanks to <a href="http://www.arcath.net/posts/38">Arcath’s blog post</a> for initially pointing me in the right direction.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rescuing from Rack::Timeout to Close MongoDB Connection]]></title>
+    <link href="http://www.10hacks.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/"/>
+    <updated>2011-07-07T22:56:09Z</updated>
+    <id>http://www.10hacks.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection</id>
+    <content type="html"><![CDATA[<p>I’m using Rack::Timeout on Heroku to kill requests before Heroku’s 30 second limit is reached. This helps applications play nice with cloud infrastructure but can cause some unexpected bugs with <a href="https://jira.mongodb.org/browse/RUBY-231?focusedCommentId=26045&amp;page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_26045">MongoDB connections being reused</a> by the next request.</p>
+
+<p>The errors showed up as…</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">Mongo::ConnectionFailure: Expected response 372 but got 371
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Mongo ruby driver &gt;=1.3 catches the reused request and raises an error, but this still means the first and next requests both returned errors. It’s much better to catch the initial timeout and close the connection.</p>
+
+<p>It seems like rescue_from Timeout::Error in ApplicationController should work, but for some reason the exception passed in is a Class and not Timeout::Error – most likely due to Rack::Timeout wrapping the entire app.</p>
+
+<p>I <a href="http://www.google.com/search?sourceid=chrome&amp;ie=UTF-8&amp;q=rescue_from+timeout+error">googled around</a> and couldn’t find a more elegant solution, but the below snippet in ApplicationController does the trick.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># note: can not rescue from Timeout::Error directly because a timeout from Rack::Timeout ends up passing in Class as the exception</span>
+</span><span class="line"><span class="n">rescue_from</span> <span class="no">Exception</span> <span class="k">do</span> <span class="o">|</span><span class="n">exception</span><span class="o">|</span>
+</span><span class="line">  <span class="c1"># catch Timeout::Error or message from Rack::Timeout</span>
+</span><span class="line">  <span class="k">if</span> <span class="n">exception</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="ss">Timeout</span><span class="p">:</span><span class="ss">:Error</span><span class="p">)</span> <span class="o">||</span> <span class="sr">/execution expired/</span> <span class="o">=~</span> <span class="n">exception</span><span class="o">.</span><span class="n">message</span>
+</span><span class="line">    <span class="c1"># prevent subsequent requests from reusing this mongo connection</span>
+</span><span class="line">    <span class="no">Mongoid</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">close</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">  <span class="k">raise</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>As a side note, Heroku’s new cedar stack does not have the 30 second limit if you’re streaming data – Rails 3.1 supports streaming.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Validating a Single Attribute in Rails ActiveRecord]]></title>
+    <link href="http://www.10hacks.com/code/2011/02/18/validating-a-single-attribute-in-rails-activerecord/"/>
+    <updated>2011-02-18T06:14:42Z</updated>
+    <id>http://www.10hacks.com/code/2011/02/18/validating-a-single-attribute-in-rails-activerecord</id>
+    <content type="html"><![CDATA[<p>Checking a single attribute on a model for validity doesn’t seem to be possible in Rails.  Or at least I couldn’t find a quick answer googling around or looking through the ActiveRecord code.</p>
+
+<p>What I really want to do is pass a hash into valid? with the attributes I want to validate or have an attribute_valid? method. This level of granularity is often useful in AJAX heavy apps. For instance, checking for username availability and validity as the user types during username selection.</p>
+
+<p>Here’s a quick solution for a User model.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">def</span> <span class="nf">attribute_valid?</span><span class="p">(</span><span class="kp">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class="line">  <span class="n">u</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="kp">attr</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">))</span>
+</span><span class="line">  <span class="n">u</span><span class="o">.</span><span class="n">valid?</span>
+</span><span class="line">  <span class="o">!</span><span class="n">u</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">has_key?</span><span class="p">(</span><span class="ss">:username</span><span class="p">)</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3's unobtrusive javascript support]]></title>
+    <link href="http://www.10hacks.com/rails3_unobtrusive_javascript_support"/>
+    <updated>2011-02-09T19:57:18Z</updated>
+    <id>http://www.10hacks.com/rails3-unobtrusive-javascript-support</id>
+    <content type="html"><![CDATA[<p>Rails 3’s unobtrusive javascript support makes it easy to integrate <a href="http://jqueryui.com/demos/autocomplete/">jQuery UI Autocomplete</a> and any backend or custom query you want. There’s a <a href="https://github.com/crowdint/rails3-jquery-autocomplete">Rails3 jQuery Autocomplete</a> gem already available on github, but it’s not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?</p>
+
+<p>It’s easy.</p>
+
+<p>First, make sure your rails app is setup with jQuery support.</p>
+
+<p>Next, download <a href="http://jqueryui.com/download">jQuery UI Autocomplete</a>, copy the appropriate files into your javascripts and stylesheets directories, and make sure the JS and CSS files are loading properly in your app.</p>
+
+<p>Here’s the general process I use to setup autocomplete for Rails 3:</p>
+
+<h2 id="controller">Controller</h2>
+
+<ol>
+  <li>Create a method to handle the autocomplete search request</li>
+</ol>
+
+<h2 id="routes">Routes</h2>
+
+<ol>
+  <li>Add a route for the method you created in the controller – this is your autocomplete search endpoint</li>
+</ol>
+
+<h2 id="view">View</h2>
+
+<ol>
+  <li>Add a text field with a unique class name like ‘autocomplete’</li>
+  <li>Add a unique data attribute like ‘data-endpoint’ to the text field and set it to the path of your autocomplete endpoint</li>
+</ol>
+
+<h2 id="applicationjs">Application.js</h2>
+
+<ol>
+  <li>Enable jQuery Autocomplete on any DOM element with the class ‘autocomplete’ (or whatever you used in the view)</li>
+  <li>Use the value of data-endpoint as the source URL for the jQuery Autocomplete widget</li>
+</ol>
+
+<p>In the following example, I’m tagging a user and using autocomplete to help suggest tags.</p>
+
+<h3 id="controllersuserstagscontrollerrb">controllers/users/tags_controller.rb</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Users</span><span class="o">::</span><span class="no">TagsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class="line">  <span class="n">respond_to</span> <span class="ss">:json</span>
+</span><span class="line">  <span class="n">skip_before_filter</span> <span class="ss">:authenticate_user!</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:index</span><span class="o">]</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">index</span>
+</span><span class="line">    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="vi">@tags</span> <span class="o">=</span> <span class="no">Tag</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">[</span><span class="s2">&quot;LOWER(name) LIKE ?&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:term</span><span class="o">].</span><span class="n">downcase</span><span class="si">}</span><span class="s2">%&quot;</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">tag</span><span class="o">|</span> <span class="n">tag</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+</span><span class="line">    <span class="n">respond_with</span><span class="p">(</span><span class="vi">@tags</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">create</span>
+</span><span class="line">    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="n">tag</span> <span class="o">=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:tag</span><span class="o">]</span><span class="p">)</span>
+</span><span class="line">    <span class="n">flash</span><span class="o">[</span><span class="ss">:success</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;Tag added&#39;</span>
+</span><span class="line">    <span class="n">redirect_to</span> <span class="n">user_path</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>The tags controller has two methods. One for creating a tag, and one (index) for handling tag autocomplete searches.</p>
+
+<p>The index method expects user_id and term params. In this example, the user_id is being handled in the path /users/:user_id/tags and jQuery Autocomplete sends in the term param.</p>
+
+<h3 id="routesrb">routes.rb</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">resources</span> <span class="ss">:users</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">resources</span> <span class="ss">:tags</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:index</span><span class="p">,</span> <span class="ss">:create</span><span class="o">]</span><span class="p">,</span> <span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="s1">&#39;users/tags&#39;</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This creates a /users/:user_id/tags route and a users_tags_path helper to use in your views.</p>
+
+<h3 id="viewsusersshowhtmlhaml">views/users/show.html.haml</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="o">=</span> <span class="n">form_for</span> <span class="o">[</span><span class="vi">@user</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">build</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class="line">  <span class="o">.</span><span class="n">field</span>
+</span><span class="line">    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:name</span><span class="p">,</span> <span class="s1">&#39;Tag&#39;</span>
+</span><span class="line">    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;autocomplete&#39;</span><span class="p">,</span> <span class="ss">:&#39;data-endpoint&#39;</span> <span class="o">=&gt;</span> <span class="n">user_tags_path</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span>
+</span><span class="line">  <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s1">&#39;Add Tag&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="javascriptsapplicationjs">javascripts/application.js</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">jQuery</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">){</span>
+</span><span class="line">  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.autocomplete&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class="line">    <span class="nx">self</span><span class="p">.</span><span class="nx">autocomplete</span><span class="p">({</span><span class="nx">source</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-endpoint&#39;</span><span class="p">)});</span>
+</span><span class="line">  <span class="p">});</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>That’s all there is to it.  You can easily modify your controller and model code to use MongoDB, Solr, Redis, or whatever you want.</p>
+
+<p>Happy coding.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git Hacks for OSX]]></title>
+    <link href="http://www.10hacks.com/git-hacks-for-osx"/>
+    <updated>2011-02-07T03:20:33Z</updated>
+    <id>http://www.10hacks.com/git-hacks-for-osx</id>
+    <content type="html"><![CDATA[<p>Use these git config settings and tools to make your life easier.</p>
+
+<p><a href="http://www.codethatmatters.com/2010/01/git-autocomplete-in-mac-os-x/">Git tab autocomplete for OSX</a> - enables tab autocomplete for most git commands</p>
+
+<p>Git autocomplete is super helpful if you have long branch names.</p>
+
+<p>Add the below code to your ~/.gitconfig file to enable color and popular short codes.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="o">[</span>color<span class="o">]</span>
+</span><span class="line">  <span class="nv">ui</span> <span class="o">=</span> auto
+</span><span class="line"><span class="o">[</span><span class="nb">alias</span><span class="o">]</span>
+</span><span class="line">  <span class="nv">co</span> <span class="o">=</span> checkout
+</span><span class="line">  <span class="nv">br</span> <span class="o">=</span> branch
+</span><span class="line">  <span class="nv">st</span> <span class="o">=</span> status
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><a href="http://gitx.frim.nl/">GitX</a> - git graphical viewer - better than gitk</p>
+
+<p>The <a href="https://github.com/brotherbard/gitx">brotherbard</a> fork of gitx has some recommended improvements.</p>
+
+<p>Thanks to <a href="https://github.com/empact">Ben Woolsey</a> for all these tips.  Ben is working with us on a new startup.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3 + STI: Making Associations Work Properly]]></title>
+    <link href="http://www.10hacks.com/rails-3-sti"/>
+    <updated>2011-01-18T07:13:30Z</updated>
+    <id>http://www.10hacks.com/rails-3-sti</id>
+    <content type="html"><![CDATA[<p>I really like the idea of Single Table Inheritance (STI) for all sorts of applications to keep code DRY and make it easier to organize object behavior. The only problem is that Rails 3.0.3 doesn’t fully support STI with association collections.</p>
+
+<p>Let’s say you have a User model that has many badges. The badges will be stored in the badges table but you want to implement each badge in a subclass. All you have to do is make sure there’s a <code>:type</code> field of type string in your badges table and Rails STI support should take care of the rest (well, in theory).</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">has_many</span> <span class="ss">:badges</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">Badge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">award</span>
+</span><span class="line">    <span class="k">raise</span> <span class="s2">&quot;Must implement in subclass&quot;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">Badges</span><span class="o">::</span><span class="no">Superhero</span> <span class="o">&lt;</span> <span class="no">Badge</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">award</span>
+</span><span class="line">    <span class="n">user</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;superhero&#39;</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now you can do cool things like create a new Superhero badge and add it to a user’s badge collection.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">first</span>
+</span><span class="line"><span class="n">badge</span> <span class="o">=</span> <span class="ss">Badges</span><span class="p">:</span><span class="ss">:Superhero</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line"><span class="n">user</span><span class="o">.</span><span class="n">badges</span> <span class="o">&lt;&lt;</span> <span class="n">badge</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>But for some weird reason, you can’t use the best practice of building a badge directly from the user’s badges collection.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">first</span>
+</span><span class="line"><span class="n">badge</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">badges</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="ss">:type</span> <span class="o">=&gt;</span> <span class="ss">Badges</span><span class="p">:</span><span class="ss">:Superhero</span><span class="p">)</span>
+</span><span class="line"><span class="c1"># badge.class == Badge</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This is particularly annoying if you’re trying to create new badges from a form where :type is a drop down menu.</p>
+
+<p>The reason the collection build method doesn’t work as expected is because :type is a protected field and ActiveRecord::AssociationReflection doesn’t fully support STI (at least in Rails 3.0.3).</p>
+
+<p>Not to fret, hacks to the rescue!</p>
+
+<p>You have two options to make STI work as expected.</p>
+
+<h3 id="option-1-override-the-badgenew-method-to-handle-type">Option 1: Override the Badge.new method to handle :type</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Badge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class="line">  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class="line">  <span class="nb">self</span><span class="o">.</span><span class="n">abstract_class</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">new_with_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">      <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">is_a?</span> <span class="no">Hash</span> <span class="ow">and</span> <span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">symbolize_keys</span><span class="o">[</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">inheritance_column</span><span class="o">.</span><span class="n">to_sym</span><span class="o">]</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">klass</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">constantize</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">self</span>
+</span><span class="line">        <span class="k">raise</span> <span class="s2">&quot;Must be a subclass of Badge&quot;</span> <span class="k">unless</span> <span class="n">klass</span> <span class="o">&lt;</span> <span class="nb">self</span>  <span class="c1"># klass should be a descendant of self</span>
+</span><span class="line">        <span class="k">return</span> <span class="n">klass</span><span class="o">.</span><span class="n">new_without_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">raise</span> <span class="s2">&quot;Badge must be created through a subclass.&quot;</span>
+</span><span class="line">      <span class="n">new_without_cast</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">    <span class="n">alias_method_chain</span> <span class="ss">:new</span><span class="p">,</span> <span class="ss">:cast</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="option-2-patch-associationreflection-to-behave-more-intelligently">Option 2: Patch AssociationReflection to behave more intelligently</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="ss">Reflection</span><span class="p">:</span><span class="ss">:AssociationReflection</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">build_association</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="n">col</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">inheritance_column</span><span class="o">.</span><span class="n">to_sym</span>
+</span><span class="line">    <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">is_a?</span> <span class="no">Hash</span> <span class="ow">and</span> <span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">symbolize_keys</span><span class="o">[</span><span class="n">col</span><span class="o">]</span><span class="p">)</span> <span class="ow">and</span> <span class="n">type</span><span class="o">.</span><span class="n">class</span> <span class="o">==</span> <span class="no">Class</span>
+</span><span class="line">      <span class="n">opts</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="n">col</span><span class="o">].</span><span class="n">to_s</span><span class="o">.</span><span class="n">constantize</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="k">elsif</span> <span class="n">klass</span><span class="o">.</span><span class="n">abstract_class?</span>
+</span><span class="line">      <span class="k">raise</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">klass</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2"> is an abstract class and can not be directly instantiated&quot;</span>
+</span><span class="line">    <span class="k">else</span>
+</span><span class="line">      <span class="n">klass</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">opts</span><span class="p">)</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>My preference is Option 2 even though it might break in future releases of Rails. I’d rather have Rails behaving as expected than pepper my models code with repetitive hacks.</p>
+
+<p>The above solutions were inspired from a couple of different <a href="http://coderrr.wordpress.com/2008/04/22/building-the-right-class-with-sti-in-rails/">posts</a> and <a href="http://stackoverflow.com/questions/2553931/can-nested-attributes-be-used-in-combination-with-inheritance">sources</a>.</p>
+
+<p>I submitted Option 2 as a <a href="https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/6306-collection-associations-build-method-not-supported-for-sti">patch for Rails</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Devise + OmniAuth + Facebook API Hacks]]></title>
+    <link href="http://www.10hacks.com/devise-omniauth-facebook-api-hacks"/>
+    <updated>2011-01-14T03:12:16Z</updated>
+    <id>http://www.10hacks.com/devise-omniauth-facebook-api-hacks</id>
+    <content type="html"><![CDATA[<p>While using <a href="https://github.com/plataformatec/devise">Devise</a> + <a href="https://github.com/intridea/omniauth">OmniAuth</a> for a new Rails 3 project, I got really curious about how to reuse OmniAuth’s strategy classes to fetch additional API data after a user has authenticated.</p>
+
+<p>A lot of people probably use libraries like <a href="https://github.com/nov/fb_graph">FbGraph</a> along with OmniAuth, but I wanted something extremely lightweight without duplicating code already in OmniAuth.</p>
+
+<p>I mostly followed Ryan Bates’ <a href="http://railscasts.com/episodes/235-omniauth-part-1">railscasts</a> on setting up Devise + OmniAuth.</p>
+
+<p>If you open the oa-oauth gem, you’ll see a <code>lib/omniauth/strategies</code> folder filled with all sorts of OAuth2 providers like Facebook, Twitter, and LinkedIn. Each of these provider classes has most if not everything needed to make direct API calls once an OAuth2 access_token is obtained.</p>
+
+<p>The basic idea is to store the access_token during an OAuth2 login process (Ryan covers this in his railscast) and later on use the token to fetch more data. To do this, you use the access_token to instantiate an OAuth2::AccessToken along with a Facebook specific <code>OAuth2::Client</code>. The Facebook client really just sets the site URL variable so the AccessToken knows where to send requests. It seems simple enough to just use OmniAuth’s strategy classes for the <code>OAuth2::Client</code>. Then I don’t have to maintain provider specific code myself.</p>
+
+<p>I dug around in the Devise, OmniAuth, and OAuth2 code for hours.  Long story short, the simplest solution is to just write your own provider client class instead of trying to reuse OmniAuth’s. Bummer. But way easier in the end. OmniAuth is a rack application designed for authentication only. It’s just too convoluted to try to reuse its strategy classes for additional API calls.</p>
+
+<p>Here’s the simple solution I ended up writing…</p>
+
+<p>Create lib/facebook.rb in your rails app</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">module</span> <span class="nn">OAuth2</span>
+</span><span class="line">  <span class="k">module</span> <span class="nn">Clients</span>
+</span><span class="line">    <span class="k">class</span> <span class="nc">Facebook</span> <span class="o">&lt;</span> <span class="no">Client</span>
+</span><span class="line">      <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">opts</span> <span class="o">=</span> <span class="p">{})</span>
+</span><span class="line">        <span class="n">opts</span><span class="o">[</span><span class="ss">:site</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;https://graph.facebook.com/&#39;</span>
+</span><span class="line">        <span class="k">super</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now you can use the Facebook client along with a user specific access_token (stored in a database during the OmniAuth login process) to fetch additional API data.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="nb">require</span> <span class="s1">&#39;facebook&#39;</span>
+</span><span class="line"><span class="n">client</span> <span class="o">=</span> <span class="ss">OAuth2</span><span class="p">:</span><span class="ss">:Clients</span><span class="o">::</span><span class="no">Facebook</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span><span class="line"><span class="n">token</span> <span class="o">=</span> <span class="ss">OAuth2</span><span class="p">:</span><span class="ss">:AccessToken</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">access_token</span><span class="p">)</span>
+</span><span class="line"><span class="n">token</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/me/friends&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Note that you don’t need to set the client_id, and client_secret when creating a new Facebook object. The id and secret are only needed to initially obtain the access_token which you already have.</p>
+
+<p>On a side note, it’s good to keep in mind that every additional OmniAuth provider creates a new rack application which gets called on every request. Hopefully this will not be the case in future versions so that an arbitrary number of providers can be supported without any performance concerns.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing Online Groups]]></title>
+    <link href="http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups/"/>
+    <updated>2010-09-23T20:33:17Z</updated>
+    <id>http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups</id>
+    <content type="html"><![CDATA[<p>It’s almost 2011 and online groups are still broken. Sure, you can join a Facebook group to support your cause, create a Google or Yahoo group for your soccer club, setup a Ning or Drupal site for your small business, but good luck getting that group to talk to others across the web.</p>
+
+<p><a href="http://www.10hacks.com/images/posts/hierarchical_groups.png"><img src="http://www.10hacks.com/images/posts/hierarchical_groups.png" alt="Group Communication Chart" /></a></p>
+
+<p>Online groups are still treated as silos of individuals rather than first class citizens that can participate in other groups. Silos are fine (and often desired) for small groups, but they just don’t scale to hundreds of thousands or millions of users. Not to mention that most physical groups are composed of subgroups (ad hoc gatherings, committees, local chapters, etc.) that self organize in ways that are not reflected in most online tools.</p>
+
+<p>The future of online groups is context, not membership.</p>
+
+<p><a href="http://twitter.com/simple10/">Twitter</a> and <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> are headed in the right direction by contextualizing communication through topics rather than membership. Tweeters (or is it twitterers?) use hash tags (#topic) to essentially join ad hoc topical conversations. They can also create and join lists which function like traditional groups. However, lists can not be nested which means there’s no way to model hierarchical groups.</p>
+
+<p><a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> is a technology and code project rather than a service like Twitter. With PubSubHubBub, people (or servers) subscribe to topics on a hub. Each hub can implement logic for publishing and aggregating posts per topic. Hierarchical groups can be modeled by having a separate hub per subgroup where each hub is subscribed to the hub above it in the hierarchy.</p>
+
+<p>For instance…</p>
+
+<p>Individuals subscribe to local hubs. Local hubs subscribe to regional hubs, and regional hubs subscribe to the main global hub. This effectively models a local chapter based global organization like a <a href="http://350.org">350.org</a>. Only authorized users can publish to the global hub. Regional and local hubs will automatically forward posts from the global hub. Any individual can participate in a local hub. Local posts are always rebroadcast to local subscribers. Topics or posts that get a lot of local attention would then be sent to regional hubs and on up to the global hub if warranted.</p>
+
+<p>This hierarchical approach to groups was partially spec’ed out in my <a href="http://www.openactionnetwork.org/">Open Action Network</a> project that’s temporarily on the back burner since I’m busy with a new startup. The project conceptually uses <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> and the <a href="http://www.salmon-protocol.org/">Salmon Protocol</a> to move messages around in hierarchical groups.</p>
+
+<p>There’s also a lot of promise for managing groups in the <a href="http://personaldatastore.info/">federated personal data store</a> model. It works similarly to PubSubHubBub (and would be interoperable with hubs) but efficiently handles delegating of group permissions through XDI graphs and link contracts. This allows for advanced permissions schemes where subgroups and individuals are granted granular access to other groups. Messages and other group data are stored in graphs which have interesting semantic and social capabilities. XDI messages can be tagged to prevent rebroadcast. So a message posted in a local group node can stay local if that’s what the user intends.</p>
+
+<p>XDI for groups is still in early development, but it shows the significant promise i efficiently solving complicated group management and messaging use cases. Join us on the <a href="http://groups.google.com/group/personaldatastore">personal data store mailing list</a> if you’re interested in participating in this discussion.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[APE Comet Server Local Dev Environment Setup]]></title>
+    <link href="http://www.10hacks.com/ape-comet-server-local-dev-environment-setup"/>
+    <updated>2010-08-09T20:45:47Z</updated>
+    <id>http://www.10hacks.com/ape-comet-server-local-dev-environment-setup</id>
+    <content type="html"><![CDATA[<p><a href="http://www.ape-project.org">APE (Ajax Push Engine)</a> is a scalable comet or AJAX push server written in C. It’s great for embedding HTML chat clients or making real-time games without Flash.</p>
+
+<p>I’ve been playing around with APE for a couple different applications. Setting up the demos on a single server that runs both Apache and the APE server is relatively straight forward. However, running the APE server separate from the web server is not as simple.</p>
+
+<p>Here’s my dev environment…</p>
+
+<ul>
+  <li><strong>Web server:</strong> Ruby on Rails running locally on my mac at http://0.0.0.0:3000</li>
+  <li><strong>APE server:</strong> running in a Debian VMWare server at http://192.168.0.99:6969</li>
+</ul>
+
+<p>The production environment is similar with <a href="http://heroku.com">Heroku</a> as the web server and <a href="http://www.linode.com">Linode</a> running the APE server.</p>
+
+<p>Here’s what you have to do to get the dev environment setup from scratch…</p>
+
+<ol>
+  <li>Download <a href="http://www.ape-project.org/download/APE_Complete_Package.html">APE Project</a></li>
+  <li>Follow the <a href="http://www.ape-project.org/wiki/index.php/Setup">APE doc</a> for installing the server</li>
+  <li>Create a new rails project and copy the ape-jsf folder into your rails project’s public dir</li>
+  <li>Edit /etc/hosts on your mac and add the entries below</li>
+  <li>Edit ape-jsf/Demos/config.js as directed below</li>
+  <li>Modify JS Request methods to use GET instead of POST</li>
+</ol>
+
+<h3 id="add-to-etchosts">Add to /etc/hosts</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">192.168.0.99 ape.dummy-domain.com
+</span><span class="line">192.168.0.99 0.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 1.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 2.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 3.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 4.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 5.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 6.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 7.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 8.ape.dummy-domain.com
+</span><span class="line">192.168.0.99 9.ape.dummy-domain.com
+</span><span class="line">
+</span><span class="line">0.0.0.0 dummy-domain.com
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="edit-ape-jsfdemosconfigjs">Edit ape-jsf/Demos/config.js</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">baseUrl</span> <span class="o">=</span> <span class="s1">&#39;http://dummy-domain.com:3000/ape-jsf&#39;</span><span class="p">;</span> <span class="c1">//APE JSF</span>
+</span><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">;</span>
+</span><span class="line"><span class="nx">APE</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">server</span> <span class="o">=</span> <span class="s1">&#39;ape.dummy-domain.com:6969&#39;</span><span class="p">;</span> <span class="c1">//APE server URL</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Last but not least, edit ape-jsf/Tools/Check/index.html and modify all Request calls to use GET instead of POST. By default, MooTools Request object uses POST for XHR requests which will cause a problem with Rails.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="k">this</span><span class="p">.</span><span class="nx">addTest</span><span class="p">(</span><span class="s1">&#39;Loading Client&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">  <span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Request</span><span class="p">({</span>
+</span><span class="line">   <span class="s1">&#39;url&#39;</span><span class="o">:</span> <span class="s1">&#39;../../Clients/MooTools.js&#39;</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;method&#39;</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;evalResponse&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class="line">   <span class="s1">&#39;onComplete&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">APE</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">fireEvent</span><span class="p">(</span><span class="s1">&#39;testComplete&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;sucess&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+</span><span class="line">    <span class="k">else</span> <span class="k">this</span><span class="p">.</span><span class="nx">fireEvent</span><span class="p">(</span><span class="s1">&#39;testComplete&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;error&#39;</span><span class="o">:</span> <span class="s2">&quot;Can&#39;t load client, check the file &quot;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;/Tools/Check/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/Clients/MooTools.js is available&quot;</span><span class="p">});</span>
+</span><span class="line">   <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</span><span class="line">  <span class="p">}).</span><span class="nx">send</span><span class="p">();</span>
+</span><span class="line"><span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>The test script should now run properly at http://dummy-domain.com:3000/ape-jsf/Toosl/Check/</p>
+
+<p>APE uses iframe and JSONP hacks to transparently handle javascript subdomain security issues.</p>
+
+<p>If you look at what’s going on in Firebug, you’ll see APE embedding an iframe in the page, setting the iframe domain to dummy-domain.com, and making calls to the APE server through iframe. This trick only works if the main HTML page is on a different sub-domain than the APE server. It will not work for two completely different domains. This is a limitation of Javascript browser security and not APE.</p>
+
+<p>Thanks to the APE dev team for making an awesome comet server!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Building the Wikitude Sample App for iPhone 4]]></title>
+    <link href="http://www.10hacks.com/building-the-wikitude-sample-app-for-iphone-4"/>
+    <updated>2010-08-08T20:58:28Z</updated>
+    <id>http://www.10hacks.com/building-the-wikitude-sample-app-for-iphone-4</id>
+    <content type="html"><![CDATA[<p>I’m new to iPhone development but wanted to see how quickly I could build an augmented reality prototype for a simple AR treasure hunt game. I looked at the APIs for <a href="http://site.layar.com/create/platform-overview/">Layar</a>, <a href="http://artoolworks.com/Home.html">ARToolKit</a>, <a href="http://www.junaio.com/">Junaio</a>, and settled on <a href="http://www.wikitude.org/enwikitude-iphone-api">Wikitude</a> for this test. Wikitude provides an augmented reality library that you can drop into your iPhone project in less than an hour. Bad ass. Assuming you’re not an iPhone dev n00b like me. Then it takes you three hours.</p>
+
+<p>If you’ve never tried to build a downloaded sample app, hopefully this guide will save you a couple hours of futzing around with plist and project configuration.</p>
+
+<p>I’m using XCode 3.2.3 with the iOS SDK 4.0.1 and targeting an iPhone 4 device connected to my MacBook Pro.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<ol>
+  <li>Download the <a href="http://www.wikitude.org/developers">Wikitude iPhone API</a> and unzip the sample app</li>
+  <li>Open WikitudeAPI-SCM-Test.xcodeproj in XCode</li>
+  <li>Click “Build and Run” on the XCode toolbar</li>
+</ol>
+
+<p>You’ll probably get one or more of the following errors:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="text"><span class="line">There is no SDK with the name or path &#39;iphoneos3.1.2&#39;.
+</span><span class="line">
+</span><span class="line">Code Sign error: a valid provisioning profile matching the application&#39;s Identifier &#39;com.companyname.productname&#39; could not be found
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Time for to fix the sample app configuration. Search paths, target architecture, base SDK, and code signing will all need to be changed in order to successfully build the project.</p>
+
+<p>Before you go any further, make sure you’re set up through the <a href="https://developer.apple.com/iphone/manage/overview/index.action">iPhone Dev Center Provisioning Portal</a> to sign code. The Wikitude API will not run in a simulator, and building for devices requires a valid code signing identity. You can apparently use the XCode Organizer to create your code signing profiles. However, I kept getting an unexpected error and ended up doing everything through the web portal. For simplicity, I created a wildcard domain (com.simple10.*) for the App ID so that I can use the same provisioning profile for other apps.</p>
+
+<p>Once your provisioning profile is ready to go, it’s time to fix the XCode project configuration so the sample app will build.</p>
+
+<h2 id="fixing-config-options-in-xcode">Fixing Config Options in XCode</h2>
+
+<p>Open the project info build options panel by double clicking on WikitudeAPI-SCM-Test project.</p>
+
+<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen1.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen1.png" alt="Wikitude Sample App Configuration" /></a></p>
+
+<p>Make the following changes to the build options…</p>
+
+<h3 id="architectures">Architectures</h3>
+
+<ul>
+  <li>Architectures: Standard (armv6 armv7)</li>
+  <li>Base SDK: iPhone Device 4.0</li>
+  <li>Build Active Architecture Only: [checked]</li>
+</ul>
+
+<h3 id="code-signing">Code Signing</h3>
+
+<ul>
+  <li>Code Signing Identity &gt; Any iPhone OS Device: [select your provisioned profile]</li>
+</ul>
+
+<p>Open the targets build option panel by expanding the Targets tree and double clicking on WikitudeAPI-SCM-Test.</p>
+
+<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen2.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen2.png" alt="Wikitude Sample App Config Screen 2" /></a></p>
+
+<p>Make the following changes to the target build options…</p>
+
+<h3 id="search-paths--library-search-paths">Search Paths &gt; Library Search Paths</h3>
+
+<ul>
+  <li>Remove “$(SRCROOT)/../WikitudeAPI-SCM/build/Debug-iphoneos”</li>
+  <li>Remove “$(SRCROOT)/../../../Desktop/WikitudeAPI”</li>
+</ul>
+
+<p>Open WikitudeAPI_SCM_Test-Info.plist and edit the bundler identifier to match the domain used in your provisioning profile.</p>
+
+<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen3.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen3.png" alt="Wikitude Sample App Screen 3" /></a></p>
+
+<p>Finally, make sure that Active Architecture setting in the build target drop down menu is set to armv6.</p>
+
+<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen4.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen4.png" alt="Wikitude Sample App Screen 4" /></a></p>
+
+<p>Click Build and Run. The app should build, deploy, and automatically run on your connected iPhone.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Macports to Homebrew]]></title>
+    <link href="http://www.10hacks.com/dev/2010/08/06/macports-to-homebrew/"/>
+    <updated>2010-08-06T18:00:52Z</updated>
+    <id>http://www.10hacks.com/dev/2010/08/06/macports-to-homebrew</id>
+    <content type="html"><![CDATA[<p>Thanks to a new macbook pro with a clean OS install and minimal dev tools, I made the switch from macports to homebrew. Easy enough with a few caveats.</p>
+
+<p>The homebrew people recommend <a href="http://guide.macports.org/#installing.macports.uninstalling">uninstalling macports first</a>.</p>
+
+<p>Then <a href="http://wiki.github.com/mxcl/homebrew/installation">install homebrew</a>.</p>
+
+<p>Everything worked fine until trying to ‘<strong>brew install imagemagick</strong>’. The compilation fails. This seems to be a <a href="http://www.google.com/search?q=brew+install+imagemagick+fails&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a">common problem</a>.</p>
+
+<p>The quick solution was to ‘<strong>sudo brew install imagemagick</strong>’. Compilation worked. However, sudo installing ghostscript after installing imagemagick failed to find the jpeg lib which was previously installed without sudo. Yuck!</p>
+
+<p>The final solution was to brew uninstall all image packages (jpeg, libtiff, ghostscript, etc.) and then run the following…</p>
+
+<p>[bash]
+$ brew list
+git
+$ sudo brew install ghostscript
+$ sudo brew install imagemagick
+$ brew list
+ghostscript   imagemagick   jpeg
+little-cms   git      jasper      libtiff
+pkg-config
+[/bash]</p>
+
+<p>I’m not sure if it’s possible to install ghostscript and imagemagick without using sudo. I tried several times, and in the end sudo worked where other attempts failed.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How-To Make Favicons on OSX]]></title>
+    <link href="http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx/"/>
+    <updated>2010-03-13T14:14:00Z</updated>
+    <id>http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx</id>
+    <content type="html"><![CDATA[<p>Use Fireworks or Photoshop to make the icon PNGs of different sizes. Then use Gimp to create the ico file. <a href="http://egressive.com/tutorial/creating-a-multi-resolution-favicon-including-transparency-with-the-gimp">Tutorial</a></p>
+
+<p>Or install a .ico <a href="http://www.telegraphics.com.au/sw/">file plugin</a> to Photoshop. <a href="http://www.photoshopsupport.com/tutorials/jennifer/favicon.html">Tutorial</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ordered Formsets in Google App Engine Patch]]></title>
+    <link href="http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets/"/>
+    <updated>2009-10-19T12:55:53Z</updated>
+    <id>http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets</id>
+    <content type="html"><![CDATA[<p>The current version (1.1RC) of <a href="http://code.google.com/p/app-engine-patch/">Google App Engine Patch</a> does not allow for easy ordering of forms in formsets. Normally, Django obeys a model’s Meta.ordering property as the default for formset data. However, Google App Engine Patch fetches unordered data by default.</p>
+
+<p>There may already be an undocumented solution from the Google App Engine Patch team, but here’s a slick unobtrusive workaround that provides a lot of flexibility.</p>
+
+<p>First off, we need a new Formset class and formset factory function…</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># formsets.py</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">django.forms.models</span> <span class="kn">import</span> <span class="n">inlineformset_factory</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">django.forms.models</span> <span class="kn">import</span> <span class="n">BaseInlineFormSet</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">OrderedFormset</span><span class="p">(</span><span class="n">BaseInlineFormSet</span><span class="p">):</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+</span><span class="line">                 <span class="n">save_as_new</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class="line">        <span class="n">qs</span> <span class="o">=</span> <span class="p">()</span>
+</span><span class="line">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="p">,</span> <span class="s">&#39;Meta&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">Meta</span><span class="p">,</span> <span class="s">&#39;ordering&#39;</span><span class="p">):</span>
+</span><span class="line">            <span class="n">qs</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;_set&#39;</span><span class="p">)</span>
+</span><span class="line">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">ordering</span><span class="p">:</span>
+</span><span class="line">                <span class="n">qs</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">instance</span>
+</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">save_as_new</span> <span class="o">=</span> <span class="n">save_as_new</span>
+</span><span class="line">        <span class="nb">super</span><span class="p">(</span><span class="n">BaseInlineFormSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">qs</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="k">def</span> <span class="nf">orderedformset_factory</span><span class="p">(</span><span class="n">parent_model</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class="line">    <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;formset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedFormset</span>
+</span><span class="line">    <span class="n">fs</span> <span class="o">=</span> <span class="n">inlineformset_factory</span><span class="p">(</span><span class="n">parent_model</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class="line">    <span class="k">return</span> <span class="n">fs</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Usage is as simple as specifying formset_factory=orderedformset_factory for each formset field…</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># forms.py</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">formsets</span> <span class="kn">import</span> <span class="n">orderedformset_factory</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">GuestForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+</span><span class="line">    <span class="n">confirmed</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</span><span class="line">    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class="line">        <span class="n">model</span> <span class="o">=</span> <span class="n">Guest</span>
+</span><span class="line">        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;first_name&#39;</span><span class="p">,)</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">EventForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+</span><span class="line">    <span class="n">guests</span> <span class="o">=</span> <span class="n">FormSetField</span><span class="p">(</span><span class="n">Guest</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">GuestForm</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">can_order</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">formset_factory</span><span class="o">=</span><span class="n">orderedformset_factory</span><span class="p">)</span>
+</span><span class="line">    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class="line">        <span class="n">model</span> <span class="o">=</span> <span class="n">Event</span>
+</span><span class="line">        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;number&#39;</span><span class="p">,)</span>
+</span><span class="line"><span class="n">EventForm</span> <span class="o">=</span> <span class="n">FormWithSets</span><span class="p">(</span><span class="n">EventForm</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Better Way to Grep Code]]></title>
+    <link href="http://www.10hacks.com/dev/2009/09/24/a-better-way-to-grep-code/"/>
+    <updated>2009-09-24T11:11:26Z</updated>
+    <id>http://www.10hacks.com/dev/2009/09/24/a-better-way-to-grep-code</id>
+    <content type="html"><![CDATA[<p>When grep’ing through code on OSX or linux, .svn files are a pain because grep will find code in the source file and in the corresponding svn file. To fix this, use the below bash script to omit .svn directories from grep searches.</p>
+
+<p>Code Grep (cg)</p>
+
+<p>Create a cg script in <code>/usr/local/bin</code></p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">!/bin/sh
+</span><span class="line">
+</span><span class="line"><span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span><span class="o">=</span> 1 <span class="o">]</span>; <span class="k">then</span>
+</span><span class="line"><span class="k">  </span>grep -ir <span class="s2">&quot;$1&quot;</span> * | grep -v <span class="s2">&quot;.svn/&quot;</span>
+</span><span class="line"><span class="k">elif</span> <span class="o">[</span> <span class="nv">$# </span><span class="o">=</span> 2 <span class="o">]</span>; <span class="k">then</span>
+</span><span class="line"><span class="k">  </span>grep -ir <span class="s2">&quot;$1&quot;</span> <span class="nv">$2</span>/* | grep -v <span class="s2">&quot;.svn/&quot;</span>
+</span><span class="line"><span class="k">else</span>
+</span><span class="line"><span class="k">  </span><span class="nb">echo</span> <span class="s2">&quot;Doh! Too many parameters.ncg &quot;</span>search<span class="s2">&quot; [FLAGS]&quot;</span>
+</span><span class="line"><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Thanks to <a href="http://www.microshell.com/sysadmin/unix/customizing-grep-tool-to-exclude-svn/">Maresa Nirwan’s article</a>.</p>
+
+<p>Include a few extra vars in your ~/.profile</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nb">export </span><span class="nv">SVN_EDITOR</span><span class="o">=</span>/usr/bin/vim
+</span><span class="line"><span class="nb">export </span><span class="nv">GREP_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-I --color=always&quot;</span>
+</span><span class="line"><span class="nb">export </span><span class="nv">CLICOLOR</span><span class="o">=</span>1
+</span><span class="line"><span class="nb">export </span><span class="nv">LSCOLORS</span><span class="o">=</span>cxfxcxdxbxegedabagacad
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>And reload the profile with the source command</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nb">source</span> ~/.profile
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HiveMaps Makes Google Maps Easy]]></title>
+    <link href="http://www.10hacks.com/code/2009/09/24/hivemaps-makes-google-maps-easy/"/>
+    <updated>2009-09-24T11:08:36Z</updated>
+    <id>http://www.10hacks.com/code/2009/09/24/hivemaps-makes-google-maps-easy</id>
+    <content type="html"><![CDATA[<p>Just released <a href="http://socialhive.org/hivemaps">HiveMaps</a>. An open source JavaScript framework for Google Maps that makes it super easy to put thousands of data points on a map. HiveMaps supports client-side marker clustering, back button, dynamic marker lists, geocoding, embedding, and smart handling of overlapping markers.</p>
+
+<p>HiveMaps currently uses an improved version of <a href="http://googlegeodevelopers.blogspot.com/2009/04/markerclusterer-solution-to-too-many.html">MarkerClusterer</a> available in the <a href="http://code.google.com/p/hivemap/source/browse/trunk/js/markerclusterer.js">source code repo</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

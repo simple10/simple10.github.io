@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Fixing Online Groups - 10 Hacks</title>
+  <meta name="author" content="Joe Johnston">
+
+  
+  <meta name="description" content="It’s almost 2011 and online groups are still broken. Sure, you can join a Facebook group to support your cause, create a Google or Yahoo group for &hellip;">
+  
+  <meta name="apple-mobile-web-app-title" content="10 Hacks">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="/images/logos/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
+
+  <!-- Prefetch DNS for external assets -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  
+  <link rel="canonical" href="http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups">
+  <link href="/atom.xml" rel="alternate" title="10 Hacks" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/assets/app-4b572b6a4bef935693e53b251f96a0cd.css">
+  <script src="/assets/head-d92d16045604cdb37199b5ea0e7c26f5.js"></script>
+</head>
+
+<body   >
+  <nav role="navigation" class="container">
+  <!--
+  
+  <form action="http://google.com/search" method="get">
+    <fieldset role="search">
+      <input type="hidden" name="q" value="site:www.10hacks.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    </fieldset>
+  </form>
+   -->
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/" title="10 Hacks">
+        <img src="/images/logos/logo.svg">
+        10 Hacks
+      </a>
+      <ul class="nav">
+        
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+        
+      </ul>
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="https://twitter.com/joejohnston"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
+        <a class="btn btn-primary" href="https://github.com/simple10"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        <article role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Fixing Online Groups</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-23T20:33:17Z" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>It’s almost 2011 and online groups are still broken. Sure, you can join a Facebook group to support your cause, create a Google or Yahoo group for your soccer club, setup a Ning or Drupal site for your small business, but good luck getting that group to talk to others across the web.</p>
+
+<p><a href="/images/posts/hierarchical_groups.png"><img src="/images/posts/hierarchical_groups.png" alt="Group Communication Chart" /></a></p>
+
+<p>Online groups are still treated as silos of individuals rather than first class citizens that can participate in other groups. Silos are fine (and often desired) for small groups, but they just don’t scale to hundreds of thousands or millions of users. Not to mention that most physical groups are composed of subgroups (ad hoc gatherings, committees, local chapters, etc.) that self organize in ways that are not reflected in most online tools.</p>
+
+<p>The future of online groups is context, not membership.</p>
+
+<p><a href="http://twitter.com/simple10/">Twitter</a> and <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> are headed in the right direction by contextualizing communication through topics rather than membership. Tweeters (or is it twitterers?) use hash tags (#topic) to essentially join ad hoc topical conversations. They can also create and join lists which function like traditional groups. However, lists can not be nested which means there’s no way to model hierarchical groups.</p>
+
+<p><a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> is a technology and code project rather than a service like Twitter. With PubSubHubBub, people (or servers) subscribe to topics on a hub. Each hub can implement logic for publishing and aggregating posts per topic. Hierarchical groups can be modeled by having a separate hub per subgroup where each hub is subscribed to the hub above it in the hierarchy.</p>
+
+<p>For instance…</p>
+
+<p>Individuals subscribe to local hubs. Local hubs subscribe to regional hubs, and regional hubs subscribe to the main global hub. This effectively models a local chapter based global organization like a <a href="http://350.org">350.org</a>. Only authorized users can publish to the global hub. Regional and local hubs will automatically forward posts from the global hub. Any individual can participate in a local hub. Local posts are always rebroadcast to local subscribers. Topics or posts that get a lot of local attention would then be sent to regional hubs and on up to the global hub if warranted.</p>
+
+<p>This hierarchical approach to groups was partially spec’ed out in my <a href="http://www.openactionnetwork.org/">Open Action Network</a> project that’s temporarily on the back burner since I’m busy with a new startup. The project conceptually uses <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubBub</a> and the <a href="http://www.salmon-protocol.org/">Salmon Protocol</a> to move messages around in hierarchical groups.</p>
+
+<p>There’s also a lot of promise for managing groups in the <a href="http://personaldatastore.info/">federated personal data store</a> model. It works similarly to PubSubHubBub (and would be interoperable with hubs) but efficiently handles delegating of group permissions through XDI graphs and link contracts. This allows for advanced permissions schemes where subgroups and individuals are granted granular access to other groups. Messages and other group data are stored in graphs which have interesting semantic and social capabilities. XDI messages can be tagged to prevent rebroadcast. So a message posted in a local group node can stay local if that’s what the user intends.</p>
+
+<p>XDI for groups is still in early development, but it shows the significant promise i efficiently solving complicated group management and messaging use cases. Join us on the <a href="http://groups.google.com/group/personaldatastore">personal data store mailing list</a> if you’re interested in participating in this discussion.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-23T20:33:17Z" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/category/ideas/'>ideas</a>
+  
+</span>
+
+
+    </p>
+
+    
+      <div class="sharing">
+  
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups/" data-via="joejohnston" data-counturl="http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups/" >Tweet</a>
+  
+  
+    <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-width="90" data-layout="button_count" data-send="false" data-show-faces="false"></div>
+  
+</div>
+
+    
+
+    <p class="meta">
+      
+        <a href="/ape-comet-server-local-dev-environment-setup" title="Previous Post: APE Comet Server Local Dev Environment Setup">&laquo; APE Comet Server Local Dev Environment Setup</a>
+      
+      
+        <a href="/devise-omniauth-facebook-api-hacks" title="Next Post: Devise + OmniAuth + Facebook API Hacks">Devise + OmniAuth + Facebook API Hacks &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+<section>
+  
+
+
+  
+<div id="disqus_thread" aria-live="polite"></div>
+<script type="text/javascript">
+      var disqus_shortname = '10hacks';
+      
+        // var disqus_developer = 1;
+        
+          
+        
+        var disqus_identifier = '162 http://www.simple10.com/?p=162';
+        var disqus_url = 'http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups/';
+        var disqus_title = 'Fixing Online Groups';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</section>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js#appId=&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="contactModalLabel">Contact Me</h3>
+  </div>
+  <div class="modal-body">
+    <p>Email: <a href="mailto:joe@10hacks.com?subject=[10Hacks] Contact Me" target="_blank">joe@10hacks.com</a></p>
+    <p><small>Please include [10Hacks] in the subject line. Thanks!</small></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" data-dismiss="modal">OK</button>
+  </div>
+</div>
+
+  <footer role="contentinfo">
+</footer>
+
+  <script src="/assets/app-f7ffe072f168a685fc7907507b69cd57.js"></script>
+  
+
+</body>
+</html>

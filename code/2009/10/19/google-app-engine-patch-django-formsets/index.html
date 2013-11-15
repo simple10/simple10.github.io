@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Ordered Formsets in Google App Engine Patch - 10 Hacks</title>
+  <meta name="author" content="Joe Johnston">
+
+  
+  <meta name="description" content="The current version (1.1RC) of Google App Engine Patch does not allow for easy ordering of forms in formsets. Normally, Django obeys a model’s Meta. &hellip;">
+  
+  <meta name="apple-mobile-web-app-title" content="10 Hacks">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="shortcut icon" href="/images/logos/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logos/logo_57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/logos/logo_72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/logos/logo_114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/logos/logo_144x144.png">
+
+  <!-- Prefetch DNS for external assets -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  
+  <link rel="canonical" href="http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets">
+  <link href="/atom.xml" rel="alternate" title="10 Hacks" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/assets/app-4b572b6a4bef935693e53b251f96a0cd.css">
+  <script src="/assets/head-d92d16045604cdb37199b5ea0e7c26f5.js"></script>
+</head>
+
+<body   >
+  <nav role="navigation" class="container">
+  <!--
+  
+  <form action="http://google.com/search" method="get">
+    <fieldset role="search">
+      <input type="hidden" name="q" value="site:www.10hacks.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    </fieldset>
+  </form>
+   -->
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/" title="10 Hacks">
+        <img src="/images/logos/logo.svg">
+        10 Hacks
+      </a>
+      <ul class="nav">
+        
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+          
+            
+          
+        
+        
+      </ul>
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="https://twitter.com/joejohnston"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
+        <a class="btn btn-primary" href="https://github.com/simple10"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row-fluid">
+      <div id="content" class="span12">
+        <article role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Ordered Formsets in Google App Engine Patch</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-19T12:55:53Z" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The current version (1.1RC) of <a href="http://code.google.com/p/app-engine-patch/">Google App Engine Patch</a> does not allow for easy ordering of forms in formsets. Normally, Django obeys a model’s Meta.ordering property as the default for formset data. However, Google App Engine Patch fetches unordered data by default.</p>
+
+<p>There may already be an undocumented solution from the Google App Engine Patch team, but here’s a slick unobtrusive workaround that provides a lot of flexibility.</p>
+
+<p>First off, we need a new Formset class and formset factory function…</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># formsets.py</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">django.forms.models</span> <span class="kn">import</span> <span class="n">inlineformset_factory</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">django.forms.models</span> <span class="kn">import</span> <span class="n">BaseInlineFormSet</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">OrderedFormset</span><span class="p">(</span><span class="n">BaseInlineFormSet</span><span class="p">):</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+</span><span class="line">                 <span class="n">save_as_new</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class="line">        <span class="n">qs</span> <span class="o">=</span> <span class="p">()</span>
+</span><span class="line">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="p">,</span> <span class="s">&#39;Meta&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">Meta</span><span class="p">,</span> <span class="s">&#39;ordering&#39;</span><span class="p">):</span>
+</span><span class="line">            <span class="n">qs</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;_set&#39;</span><span class="p">)</span>
+</span><span class="line">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">ordering</span><span class="p">:</span>
+</span><span class="line">                <span class="n">qs</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">instance</span>
+</span><span class="line">        <span class="bp">self</span><span class="o">.</span><span class="n">save_as_new</span> <span class="o">=</span> <span class="n">save_as_new</span>
+</span><span class="line">        <span class="nb">super</span><span class="p">(</span><span class="n">BaseInlineFormSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">qs</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="k">def</span> <span class="nf">orderedformset_factory</span><span class="p">(</span><span class="n">parent_model</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class="line">    <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;formset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedFormset</span>
+</span><span class="line">    <span class="n">fs</span> <span class="o">=</span> <span class="n">inlineformset_factory</span><span class="p">(</span><span class="n">parent_model</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class="line">    <span class="k">return</span> <span class="n">fs</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Usage is as simple as specifying formset_factory=orderedformset_factory for each formset field…</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># forms.py</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">formsets</span> <span class="kn">import</span> <span class="n">orderedformset_factory</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">GuestForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+</span><span class="line">    <span class="n">confirmed</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</span><span class="line">    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class="line">        <span class="n">model</span> <span class="o">=</span> <span class="n">Guest</span>
+</span><span class="line">        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;first_name&#39;</span><span class="p">,)</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">EventForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+</span><span class="line">    <span class="n">guests</span> <span class="o">=</span> <span class="n">FormSetField</span><span class="p">(</span><span class="n">Guest</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">GuestForm</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">can_order</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">formset_factory</span><span class="o">=</span><span class="n">orderedformset_factory</span><span class="p">)</span>
+</span><span class="line">    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class="line">        <span class="n">model</span> <span class="o">=</span> <span class="n">Event</span>
+</span><span class="line">        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;number&#39;</span><span class="p">,)</span>
+</span><span class="line"><span class="n">EventForm</span> <span class="o">=</span> <span class="n">FormWithSets</span><span class="p">(</span><span class="n">EventForm</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">joe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-19T12:55:53Z" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/category/code/'>code</a>
+  
+</span>
+
+
+    </p>
+
+    
+      <div class="sharing">
+  
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets/" data-via="joejohnston" data-counturl="http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets/" >Tweet</a>
+  
+  
+    <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-width="90" data-layout="button_count" data-send="false" data-show-faces="false"></div>
+  
+</div>
+
+    
+
+    <p class="meta">
+      
+        <a href="/dev/2009/09/24/a-better-way-to-grep-code/" title="Previous Post: A Better Way to Grep Code">&laquo; A Better Way to Grep Code</a>
+      
+      
+        <a href="/design/2010/03/13/how-to-make-favicons-on-osx/" title="Next Post: How-To Make Favicons on OSX">How-To Make Favicons on OSX &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+<section>
+  
+
+
+  
+<div id="disqus_thread" aria-live="polite"></div>
+<script type="text/javascript">
+      var disqus_shortname = '10hacks';
+      
+        // var disqus_developer = 1;
+        
+          
+        
+        var disqus_identifier = '';
+        var disqus_url = 'http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets/';
+        var disqus_title = 'Ordered Formsets in Google App Engine Patch';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</section>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js#appId=&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="contactModalLabel">Contact Me</h3>
+  </div>
+  <div class="modal-body">
+    <p>Email: <a href="mailto:joe@10hacks.com?subject=[10Hacks] Contact Me" target="_blank">joe@10hacks.com</a></p>
+    <p><small>Please include [10Hacks] in the subject line. Thanks!</small></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" data-dismiss="modal">OK</button>
+  </div>
+</div>
+
+  <footer role="contentinfo">
+</footer>
+
+  <script src="/assets/app-f7ffe072f168a685fc7907507b69cd57.js"></script>
+  
+
+</body>
+</html>
