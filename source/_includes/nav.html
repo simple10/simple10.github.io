@@ -11,7 +11,10 @@
 
   <div class="navbar">
     <div class="navbar-inner">
-      <a class="brand" href="{{ site.paths.base }}" title="{{ site.title }}">{{ site.title }}</a>
+      <a class="brand" href="{{ site.paths.base }}" title="{{ site.title }}">
+        <img src="/images/logos/logo.svg">
+        {{ site.title }}
+      </a>
       <ul class="nav">
         {% assign pages_list = site.pages %}
         {% for node in pages_list %}
@@ -28,9 +31,9 @@
         {% assign group = nil %}
       </ul>
       <div class="btn-group pull-right">
-        <a class="btn btn-primary" href="#"><i class="fui-twitter"></i></a>
+        <a class="btn btn-primary" href="https://twitter.com/{{ site.social.twitter.user }}"><i class="fui-twitter"></i></a>
         <a class="btn btn-primary" href="#contact-modal" data-toggle="modal" data-target="#contactModal"><i class="fui-mail"></i></a>
-        <a class="btn btn-primary" href="#"><i class="fui-github"></i></a>
+        <a class="btn btn-primary" href="https://github.com/{{ site.social.github.user }}"><i class="fui-github"></i></a>
         <a class="btn btn-primary" href="{{ site.rss.feed_url }}" rel="subscribe-rss" title="subscribe via RSS"><i class="fui-rss"></i></a>
       </div>
     </div>

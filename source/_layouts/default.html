@@ -1,9 +1,10 @@
 {% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
 {% include head.html %}
 <body {% if page.body_id %} id="{{ page.body_id }}" {% endif %} {% if page.sidebar == false %} class="no-sidebar" {% endif %} {% if page.sidebar == 'collapse' or site.sidebar == 'collapse' %} class="collapse-sidebar sidebar-footer" {% endif %}>
-  <!-- <header role="banner"></header> -->
   {% include nav.html %}
-  {% include page_header.html %}
+  {% if page.header != false %}
+    {% include page_header.html %}
+  {% endif %}
 
   <div class="container">
     <div class="row-fluid">
@@ -16,5 +17,6 @@
   {% include modals.html %}
   {% include footer.html %}
   {% javascript app %}
+  {% include analytics/analytics.html %}
 </body>
 </html>

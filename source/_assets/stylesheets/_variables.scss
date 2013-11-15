@@ -169,9 +169,9 @@ $linkColor:             #08c !default;
 $linkColorHover:        darken($linkColor, 15%) !default;
 
 // Typography
-$baseFontSize:          14px !default;
-$baseFontFamily:        $sansFontFamily !default;
-$baseLineHeight:        20px !default;
+$baseFontSize:          $base-font-size !default;
+$baseFontFamily:        $base-font-family !default;
+$baseLineHeight:        $base-font-size * 1.2 !default;
 $altFontFamily:         $serifFontFamily !default;
 $headingsFontFamily:    inherit !default; // empty to use BS default, $baseFontFamily
 $headingsFontWeight:    bold !default;    // instead of browser default, bold

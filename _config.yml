@@ -48,7 +48,7 @@ titlecase: true       # Converts page and post titles to titlecase
 
 # list each of the sidebar modules you want to include, in the order you want them to appear.
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
-default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html]
+default_asides: [asides/pinboard.html, asides/googleplus.html]
 
 # Jekyll-assets config
 assets:
@@ -116,10 +116,10 @@ pygments: false
 #   3rd Party Settings    #
 # ----------------------- #
 
-# Github repositories
+# Github repositories for github aside
 github:
-  user:
-  repo_count: 0
+  user: simple10
+  repo_count: 5
   show_profile_link: true
   skip_forks: true
 
@@ -144,7 +144,7 @@ comments:
 # Social plugins
 social:
   twitter:
-    user:
+    user: joejohnston
     tweet_button: true
     follow_button: false
 
@@ -165,6 +165,9 @@ social:
   facebook:
     like: true
     app_id:
+
+  github:
+    user: simple10
 
 
 # Analytics plugins

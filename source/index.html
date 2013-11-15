@@ -2,49 +2,68 @@
 layout: default
 title: Toolbox for startup hackers
 header:
-  <i class="brand">10 Hacks</i> is a toolbox for startup hackers.
+  <i class="brand">10 Hacks</i> is a pile of code &amp; startup hacks.
   <i class="softwrap"></i>
-  Open sourced on github.
-  Details about the project.
+  <small rel="author">By Joe Johnston</small>
 ---
 
 <div class="container">
-  <section class="posts">
-    <ol>
-      {% for post in paginator.posts %}
-      <li>
-        <h2 class="post__title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-        <span class="post__time">{{ post.date | date: "%d %B, %Y" }}</span>
-        <span class="post__author">{{ post.author }}</span>
-      </li>
-      {% endfor %}
-    </ol>
-  </section>
-  <ol class="nav  pagination">
-    <li class="pagination__prev">
-      {% if paginator.previous_page %}
-        {% assign prev_path = paginator.previous_page == 1 and || '/' %}
-        <a href="{{prev_path}}">Previous</a>
-      {% else %}
-        Previous
-      {% endif %}
-    </li>
-    <li class="pagination__next">
-      {% if paginator.next_page %}
-        <a href="{{paginator.next_page_path}}">Next</a>
-      {% else %}
-        Next
-      {% endif %}
-    </li>
-  </ol>
-  <section class="categories">
-    <h2>Topics</h2>
-    {% include lists/categories.html %}
-  </section>
-  <section class="categories">
-    <h2>Tags</h2>
-    {% include lists/tags.html %}
-  </section>
+  <div class="well">
+    <h2>Recent Posts</h2>
+    <section class="posts">
+      <ol>
+        {% for post in paginator.posts %}
+        <li>
+          <h3 class="post__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+          <span class="post__time">{{ post.date | date: "%d %B, %Y" }}</span>
+          <span class="post__author">{{ post.author }}</span>
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+    <div class="pagination">
+      <ul>
+        <li class="previous">
+          {% if paginator.previous_page == 1 %}
+            {% assign prev_path = '/' %}
+          {% else %}
+            {% assign prev_path = paginator.previous_page_path %}
+          {% endif %}
+          <a href="{{ prev_path }}">Previous</a>
+        </li>
+        {% for i in (1..paginator.total_pages) %}
+          {% if paginator.page == i %}
+            <li class="active">
+          {% else %}
+            <li>
+          {% endif %}
+            {% if i == 1 %}
+              <a href="/">{{ i }}</a>
+            {% else %}
+              <a href="{{ site.paginate_path | replace:':num',i }}">{{ i }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+        <li class="next">
+          <a href="{{ paginator.next_page_path }}">Next</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="">
+    <div class="well span6">
+      <section class="categories">
+        <h2>Topics</h2>
+        {% include lists/categories.html %}
+      </section>
+    </div>
+    <div class="well span6">
+      <section class="categories">
+        <h2>Tags</h2>
+        {% include lists/tags.html %}
+      </section>
+    </div>
+  </div>
 </div>
 
 <aside class="sidebar">
