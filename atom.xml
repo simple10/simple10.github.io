@@ -2,22 +2,22 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[10 Hacks]]></title>
-  <link href="http://www.10hacks.com/atom.xml" rel="self"/>
-  <link href="http://www.10hacks.com/"/>
-  <updated>2013-11-15T15:24:12-08:00</updated>
-  <id>http://www.10hacks.com/</id>
+  <link href="http://www.simple10.com/atom.xml" rel="self"/>
+  <link href="http://www.simple10.com/"/>
+  <updated>2014-01-02T12:58:16-08:00</updated>
+  <id>http://www.simple10.com/</id>
   <author>
     <name><![CDATA[Joe Johnston]]></name>
     
   </author>
-  <generator uri="http://www.10hacks.com/">Hackerpress</generator>
+  <generator uri="http://www.simple10.com/">Hackerpress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[CSS Only + Accessible Input Toggle Switch]]></title>
-    <link href="http://www.10hacks.com/code/2013/11/15/css-only-input-toggle-switch/"/>
+    <link href="http://www.simple10.com/code/2013/11/15/css-only-input-toggle-switch/"/>
     <updated>2013-11-15T15:10:00Z</updated>
-    <id>http://www.10hacks.com/code/2013/11/15/css-only-input-toggle-switch</id>
+    <id>http://www.simple10.com/code/2013/11/15/css-only-input-toggle-switch</id>
     <content type="html"><![CDATA[<p>CSS input toggle switches are nothing new, but I’ve yet to see one that is 
 Bootstrap 3 compatible, doesn’t use JavaScript, accepts tab focus and
 styles properly, and doesn’t break accessibility. So I wrote one.</p>
@@ -241,9 +241,9 @@ to align text. This is optional, but looks better IMHO.</p>
   
   <entry>
     <title type="html"><![CDATA[How to Disable Google Maps Tab Index]]></title>
-    <link href="http://www.10hacks.com/code/2013/10/25/disable-google-maps-tab-index/"/>
+    <link href="http://www.simple10.com/code/2013/10/25/disable-google-maps-tab-index/"/>
     <updated>2013-10-25T17:30:00Z</updated>
-    <id>http://www.10hacks.com/code/2013/10/25/disable-google-maps-tab-index</id>
+    <id>http://www.simple10.com/code/2013/10/25/disable-google-maps-tab-index</id>
     <content type="html"><![CDATA[<p>By default, the logo and links on an embedded Google Map accept tab focus.
 However, if the map is embedded in a form, you probably want tabbing to
 skip over the map since the map links have nothing to do with your form.</p>
@@ -280,9 +280,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Ignore jQuery JSONP Callbacks in Mocha]]></title>
-    <link href="http://www.10hacks.com/ignore-jquery-jsonp-callbacks-in-mocha"/>
+    <link href="http://www.simple10.com/ignore-jquery-jsonp-callbacks-in-mocha"/>
     <updated>2013-03-13T23:52:31Z</updated>
-    <id>http://www.10hacks.com/ignore-jquery-jsonp-callbacks-in-mocha</id>
+    <id>http://www.simple10.com/ignore-jquery-jsonp-callbacks-in-mocha</id>
     <content type="html"><![CDATA[<p><a href="http://visionmedia.github.com/mocha/">Mocha</a> reports global variable leaks by default. If you’re using jQuery to fetch JSONP data, mocha will report the random jQuery callback functions as leaks.</p>
 
 <p>To make mocha ignore the JSONP callback functions, just add jQuery* to mocha’s list of registered globals.</p>
@@ -303,9 +303,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Linux Default Gateway Route]]></title>
-    <link href="http://www.10hacks.com/linux-default-gateway-route"/>
+    <link href="http://www.simple10.com/linux-default-gateway-route"/>
     <updated>2013-03-06T19:21:44Z</updated>
-    <id>http://www.10hacks.com/linux-default-gateway-route</id>
+    <id>http://www.simple10.com/linux-default-gateway-route</id>
     <content type="html"><![CDATA[<p>I only seem to run into this once a year and rarely remember what to do off the top of my head.</p>
 
 <p><strong>Problem:</strong> configuring and starting network interfaces on Linux (usually Debian / Ubuntu)</p>
@@ -334,9 +334,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Chaining Bundle Gemfiles]]></title>
-    <link href="http://www.10hacks.com/code/2012/04/11/chaining-bundle-gemfiles/"/>
+    <link href="http://www.simple10.com/code/2012/04/11/chaining-bundle-gemfiles/"/>
     <updated>2012-04-11T18:38:47Z</updated>
-    <id>http://www.10hacks.com/code/2012/04/11/chaining-bundle-gemfiles</id>
+    <id>http://www.simple10.com/code/2012/04/11/chaining-bundle-gemfiles</id>
     <content type="html"><![CDATA[<p>Useful little snippet to include gem files inside of each other.</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -347,9 +347,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Save Only Changed Attributes in Backbone.js]]></title>
-    <link href="http://www.10hacks.com/save-only-changed-attributes-in-backbone-js"/>
+    <link href="http://www.simple10.com/save-only-changed-attributes-in-backbone-js"/>
     <updated>2012-03-24T21:23:02Z</updated>
-    <id>http://www.10hacks.com/save-only-changed-attributes-in-backbone-js</id>
+    <id>http://www.simple10.com/save-only-changed-attributes-in-backbone-js</id>
     <content type="html"><![CDATA[<aside class="callout"><header><span>Update <span class="date">Jun 1<span>st</span>, 2013</span> </span></header>
 <p>As of Backbone 0.9.10, partial model updates are supported with <code>model.save(attrs, {patch: true})</code></p>
 </aside>
@@ -396,9 +396,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[RSpec + Capybara + Devise Login Tests]]></title>
-    <link href="http://www.10hacks.com/rspec-capybara-devise-login-tests"/>
+    <link href="http://www.simple10.com/rspec-capybara-devise-login-tests"/>
     <updated>2012-03-16T03:00:42Z</updated>
-    <id>http://www.10hacks.com/rspec-capybara-devise-login-tests</id>
+    <id>http://www.simple10.com/rspec-capybara-devise-login-tests</id>
     <content type="html"><![CDATA[<p>For the new version of <a href="http://connect.me">Connect.Me</a> (in development), the interface is mostly driven through AJAX interactions. In the past, I’ve used Cucumber + Capybara to test JavaScript, but I really don’t like the Cucumber syntax and slow tests. I recently switched to RSpec request specs with Capybara. The only problem is testing testing JS on pages that require a login.</p>
 
 <p>Since Capybara runs in a different thread from the tests, session data is not available. So the Devise sign_in method does nothing for Capybara.</p>
@@ -468,9 +468,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Resque Admin in Rails 3 Routes with CanCan]]></title>
-    <link href="http://www.10hacks.com/resque-admin-in-rails-3-routes-with-cancan"/>
+    <link href="http://www.simple10.com/resque-admin-in-rails-3-routes-with-cancan"/>
     <updated>2011-07-08T19:01:49Z</updated>
-    <id>http://www.10hacks.com/resque-admin-in-rails-3-routes-with-cancan</id>
+    <id>http://www.simple10.com/resque-admin-in-rails-3-routes-with-cancan</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/defunkt/resque">Resque</a> is a background jobs queue that’s highly recommended over Delayed::Job if you are processing a lot of jobs. It uses <a href="http://redis.io/">Redis</a> as the backend which doesn’t suffer from db related bottlenecks under high load.</p>
 
 <p>Resque comes with a built-in admin interface that’s Rack compatible. In Rails 3, you can mount the Resque server admin directly in your routes.rb file.</p>
@@ -547,9 +547,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Rescuing from Rack::Timeout to Close MongoDB Connection]]></title>
-    <link href="http://www.10hacks.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/"/>
+    <link href="http://www.simple10.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/"/>
     <updated>2011-07-07T22:56:09Z</updated>
-    <id>http://www.10hacks.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection</id>
+    <id>http://www.simple10.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection</id>
     <content type="html"><![CDATA[<p>I’m using Rack::Timeout on Heroku to kill requests before Heroku’s 30 second limit is reached. This helps applications play nice with cloud infrastructure but can cause some unexpected bugs with <a href="https://jira.mongodb.org/browse/RUBY-231?focusedCommentId=26045&amp;page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_26045">MongoDB connections being reused</a> by the next request.</p>
 
 <p>The errors showed up as…</p>
@@ -590,9 +590,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Validating a Single Attribute in Rails ActiveRecord]]></title>
-    <link href="http://www.10hacks.com/code/2011/02/18/validating-a-single-attribute-in-rails-activerecord/"/>
+    <link href="http://www.simple10.com/code/2011/02/18/validating-a-single-attribute-in-rails-activerecord/"/>
     <updated>2011-02-18T06:14:42Z</updated>
-    <id>http://www.10hacks.com/code/2011/02/18/validating-a-single-attribute-in-rails-activerecord</id>
+    <id>http://www.simple10.com/code/2011/02/18/validating-a-single-attribute-in-rails-activerecord</id>
     <content type="html"><![CDATA[<p>Checking a single attribute on a model for validity doesn’t seem to be possible in Rails.  Or at least I couldn’t find a quick answer googling around or looking through the ActiveRecord code.</p>
 
 <p>What I really want to do is pass a hash into valid? with the attributes I want to validate or have an attribute_valid? method. This level of granularity is often useful in AJAX heavy apps. For instance, checking for username availability and validity as the user types during username selection.</p>
@@ -615,9 +615,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Rails 3's unobtrusive javascript support]]></title>
-    <link href="http://www.10hacks.com/rails3_unobtrusive_javascript_support"/>
+    <link href="http://www.simple10.com/rails3_unobtrusive_javascript_support"/>
     <updated>2011-02-09T19:57:18Z</updated>
-    <id>http://www.10hacks.com/rails3-unobtrusive-javascript-support</id>
+    <id>http://www.simple10.com/rails3-unobtrusive-javascript-support</id>
     <content type="html"><![CDATA[<p>Rails 3’s unobtrusive javascript support makes it easy to integrate <a href="http://jqueryui.com/demos/autocomplete/">jQuery UI Autocomplete</a> and any backend or custom query you want. There’s a <a href="https://github.com/crowdint/rails3-jquery-autocomplete">Rails3 jQuery Autocomplete</a> gem already available on github, but it’s not very RESTful and makes a lot of assumptions that might not fit your application.  So why not roll your own?</p>
 
 <p>It’s easy.</p>
@@ -748,9 +748,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Git Hacks for OSX]]></title>
-    <link href="http://www.10hacks.com/git-hacks-for-osx"/>
+    <link href="http://www.simple10.com/git-hacks-for-osx"/>
     <updated>2011-02-07T03:20:33Z</updated>
-    <id>http://www.10hacks.com/git-hacks-for-osx</id>
+    <id>http://www.simple10.com/git-hacks-for-osx</id>
     <content type="html"><![CDATA[<p>Use these git config settings and tools to make your life easier.</p>
 
 <p><a href="http://www.codethatmatters.com/2010/01/git-autocomplete-in-mac-os-x/">Git tab autocomplete for OSX</a> - enables tab autocomplete for most git commands</p>
@@ -783,9 +783,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Rails 3 + STI: Making Associations Work Properly]]></title>
-    <link href="http://www.10hacks.com/rails-3-sti"/>
+    <link href="http://www.simple10.com/rails-3-sti"/>
     <updated>2011-01-18T07:13:30Z</updated>
-    <id>http://www.10hacks.com/rails-3-sti</id>
+    <id>http://www.simple10.com/rails-3-sti</id>
     <content type="html"><![CDATA[<p>I really like the idea of Single Table Inheritance (STI) for all sorts of applications to keep code DRY and make it easier to organize object behavior. The only problem is that Rails 3.0.3 doesn’t fully support STI with association collections.</p>
 
 <p>Let’s say you have a User model that has many badges. The badges will be stored in the badges table but you want to implement each badge in a subclass. All you have to do is make sure there’s a <code>:type</code> field of type string in your badges table and Rails STI support should take care of the rest (well, in theory).</p>
@@ -926,9 +926,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Devise + OmniAuth + Facebook API Hacks]]></title>
-    <link href="http://www.10hacks.com/devise-omniauth-facebook-api-hacks"/>
+    <link href="http://www.simple10.com/devise-omniauth-facebook-api-hacks"/>
     <updated>2011-01-14T03:12:16Z</updated>
-    <id>http://www.10hacks.com/devise-omniauth-facebook-api-hacks</id>
+    <id>http://www.simple10.com/devise-omniauth-facebook-api-hacks</id>
     <content type="html"><![CDATA[<p>While using <a href="https://github.com/plataformatec/devise">Devise</a> + <a href="https://github.com/intridea/omniauth">OmniAuth</a> for a new Rails 3 project, I got really curious about how to reuse OmniAuth’s strategy classes to fetch additional API data after a user has authenticated.</p>
 
 <p>A lot of people probably use libraries like <a href="https://github.com/nov/fb_graph">FbGraph</a> along with OmniAuth, but I wanted something extremely lightweight without duplicating code already in OmniAuth.</p>
@@ -988,12 +988,12 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Fixing Online Groups]]></title>
-    <link href="http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups/"/>
+    <link href="http://www.simple10.com/ideas/2010/09/23/fixing-online-groups/"/>
     <updated>2010-09-23T20:33:17Z</updated>
-    <id>http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups</id>
+    <id>http://www.simple10.com/ideas/2010/09/23/fixing-online-groups</id>
     <content type="html"><![CDATA[<p>It’s almost 2011 and online groups are still broken. Sure, you can join a Facebook group to support your cause, create a Google or Yahoo group for your soccer club, setup a Ning or Drupal site for your small business, but good luck getting that group to talk to others across the web.</p>
 
-<p><a href="http://www.10hacks.com/images/posts/hierarchical_groups.png"><img src="http://www.10hacks.com/images/posts/hierarchical_groups.png" alt="Group Communication Chart" /></a></p>
+<p><a href="http://www.simple10.com/images/posts/hierarchical_groups.png"><img src="http://www.simple10.com/images/posts/hierarchical_groups.png" alt="Group Communication Chart" /></a></p>
 
 <p>Online groups are still treated as silos of individuals rather than first class citizens that can participate in other groups. Silos are fine (and often desired) for small groups, but they just don’t scale to hundreds of thousands or millions of users. Not to mention that most physical groups are composed of subgroups (ad hoc gatherings, committees, local chapters, etc.) that self organize in ways that are not reflected in most online tools.</p>
 
@@ -1017,9 +1017,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[APE Comet Server Local Dev Environment Setup]]></title>
-    <link href="http://www.10hacks.com/ape-comet-server-local-dev-environment-setup"/>
+    <link href="http://www.simple10.com/ape-comet-server-local-dev-environment-setup"/>
     <updated>2010-08-09T20:45:47Z</updated>
-    <id>http://www.10hacks.com/ape-comet-server-local-dev-environment-setup</id>
+    <id>http://www.simple10.com/ape-comet-server-local-dev-environment-setup</id>
     <content type="html"><![CDATA[<p><a href="http://www.ape-project.org">APE (Ajax Push Engine)</a> is a scalable comet or AJAX push server written in C. It’s great for embedding HTML chat clients or making real-time games without Flash.</p>
 
 <p>I’ve been playing around with APE for a couple different applications. Setting up the demos on a single server that runs both Apache and the APE server is relatively straight forward. However, running the APE server separate from the web server is not as simple.</p>
@@ -1122,9 +1122,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Building the Wikitude Sample App for iPhone 4]]></title>
-    <link href="http://www.10hacks.com/building-the-wikitude-sample-app-for-iphone-4"/>
+    <link href="http://www.simple10.com/building-the-wikitude-sample-app-for-iphone-4"/>
     <updated>2010-08-08T20:58:28Z</updated>
-    <id>http://www.10hacks.com/building-the-wikitude-sample-app-for-iphone-4</id>
+    <id>http://www.simple10.com/building-the-wikitude-sample-app-for-iphone-4</id>
     <content type="html"><![CDATA[<p>I’m new to iPhone development but wanted to see how quickly I could build an augmented reality prototype for a simple AR treasure hunt game. I looked at the APIs for <a href="http://site.layar.com/create/platform-overview/">Layar</a>, <a href="http://artoolworks.com/Home.html">ARToolKit</a>, <a href="http://www.junaio.com/">Junaio</a>, and settled on <a href="http://www.wikitude.org/enwikitude-iphone-api">Wikitude</a> for this test. Wikitude provides an augmented reality library that you can drop into your iPhone project in less than an hour. Bad ass. Assuming you’re not an iPhone dev n00b like me. Then it takes you three hours.</p>
 
 <p>If you’ve never tried to build a downloaded sample app, hopefully this guide will save you a couple hours of futzing around with plist and project configuration.</p>
@@ -1159,7 +1159,7 @@ Setting tabindex to a sufficiently high number works just fine.</p>
 
 <p>Open the project info build options panel by double clicking on WikitudeAPI-SCM-Test project.</p>
 
-<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen1.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen1.png" alt="Wikitude Sample App Configuration" /></a></p>
+<p><a href="http://www.simple10.com/images/posts/wikitude_sample_config_screen1.png"><img src="http://www.simple10.com/images/posts/wikitude_sample_config_screen1.png" alt="Wikitude Sample App Configuration" /></a></p>
 
 <p>Make the following changes to the build options…</p>
 
@@ -1179,7 +1179,7 @@ Setting tabindex to a sufficiently high number works just fine.</p>
 
 <p>Open the targets build option panel by expanding the Targets tree and double clicking on WikitudeAPI-SCM-Test.</p>
 
-<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen2.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen2.png" alt="Wikitude Sample App Config Screen 2" /></a></p>
+<p><a href="http://www.simple10.com/images/posts/wikitude_sample_config_screen2.png"><img src="http://www.simple10.com/images/posts/wikitude_sample_config_screen2.png" alt="Wikitude Sample App Config Screen 2" /></a></p>
 
 <p>Make the following changes to the target build options…</p>
 
@@ -1192,11 +1192,11 @@ Setting tabindex to a sufficiently high number works just fine.</p>
 
 <p>Open WikitudeAPI_SCM_Test-Info.plist and edit the bundler identifier to match the domain used in your provisioning profile.</p>
 
-<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen3.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen3.png" alt="Wikitude Sample App Screen 3" /></a></p>
+<p><a href="http://www.simple10.com/images/posts/wikitude_sample_config_screen3.png"><img src="http://www.simple10.com/images/posts/wikitude_sample_config_screen3.png" alt="Wikitude Sample App Screen 3" /></a></p>
 
 <p>Finally, make sure that Active Architecture setting in the build target drop down menu is set to armv6.</p>
 
-<p><a href="http://www.10hacks.com/images/posts/wikitude_sample_config_screen4.png"><img src="http://www.10hacks.com/images/posts/wikitude_sample_config_screen4.png" alt="Wikitude Sample App Screen 4" /></a></p>
+<p><a href="http://www.simple10.com/images/posts/wikitude_sample_config_screen4.png"><img src="http://www.simple10.com/images/posts/wikitude_sample_config_screen4.png" alt="Wikitude Sample App Screen 4" /></a></p>
 
 <p>Click Build and Run. The app should build, deploy, and automatically run on your connected iPhone.</p>
 ]]></content>
@@ -1204,9 +1204,9 @@ Setting tabindex to a sufficiently high number works just fine.</p>
   
   <entry>
     <title type="html"><![CDATA[Macports to Homebrew]]></title>
-    <link href="http://www.10hacks.com/dev/2010/08/06/macports-to-homebrew/"/>
+    <link href="http://www.simple10.com/dev/2010/08/06/macports-to-homebrew/"/>
     <updated>2010-08-06T18:00:52Z</updated>
-    <id>http://www.10hacks.com/dev/2010/08/06/macports-to-homebrew</id>
+    <id>http://www.simple10.com/dev/2010/08/06/macports-to-homebrew</id>
     <content type="html"><![CDATA[<p>Thanks to a new macbook pro with a clean OS install and minimal dev tools, I made the switch from macports to homebrew. Easy enough with a few caveats.</p>
 
 <p>The homebrew people recommend <a href="http://guide.macports.org/#installing.macports.uninstalling">uninstalling macports first</a>.</p>
@@ -1236,9 +1236,9 @@ pkg-config
   
   <entry>
     <title type="html"><![CDATA[How-To Make Favicons on OSX]]></title>
-    <link href="http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx/"/>
+    <link href="http://www.simple10.com/design/2010/03/13/how-to-make-favicons-on-osx/"/>
     <updated>2010-03-13T14:14:00Z</updated>
-    <id>http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx</id>
+    <id>http://www.simple10.com/design/2010/03/13/how-to-make-favicons-on-osx</id>
     <content type="html"><![CDATA[<p>Use Fireworks or Photoshop to make the icon PNGs of different sizes. Then use Gimp to create the ico file. <a href="http://egressive.com/tutorial/creating-a-multi-resolution-favicon-including-transparency-with-the-gimp">Tutorial</a></p>
 
 <p>Or install a .ico <a href="http://www.telegraphics.com.au/sw/">file plugin</a> to Photoshop. <a href="http://www.photoshopsupport.com/tutorials/jennifer/favicon.html">Tutorial</a>.</p>
@@ -1247,9 +1247,9 @@ pkg-config
   
   <entry>
     <title type="html"><![CDATA[Ordered Formsets in Google App Engine Patch]]></title>
-    <link href="http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets/"/>
+    <link href="http://www.simple10.com/code/2009/10/19/google-app-engine-patch-django-formsets/"/>
     <updated>2009-10-19T12:55:53Z</updated>
-    <id>http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets</id>
+    <id>http://www.simple10.com/code/2009/10/19/google-app-engine-patch-django-formsets</id>
     <content type="html"><![CDATA[<p>The current version (1.1RC) of <a href="http://code.google.com/p/app-engine-patch/">Google App Engine Patch</a> does not allow for easy ordering of forms in formsets. Normally, Django obeys a model’s Meta.ordering property as the default for formset data. However, Google App Engine Patch fetches unordered data by default.</p>
 
 <p>There may already be an undocumented solution from the Google App Engine Patch team, but here’s a slick unobtrusive workaround that provides a lot of flexibility.</p>

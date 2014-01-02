@@ -1,129 +1,131 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://www.10hacks.com/code/2009/01/28/utf-8-json-php/</loc>
+        <loc>http://www.simple10.com/code/2009/01/28/utf-8-json-php/</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
         <loc>
-            http://www.10hacks.com/dev/2009/07/20/prevent-textmate-from-creating-resource-files-on-network-drives/
+            http://www.simple10.com/dev/2009/07/20/prevent-textmate-from-creating-resource-files-on-network-drives/
         </loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/dev/2009/07/27/google-app-engine-queries/</loc>
+        <loc>http://www.simple10.com/dev/2009/07/27/google-app-engine-queries/</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/dev/2009/07/28/django-google-app-engine-debugging/</loc>
+        <loc>http://www.simple10.com/dev/2009/07/28/django-google-app-engine-debugging/</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/dev/2009/08/31/google-app-engine-sdk-and-vmware-setup/</loc>
+        <loc>http://www.simple10.com/dev/2009/08/31/google-app-engine-sdk-and-vmware-setup/</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/code/2009/09/24/hivemaps-makes-google-maps-easy/</loc>
+        <loc>http://www.simple10.com/code/2009/09/24/hivemaps-makes-google-maps-easy/</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/dev/2009/09/24/a-better-way-to-grep-code/</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/code/2009/10/19/google-app-engine-patch-django-formsets/</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/design/2010/03/13/how-to-make-favicons-on-osx/</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/dev/2010/08/06/macports-to-homebrew/</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/building-the-wikitude-sample-app-for-iphone-4</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/ape-comet-server-local-dev-environment-setup</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/ideas/2010/09/23/fixing-online-groups/</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/devise-omniauth-facebook-api-hacks</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/rails-3-sti</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/git-hacks-for-osx</loc>
-        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://www.10hacks.com/rails3_unobtrusive_javascript_support</loc>
+        <loc>http://www.simple10.com/dev/2009/09/24/a-better-way-to-grep-code/</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
         <loc>
-            http://www.10hacks.com/code/2011/02/18/validating-a-single-attribute-in-rails-activerecord/
+            http://www.simple10.com/code/2009/10/19/google-app-engine-patch-django-formsets/
+        </loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/design/2010/03/13/how-to-make-favicons-on-osx/</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/dev/2010/08/06/macports-to-homebrew/</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/building-the-wikitude-sample-app-for-iphone-4</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/ape-comet-server-local-dev-environment-setup</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/ideas/2010/09/23/fixing-online-groups/</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/devise-omniauth-facebook-api-hacks</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/rails-3-sti</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/git-hacks-for-osx</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.simple10.com/rails3_unobtrusive_javascript_support</loc>
+        <lastmod>2013-11-15T12:57:59-08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://www.simple10.com/code/2011/02/18/validating-a-single-attribute-in-rails-activerecord/
         </loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
         <loc>
-            http://www.10hacks.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/
+            http://www.simple10.com/code/2011/07/07/rescuing-from-racktimeout-to-close-mongodb-connection/
         </loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/resque-admin-in-rails-3-routes-with-cancan</loc>
+        <loc>http://www.simple10.com/resque-admin-in-rails-3-routes-with-cancan</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/rspec-capybara-devise-login-tests</loc>
+        <loc>http://www.simple10.com/rspec-capybara-devise-login-tests</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/save-only-changed-attributes-in-backbone-js</loc>
+        <loc>http://www.simple10.com/save-only-changed-attributes-in-backbone-js</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/code/2012/04/11/chaining-bundle-gemfiles/</loc>
+        <loc>http://www.simple10.com/code/2012/04/11/chaining-bundle-gemfiles/</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/linux-default-gateway-route</loc>
+        <loc>http://www.simple10.com/linux-default-gateway-route</loc>
         <lastmod>2013-11-15T13:19:29-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/ignore-jquery-jsonp-callbacks-in-mocha</loc>
+        <loc>http://www.simple10.com/ignore-jquery-jsonp-callbacks-in-mocha</loc>
         <lastmod>2013-11-15T12:57:59-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/code/2013/10/25/disable-google-maps-tab-index/</loc>
+        <loc>http://www.simple10.com/code/2013/10/25/disable-google-maps-tab-index/</loc>
         <lastmod>2013-11-15T14:14:16-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/code/2013/11/15/css-only-input-toggle-switch/</loc>
+        <loc>http://www.simple10.com/code/2013/11/15/css-only-input-toggle-switch/</loc>
         <lastmod>2013-11-15T15:23:21-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/blog/archives/blog/archives/</loc>
+        <loc>http://www.simple10.com/blog/archives/blog/archives/</loc>
         <lastmod>2013-11-15T15:23:21-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/</loc>
+        <loc>http://www.simple10.com/</loc>
         <lastmod>2013-11-15T15:23:21-08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.10hacks.com/robots.txt</loc>
+        <loc>http://www.simple10.com/robots.txt</loc>
         <lastmod>2013-08-19T02:01:39-07:00</lastmod>
     </url>
 </urlset>
