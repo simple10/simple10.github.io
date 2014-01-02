@@ -2,7 +2,6 @@
 author: joe
 date: 2009-07-28 10:26:13
 layout: post
-comments_id: django-google-app-engine-debugging
 title: Django Google App Engine Debugging
 categories:
 - dev

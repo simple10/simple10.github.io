@@ -2,7 +2,6 @@
 author: joe
 date: 2010-09-23 20:33:17
 layout: post
-comments_id: 162 http://www.simple10.com/?p=162
 title: Fixing Online Groups
 categories:
 - ideas

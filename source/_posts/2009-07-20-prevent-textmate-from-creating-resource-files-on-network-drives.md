@@ -2,7 +2,6 @@
 author: joe
 date: 2009-07-20 18:01:39
 layout: post
-comments_id: prevent-textmate-from-creating-resource-files-on-network-drives
 title: Prevent TextMate From Creating Resource Files on Network Drives
 categories:
 - dev

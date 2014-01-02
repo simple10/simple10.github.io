@@ -3,7 +3,6 @@ author: joe
 date: 2011-07-08 19:01:49
 layout: post
 permalink: resque-admin-in-rails-3-routes-with-cancan
-comments_id: 284 http://www.simple10.com/?p=284
 title: Resque Admin in Rails 3 Routes with CanCan
 categories:
 - code
