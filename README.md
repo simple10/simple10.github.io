@@ -1,10 +1,7 @@
-10Hacks.com Website
+simple10 blog
 ===================
 
-Powered by [Hackerpress](https://github.com/10hacks/10hacks.github.io).
-
-
-
+Powered by [Hackerpress](https://github.com/simple10/simple10.github.io), a modified Octopress for hackers.
 
 
 Hackerpress Usage

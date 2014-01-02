@@ -1,10 +1,11 @@
 Useful hack for converting word docs to markdown or haml.
 
-Requires pandoc and textutil.
+Requires textutil on OSX and pandoc for markdown or html2haml gem for haml.
 
 ```bash
 # Install pandoc on OSX
 brew install haskell-platform
+cabal update
 cabal install pandoc
 
 # textutil should already be installed
@@ -22,5 +23,5 @@ textutil -convert html file.doc -stdout | pandoc -f html -t markdown -o file.md
 # Convert to Haml
 
 ```bash
-textutil -convert html file.doc -stdout | pandoc -f html -o file.html | html2haml -s file.md
+textutil -convert html file.doc -stdout | html2haml -s file.haml
 ```

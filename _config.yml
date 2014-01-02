@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://www.10hacks.com
+url: http://www.simple10.com
 title: 10 Hacks
 subtitle: Startup hacks
 author: Joe Johnston
@@ -128,7 +128,7 @@ github:
 comments:
   provider: disqus
   disqus:
-    short_name: 10hacks
+    short_name: simple10
     show_comment_count: false
   livefyre:
     site_id: 123456

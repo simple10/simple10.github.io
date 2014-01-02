@@ -1,3 +1,3 @@
-Website for 10hacks.com built with Hackerpress.
+Website for simple10.com built with Hackerpress.
 
-See [source branch](https://github.com/10hacks/10hacks.github.io/tree/source)
+See [source branch](https://github.com/simple10/simple10.github.io/tree/source)
