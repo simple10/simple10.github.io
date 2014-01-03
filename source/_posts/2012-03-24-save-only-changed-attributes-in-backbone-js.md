@@ -4,6 +4,7 @@ date: 2012-03-24 21:23:02
 layout: post
 permalink: save-only-changed-attributes-in-backbone-js
 title: Save Only Changed Attributes in Backbone.js
+comments_id: 1663053266
 categories:
 - code
 tags:
