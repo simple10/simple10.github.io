@@ -175,6 +175,7 @@ analytics:
   provider: google
   google:
       tracking_id: 'UA-15779933-1'
+      property: 'simple10'
   getclicky:
     site_id:
   mixpanel:
